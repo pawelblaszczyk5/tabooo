@@ -6,9 +6,8 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node dist/app.js",
-		"build": "tsc",
-		"dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/app.js\" \"npm run dev --prefix frontend\"",
-		"heroku-postbuild": "npm run build && npm install --only=dev --prefix frontend && npm install --prefix frontend && npm run build --prefix frontend"
+		"build": "tsc && npm install --only=dev --prefix frontend && npm install --prefix frontend && npm run build --prefix frontend",
+		"dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/app.js\" \"npm run dev --prefix frontend\""
 	},
 	"author": "",
 	"license": "MIT",
