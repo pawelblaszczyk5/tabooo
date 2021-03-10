@@ -7,7 +7,7 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "tsc && node dist/app.js",
 		"dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/app.js\" \"npm run dev --prefix frontend\"",
-		"heroku-postbuild": "npm install --prefix frontend && npm run build --prefix frontend"
+		"heroku-postbuild": "npm install --only=dev --prefix frontend && npm install --prefix frontend && npm run build --prefix frontend"
 	},
 	"author": "",
 	"license": "MIT",
@@ -19,8 +19,6 @@
 		"concurrently": "^6.0.0",
 		"eslint": "^7.21.0",
 		"eslint-plugin-svelte3": "^3.1.2",
-		"rollup": "^2.3.4",
-		"svelte": "^3.35.0",
 		"typescript": "^4.2.3"
 	},
 	"dependencies": {
