@@ -1,8 +1,15 @@
 <script lang="ts">
-	export let name: string;
+	import {link} from 'svelte-spa-router';
+	import Router from 'svelte-spa-router';
+	import Tailwind from './components/Tailwind.svelte';
+	import {routes} from './routes';
 </script>
 
-<main class="flex w-screen h-screen p-10 items-center flex-col">
-	<h1 class="text-3xl color text-green-700">{name}!</h1>
-	<p>Cybernetically improved taboo game</p>
+<main class="flex flex-col w-full h-full items-center">
+	<a href="/testA" use:link>Link A</a>
+	<a href="/testB" use:link>Link B</a>
+	<a href="/TestC" use:link>Link C</a>
+	<p>Test asd</p>
+	<Router {routes} />
+	<Tailwind />
 </main>
