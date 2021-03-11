@@ -6,9 +6,9 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node dist/app.js",
-		"build": "tsc && npm run build:frontend ",
+		"build": "tsc && npm run build:frontend",
 		"dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/app.js\" \"npm run dev --prefix frontend\"",
-		"build:frontend": "npm install --only=dev --prefix frontend && npm install --prefix frontend && npm run build --prefix frontend"
+		"build:frontend": "npm install --prefix frontend && npm run build --prefix frontend"
 	},
 	"author": "",
 	"license": "MIT",
