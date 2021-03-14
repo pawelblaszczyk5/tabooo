@@ -18,7 +18,7 @@
 			type="button"
 			use:ripple
 			class="px-5 py-2 select-none rounded text-xl focus:outline-none
-		{type === ButtonType.PRIMARY
+				{type === ButtonType.PRIMARY
 				? 'bg-primaryAccent hover:bg-primaryAccentHover focus:bg-primaryAccentFocus text-primaryFontColor'
 				: 'bg-secondaryAccent hover:bg-secondaryAccentHover focus:bg-secondaryAccentFocus text-secondaryFontColor'}"
 			on:click>
