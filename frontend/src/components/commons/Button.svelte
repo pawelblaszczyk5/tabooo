@@ -15,7 +15,7 @@
 <div class="relative overflow-hidden rounded {classes}">
 	<button
 		type="button"
-		use:ripple={5000}
+		use:ripple
 		class="px-5 py-2 select-none rounded text-xl shadow-2xl focus:outline-none
 	{type === ButtonType.PRIMARY
 			? 'bg-primaryAccent hover:bg-primaryAccentHover focus:bg-primaryAccentFocus text-primaryFontColor'
