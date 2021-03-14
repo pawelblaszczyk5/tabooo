@@ -29,6 +29,6 @@
 		<span in:fade={{delay: 2500 + i * 150, duration: 900}}>{char}</span>
 	{/each}
 </p>
-<p in:fly={{y: -200, delay: 3400, duration: 1200}} class="font-main font-light text-primaryFontColor text-2xl">
+<p in:fly={{y: -200, delay: 3400, duration: 1200}} class="font-main font-light text-primaryFontColor text-2xl text-center">
 	The game, where some words are <span class="text-primaryFirstTeam font-normal">forbidden.</span>
 </p>

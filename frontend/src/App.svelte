@@ -4,7 +4,7 @@
 	import {routes} from './routes';
 </script>
 
-<main class="flex flex-col w-screen h-screen items-center bg-primary">
+<main class="flex p-6 flex-col w-screen h-screen items-center bg-primary">
 	<Router {routes} />
 	<Tailwind />
 </main>

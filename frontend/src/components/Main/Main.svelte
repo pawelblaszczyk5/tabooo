@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Logo from './Logo.svelte';
+	import Button, {ButtonType} from '../commons/Button.svelte';
+	import Intro from './Intro.svelte';
 </script>
 
-<Logo />
-
-<style>
-</style>
+<Intro />
+<Button classes="my-5" type={ButtonType.PRIMARY}>Test</Button>
+<Button type={ButtonType.SECONDARY}>Test</Button>
