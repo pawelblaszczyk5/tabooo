@@ -10,9 +10,21 @@ module.exports = {
 			keyframes: true,
 		},
 	},
-	darkMode: false, // or 'media' or 'class'
+	darkMode: false,
 	theme: {
-		extend: {},
+		extend: {
+			colors: {
+				primary: 'var(--primary)',
+				primaryAccent: 'var(--primaryAccent)',
+				secondaryAccent: 'var(--secondaryAccent)',
+				primaryFirstTeam: 'var(--primaryFirstTeam)',
+				primarySecondTeam: 'var(--primarySecondTeam)',
+				primaryFontColor: 'var(--primaryFontColor)',
+			},
+			fontFamily: {
+				main: 'Overpass, sans-serif',
+			},
+		},
 	},
 	variants: {
 		extend: {},
