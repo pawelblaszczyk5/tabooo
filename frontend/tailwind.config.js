@@ -16,10 +16,15 @@ module.exports = {
 			colors: {
 				primary: 'var(--primary)',
 				primaryAccent: 'var(--primaryAccent)',
+				primaryAccentHover: 'var(--primaryAccentHover)',
+				primaryAccentFocus: 'var(--primaryAccentFocus)',
+				secondaryAccentHover: 'var(--secondaryAccentHover)',
+				secondaryAccentFocus: 'var(--secondaryAccentFocus)',
 				secondaryAccent: 'var(--secondaryAccent)',
 				primaryFirstTeam: 'var(--primaryFirstTeam)',
 				primarySecondTeam: 'var(--primarySecondTeam)',
 				primaryFontColor: 'var(--primaryFontColor)',
+				secondaryFontColor: 'var(--secondaryFontColor)',
 			},
 			fontFamily: {
 				main: 'Overpass, sans-serif',
