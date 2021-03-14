@@ -24,4 +24,8 @@
 		color: var(--primaryFontColor);
 		font-family: Overpass, sans-serif;
 	}
+
+	body {
+		background-color: var(--primary);
+	}
 </style>
