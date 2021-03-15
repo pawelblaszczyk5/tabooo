@@ -10,11 +10,9 @@
 	let currentTheme: Theme = Theme.DEFAULT;
 	const themesArray: Array<Theme> = Object.values(Theme);
 
-	console.log(themesArray);
 	const selectTheme = (newTheme: Theme) => {
 		document.body.classList.remove('theme--' + currentTheme);
 		currentTheme = newTheme;
-		console.log(currentTheme, newTheme);
 		document.body.classList.add('theme--' + currentTheme);
 	};
 </script>
