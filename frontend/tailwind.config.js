@@ -25,6 +25,7 @@ module.exports = {
 				primarySecondTeam: 'var(--primarySecondTeam)',
 				primaryFontColor: 'var(--primaryFontColor)',
 				secondaryFontColor: 'var(--secondaryFontColor)',
+				darkAccentColor: 'var(--darkAccentColor)',
 			},
 			fontFamily: {
 				main: 'Overpass, sans-serif',
