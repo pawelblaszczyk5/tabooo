@@ -7,7 +7,7 @@
 		.glass-sm {
 			background: var(--primaryOpacity25);
 			box-shadow: 0 8px 32px 0 var(--primaryOpacity40);
-			backdrop-filter: blur(4px);
+			backdrop-filter: blur(0.5rem);
 		}
 	}
 
@@ -20,6 +20,10 @@
 	}
 
 	body {
+		background-color: var(--primary);
+	}
+
+	.theme--default {
 		--primary: #06d6a0;
 		--primaryOpacity25: rgba(6, 214, 160, 0.25);
 		--primaryOpacity40: rgba(6, 214, 160, 0.4);
@@ -34,7 +38,6 @@
 		--primaryFontColor: #333;
 		--secondaryFontColor: #eee;
 		--darkAccentColor: #333;
-		background-color: var(--primary);
 	}
 
 	.theme--dark {
