@@ -17,7 +17,7 @@
 		<button
 			type="button"
 			use:ripple
-			class="px-5 py-2 select-none rounded text-xl focus:outline-none
+			class="px-5 py-2 select-none rounded text-xl focus:outline-none transition-colors ease-linear duration-300
 				{type === ButtonType.PRIMARY
 				? 'bg-primaryAccent hover:bg-primaryAccentHover focus:bg-primaryAccentFocus text-primaryFontColor'
 				: 'bg-secondaryAccent hover:bg-secondaryAccentHover focus:bg-secondaryAccentFocus text-secondaryFontColor'}"
