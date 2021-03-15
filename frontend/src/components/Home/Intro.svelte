@@ -21,8 +21,8 @@
 		d="M388.673,254.847v0.001c-4.21,0-12.821,6.746-21.15,13.27c-21.405,16.767-53.755,42.106-111.522,42.106
 			s-90.118-25.34-111.524-42.108c-8.329-6.523-16.94-13.27-21.15-13.27H0l0.478,0.923c107.251,207.351,403.795,207.351,511.046,0
 			l0.477-0.923H388.673z" />
-	<path in:draw={{duration: 1000, delay: 500}} style="stroke: var(--primaryFontColor); stroke-width: 2rem;" d="M 64,64 L 448,448" />
-	<path in:draw={{duration: 1000, delay: 1500}} style="stroke: var(--primaryFontColor); stroke-width: 2rem;" d="M 448,64 L 64,448" />
+	<path in:draw={{duration: 1000, delay: 500}} style="stroke: var(--darkAccentColor); stroke-width: 2rem;" d="M 64,64 L 448,448" />
+	<path in:draw={{duration: 1000, delay: 1500}} style="stroke: var(--darkAccentColor); stroke-width: 2rem;" d="M 448,64 L 64,448" />
 </svg>
 <p class="font-main text-primaryFontColor text-6xl font-light">
 	{#each 'TABOOO' as char, i}
