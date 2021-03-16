@@ -20,7 +20,7 @@
 	<Router {routes} />
 	<Theme />
 	<div class="absolute top-4 right-4">
-		<div on:click={toggleModalState} class="w-8 h-8 cursor-pointer">
+		<div on:click={toggleModalState} class="w-8 h-8 cursor-pointer transform hover:rotate-90 transition-transform duration-500">
 			<FaCog />
 		</div>
 	</div>
