@@ -24,13 +24,13 @@
 	<path in:draw={{duration: 1000, delay: 500}} style="stroke: var(--darkAccentColor); stroke-width: 2rem;" d="M 64,64 L 448,448" />
 	<path in:draw={{duration: 1000, delay: 1500}} style="stroke: var(--darkAccentColor); stroke-width: 2rem;" d="M 448,64 L 64,448" />
 </svg>
-<p class="font-main text-primaryFontColor text-6xl font-light transition-colors ease-linear duration-300">
+<p class="font-main text-primaryFontColor text-6xl font-light transition-colors duration-300">
 	{#each 'TABOOO' as char, i}
 		<span in:fade={{delay: 2500 + i * 150, duration: 900}}>{char}</span>
 	{/each}
 </p>
 <p
 	in:fly={{y: -200, delay: 3400, duration: 1200}}
-	class="font-main font-light text-primaryFontColor text-2xl text-center transition-colors ease-linear duration-300">
+	class="font-main font-light text-primaryFontColor text-2xl text-center transition-colors duration-300">
 	The game, where some words are <span class="text-primaryFirstTeam font-normal">forbidden.</span>
 </p>

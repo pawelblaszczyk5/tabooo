@@ -9,8 +9,8 @@
 </script>
 
 <div class="flex flex-col items-center p-24">
-	<p class="text-4xl font-semibold my-2 transition-colors ease-linear duration-300">Settings</p>
-	<p class="text-2xl font-semibold mb-2 transition-colors ease-linear duration-300">Select theme</p>
+	<p class="text-4xl font-semibold my-2 transition-colors duration-300">Settings</p>
+	<p class="text-2xl font-semibold mb-2 transition-colors duration-300">Select theme</p>
 	<div class="flex">
 		{#each themesArray as theme}
 			<div
