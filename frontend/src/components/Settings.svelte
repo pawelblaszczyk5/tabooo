@@ -18,9 +18,11 @@
 					selectTheme(theme);
 				}}
 				data-taboo-theme={theme}
-				class="bg-primary w-8 h-8 rounded-full mx-3 {$settingsStore.theme === theme
+				class="bg-gradient-to-br from-primaryFirstTeam via-primary to-primarySecondTeam w-9 h-9 rounded-full mx-3 
+				{$settingsStore.theme ===
+				theme
 					? 'border-white'
-					: 'border-darkAccentColor'}  border-2 border-opacity-40" />
+					: 'border-darkAccentColor'}  border-2" />
 		{/each}
 	</div>
 </div>
