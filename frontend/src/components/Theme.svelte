@@ -23,7 +23,7 @@
 		background-color: var(--primary);
 	}
 
-	.theme--default {
+	[data-taboo-theme='default'] {
 		--primary: #06d6a0;
 		--primaryOpacity25: rgba(6, 214, 160, 0.25);
 		--primaryOpacity40: rgba(6, 214, 160, 0.4);
@@ -40,7 +40,7 @@
 		--darkAccentColor: #333;
 	}
 
-	.theme--dark {
+	[data-taboo-theme='dark'] {
 		--primary: #212f45;
 		--primaryOpacity25: rgba(33, 47, 69, 0.25);
 		--primaryOpacity40: rgba(33, 47, 69, 0.4);
@@ -57,7 +57,7 @@
 		--darkAccentColor: #666;
 	}
 
-	.theme--elegant {
+	[data-taboo-theme='elegant'] {
 		--primary: #a8dadc;
 		--primaryOpacity25: rgba(168, 218, 220, 0.25);
 		--primaryOpacity40: rgba(168, 218, 220, 0.4);
@@ -74,7 +74,7 @@
 		--darkAccentColor: #333;
 	}
 
-	.theme--candy {
+	[data-taboo-theme='candy'] {
 		--primary: #caffbf;
 		--primaryOpacity25: rgba(202, 255, 191, 0.25);
 		--primaryOpacity40: rgba(202, 255, 191, 0.4);
@@ -91,7 +91,7 @@
 		--darkAccentColor: #333;
 	}
 
-	.theme--toned {
+	[data-taboo-theme='toned'] {
 		--primary: #bee3db;
 		--primaryOpacity25: rgba(190, 227, 219, 0.25);
 		--primaryOpacity40: rgba(190, 227, 219, 0.4);

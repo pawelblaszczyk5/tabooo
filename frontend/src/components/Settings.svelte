@@ -4,9 +4,7 @@
 	const themesArray: Array<Theme> = Object.values(Theme);
 
 	const selectTheme = (newTheme: Theme) => {
-		document.body.classList.remove('theme--' + $settingsStore.theme);
 		settingsStore.setTheme(newTheme);
-		document.body.classList.add('theme--' + $settingsStore.theme);
 	};
 </script>
 
@@ -19,7 +17,8 @@
 				on:click={() => {
 					selectTheme(theme);
 				}}
-				class="theme--{theme} bg-primary w-8 h-8 rounded-full mx-3 {$settingsStore.theme === theme
+				data-taboo-theme={theme}
+				class="bg-primary w-8 h-8 rounded-full mx-3 {$settingsStore.theme === theme
 					? 'border-white'
 					: 'border-darkAccentColor'}  border-2 border-opacity-40" />
 		{/each}

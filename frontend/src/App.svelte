@@ -5,12 +5,15 @@
 	import Theme from './components/Theme.svelte';
 	import {routes} from './routes';
 	import FaCog from 'svelte-icons/fa/FaCog.svelte';
+	import {settingsStore} from './stores/settings';
 
 	let showSettingsModal = false;
 
 	const toggleModalState = () => {
 		showSettingsModal = !showSettingsModal;
 	};
+
+	$: document.body.dataset.tabooTheme = $settingsStore.theme;
 </script>
 
 <main class="flex p-6 flex-col w-screen h-screen items-center bg-primary transition-colors ease-linear duration-300">
