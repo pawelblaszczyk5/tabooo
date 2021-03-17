@@ -14,6 +14,6 @@
 <div
 	transition:fly={{duration: 500, y: -200}}
 	class="z-20 glass-sm transition-colors duration-300 border border-gray-200 border-opacity-40 absolute top-48 left-1/2 transform -translate-x-1/2 p-10 bg-primary rounded-2xl">
-	<div on:click={closeModal} class="absolute top-2 right-2 w-6 h-6 cursor-pointer"><FaTimes /></div>
+	<div on:click={closeModal} class="absolute top-3 right-3 w-6 h-6 cursor-pointer"><FaTimes /></div>
 	<slot />
 </div>
