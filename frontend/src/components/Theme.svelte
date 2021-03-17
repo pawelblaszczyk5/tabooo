@@ -1,3 +1,9 @@
+<script lang="ts">
+	import {settingsStore} from '../stores/settings';
+
+	$: document.body.dataset.tabooTheme = $settingsStore.theme;
+</script>
+
 <style global>
 	@import 'tailwindcss/base';
 	@import 'tailwindcss/components';
