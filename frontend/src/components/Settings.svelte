@@ -8,7 +8,7 @@
 	};
 </script>
 
-<div class="flex flex-col items-center p-24">
+<div class="flex flex-col items-center p-4 sm:p-24">
 	<p class="text-4xl font-semibold my-2 transition-colors duration-300">Settings</p>
 	<p class="text-2xl font-semibold mb-2 transition-colors duration-300">Select theme</p>
 	<div class="flex">
@@ -18,7 +18,7 @@
 					selectTheme(theme);
 				}}
 				data-taboo-theme={theme}
-				class="bg-gradient-to-br from-primaryFirstTeam via-primary to-primarySecondTeam w-9 h-9 rounded-full mx-3 
+				class="bg-gradient-to-br from-primaryFirstTeam via-primary to-primarySecondTeam w-7 h-7 sm:w-9 sm:h-9 rounded-full mx-2 sm:mx-3 
 				{$settingsStore.theme ===
 				theme
 					? 'border-white'
