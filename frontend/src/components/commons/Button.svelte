@@ -22,7 +22,7 @@
 				? 'bg-primaryAccent hover:bg-primaryAccentHover focus:bg-primaryAccentFocus text-primaryFontColor'
 				: 'bg-secondaryAccent hover:bg-secondaryAccentHover focus:bg-secondaryAccentFocus text-secondaryFontColor'}"
 			on:click>
-			<slot />
+			<slot>Click me</slot>
 		</button>
 	</div>
 </div>
