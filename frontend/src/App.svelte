@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Router from 'svelte-spa-router';
 	import Modal from './components/commons/Modal.svelte';
-	import Settings from './components/Settings.svelte';
-	import Theme from './components/Theme.svelte';
+	import Settings from './components/App/Settings.svelte';
+	import Theme from './components/App/Theme.svelte';
 	import {routes} from './routes';
 	import FaCog from 'svelte-icons/fa/FaCog.svelte';
 

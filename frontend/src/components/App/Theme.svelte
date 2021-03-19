@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {settingsStore} from '../stores/settings';
+	import {settingsStore} from '../../stores/settings';
 
 	$: document.body.dataset.tabooTheme = $settingsStore.theme;
 </script>

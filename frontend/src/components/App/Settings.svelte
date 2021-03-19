@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {settingsStore, Theme} from '../stores/settings';
+	import {settingsStore, Theme} from '../../stores/settings';
 
 	const themesArray: Array<Theme> = Object.values(Theme);
 
