@@ -17,17 +17,20 @@ export const ripple = (element: HTMLElement, duration = 300): {destroy: () => vo
 		return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? '#000' : '#fff';
 	};
 
+	const rippleShapeInitialSize = 16;
+
 	const addRipple = (e: MouseEvent) => {
 		const ripple = document.createElement('div');
-		const maxScale = Math.max(parent?.getBoundingClientRect().width || 1, parent?.getBoundingClientRect().height || 1) / 8;
+		const maxScale =
+			Math.max(parent?.getBoundingClientRect().width || 1, parent?.getBoundingClientRect().height || 1) / (rippleShapeInitialSize / 2);
 		const rgbElementBackground = window.getComputedStyle(element).backgroundColor;
 
 		element.blur();
 		ripple.style.position = 'absolute';
-		ripple.style.left = e.offsetX - 8 + 'px';
-		ripple.style.top = e.offsetY - 8 + 'px';
-		ripple.style.height = '16px';
-		ripple.style.width = '16px';
+		ripple.style.left = e.offsetX - rippleShapeInitialSize / 2 + 'px';
+		ripple.style.top = e.offsetY - rippleShapeInitialSize / 2 + 'px';
+		ripple.style.height = rippleShapeInitialSize + 'px';
+		ripple.style.width = rippleShapeInitialSize + 'px';
 		ripple.style.backgroundColor = getProperColor(getRGBValues(rgbElementBackground));
 		ripple.style.opacity = '0.4';
 		ripple.style.borderRadius = '50%';
