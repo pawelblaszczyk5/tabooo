@@ -1,10 +1,16 @@
 <script lang="ts">
+	import type {Socket} from 'socket.io-client';
 	import {io} from 'socket.io-client';
+	import {onMount} from 'svelte';
 
-	const socket = io({path: '/api/ws'});
+	let socket: Socket;
 
-	socket.on('connect', () => {
-		console.log(socket.id);
+	onMount(() => {
+		socket = io('', {path: '/api/ws/'});
+
+		socket.on('connect', () => {
+			console.log(socket.id);
+		});
 	});
 </script>
 
