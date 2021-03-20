@@ -8,8 +8,8 @@
 
 	let showSettingsModal = false;
 
-	const toggleModalState = () => {
-		showSettingsModal = !showSettingsModal;
+	const toggleModalState = (state: boolean) => {
+		showSettingsModal = state;
 	};
 </script>
 
@@ -17,11 +17,13 @@
 	<Router {routes} />
 	<Theme />
 	<div class="absolute top-4 right-4">
-		<div on:click={toggleModalState} class="w-8 h-8 cursor-pointer transform hover:rotate-90 transition-transform duration-500">
+		<div
+			on:click={() => toggleModalState(!showSettingsModal)}
+			class="w-8 h-8 cursor-pointer transform hover:rotate-90 transition-transform duration-500">
 			<FaCog />
 		</div>
 	</div>
 	{#if showSettingsModal}
-		<Modal on:closeModal={toggleModalState}><Settings /></Modal>
+		<Modal on:closeModal={() => toggleModalState(false)}><Settings /></Modal>
 	{/if}
 </main>
