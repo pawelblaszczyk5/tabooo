@@ -14,13 +14,17 @@
 		});
 	};
 
-	const handleError = () => {
-		window.alert('You need to enable microphone access to play this game');
-		push('/');
-	};
-
 	onMount(() => {
-		navigator.getUserMedia({audio: true}, initializeSockets, handleError);
+		navigator.mediaDevices
+			.getUserMedia({audio: true})
+			.then((stream) => {
+				console.log('We got that');
+				initializeSockets();
+			})
+			.catch(() => {
+				window.alert('You need to enable microphone access to play this game');
+				push('/');
+			});
 	});
 </script>
 
