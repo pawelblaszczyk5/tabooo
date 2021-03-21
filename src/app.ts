@@ -19,6 +19,7 @@ app.use(compression());
 app.use(express.static(path.resolve(__dirname, '../frontend', 'public')));
 
 app.use((req, res, next) => {
+	console.log(process.env.ENVIRONMENT);
 	if (!req.secure && process.env.ENVIRONMENT === 'PROD') {
 		return res.redirect('https://' + req.headers.host + req.url);
 	}
