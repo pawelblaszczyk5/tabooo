@@ -6,8 +6,6 @@ import {Server} from 'socket.io';
 import * as dotenv from 'dotenv';
 import {handleSocket} from './sockets';
 
-dotenv.config();
-
 const app = express();
 const port = process.env.PORT || 3000;
 const server = createServer(app);
@@ -15,14 +13,15 @@ const socketServer = new Server(server, {
 	path: '/api/ws',
 });
 
+dotenv.config();
 app.enable('trust proxy');
-
 app.use(function (req, res, next) {
 	if (!req.secure && process.env.ENVIRONMENT === 'PROD') {
 		return res.redirect('https://' + req.headers.host + req.url);
 	}
 	next();
 });
+
 app.use(compression());
 app.use(express.static(path.resolve(__dirname, '../frontend', 'public')));
 
