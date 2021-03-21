@@ -4,13 +4,15 @@
 	import {onMount} from 'svelte';
 	import {push} from 'svelte-spa-router';
 
+	export let params: {lobbyId?: string} = {};
+
 	let socket: Socket;
 
 	const initializeSockets = () => {
-		socket = io('', {path: '/api/ws/'});
+		socket = io('', {path: '/api/ws/', query: {lobbyId: params.lobbyId ?? ''}});
 
 		socket.on('connect', () => {
-			console.log(socket.id);
+			console.log('connected');
 		});
 	};
 

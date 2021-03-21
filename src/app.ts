@@ -2,8 +2,9 @@ import express from 'express';
 import path from 'path';
 import compression from 'compression';
 import {createServer} from 'http';
-import {Server, Socket} from 'socket.io';
+import {Server} from 'socket.io';
 import * as dotenv from 'dotenv';
+import {handleSocket} from './sockets';
 
 dotenv.config();
 
@@ -37,6 +38,4 @@ server.listen(port, () => {
 	return console.log(`server is listening on ${port}`);
 });
 
-socketServer.on('connection', (socket: Socket) => {
-	console.log('connected');
-});
+socketServer.on('connection', handleSocket);

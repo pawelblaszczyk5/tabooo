@@ -4,7 +4,7 @@ export const routes = {
 	'/': wrap({
 		asyncComponent: () => import('./components/Home/Home.svelte'),
 	}),
-	'/lobby': wrap({
+	'/lobby/:lobbyId': wrap({
 		asyncComponent: () => import('./components/Lobby/Lobby.svelte'),
 	}),
 	'*': wrap({
