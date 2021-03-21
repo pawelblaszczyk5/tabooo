@@ -6,6 +6,7 @@
 
 	export let params: {lobbyId?: string} = {};
 
+	const playerIds: Array<string> = [];
 	let socket: Socket;
 
 	const initializeSockets = () => {
@@ -13,6 +14,18 @@
 
 		socket.on('connect', () => {
 			console.log('connected');
+		});
+
+		socket.on('playerJoined', (joinedPlayerId: string) => {
+			playerIds.push(joinedPlayerId);
+		});
+
+		socket.on('successfullyJoinedLobby', (allPlayerIds: Array<string>) => {
+			playerIds.push(...allPlayerIds.filter((id) => id != socket.id));
+		});
+
+		socket.on('playerLeft', (leftPlayerId: string) => {
+			playerIds.splice(playerIds.indexOf(leftPlayerId), 1);
 		});
 	};
 
