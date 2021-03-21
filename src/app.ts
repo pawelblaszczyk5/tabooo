@@ -17,7 +17,6 @@ const socketServer = new Server(server, {
 app.enable('trust proxy');
 
 app.use(function (req, res, next) {
-	console.log(process.env.ENVIRONMENT);
 	if (!req.secure && process.env.ENVIRONMENT === 'PROD') {
 		return res.redirect('https://' + req.headers.host + req.url);
 	}
