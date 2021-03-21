@@ -15,16 +15,16 @@ const socketServer = new Server(server, {
 });
 
 app.enable('trust proxy');
-app.use(compression());
-app.use(express.static(path.resolve(__dirname, '../frontend', 'public')));
 
-app.use((req, res, next) => {
+app.use(function (req, res, next) {
 	console.log(process.env.ENVIRONMENT);
 	if (!req.secure && process.env.ENVIRONMENT === 'PROD') {
 		return res.redirect('https://' + req.headers.host + req.url);
 	}
 	next();
 });
+app.use(compression());
+app.use(express.static(path.resolve(__dirname, '../frontend', 'public')));
 
 app.get('/api/test', (req, res) => {
 	res.json({test: 'test2'});
