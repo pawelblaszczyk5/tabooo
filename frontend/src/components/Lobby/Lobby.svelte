@@ -8,7 +8,23 @@
 
 	const playerIds: Array<string> = [];
 	const socket: Socket = io('', {path: '/api/ws/', query: {lobbyId: params.lobbyId ?? ''}, autoConnect: false});
-	const rtcConfig = {iceServers: [{urls: 'stun:stun.l.google.com:19302'}]};
+	const rtcConfig = {
+		iceServers: [
+			{urls: ['stun:eu-turn3.xirsys.com']},
+			{
+				username: 'zEGCKtXaeO6spb_6Pm4WyDViny8CXxvMvdOlOWKBsg4wDxkh2hEqqWwIikgC58j5AAAAAGBXZ2NldXBocmFub3I=',
+				credential: 'd897c926-8a5a-11eb-b854-0242ac140004',
+				urls: [
+					'turn:eu-turn3.xirsys.com:80?transport=udp',
+					'turn:eu-turn3.xirsys.com:3478?transport=udp',
+					'turn:eu-turn3.xirsys.com:80?transport=tcp',
+					'turn:eu-turn3.xirsys.com:3478?transport=tcp',
+					'turns:eu-turn3.xirsys.com:443?transport=tcp',
+					'turns:eu-turn3.xirsys.com:5349?transport=tcp',
+				],
+			},
+		],
+	};
 	const peers: Record<string, RTCPeerConnection> = {};
 	const remoteStream: MediaStream = new MediaStream();
 
