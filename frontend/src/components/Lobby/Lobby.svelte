@@ -115,6 +115,3 @@
 
 <p>Lobby works!</p>
 <audio bind:this={audioElement} autoplay />
-
-<style>
-</style>
