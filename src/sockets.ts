@@ -12,6 +12,18 @@ export const handleSocket = (socket: Socket): void => {
 		removeSocketFromProperLobby(socket.id, lobbyId);
 	});
 
+	socket.on('rtcOffer', ({id, offer}) => {
+		socket.to(id).emit('rtcOffer', {id: socket.id, offer});
+	});
+
+	socket.on('rtcAnswer', ({id, answer}) => {
+		socket.to(id).emit('rtcAnswer', {id: socket.id, answer});
+	});
+
+	socket.on('rtcCandidate', ({id, candidate}) => {
+		socket.to(id).emit('rtcCandidate', {id: socket.id, candidate});
+	});
+
 	socket.to(lobbyId).emit('playerJoined', socket.id);
 
 	socket.emit('successfullyJoinedLobby', lobbies[lobbyId]);
