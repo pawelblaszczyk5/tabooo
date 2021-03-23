@@ -15,7 +15,6 @@
 
 	let localStream: MediaStream;
 	let audioElement: HTMLMediaElement;
-	console.log(rtcConfig);
 	const initializeSockets = () => {
 		socket.connect();
 		audioElement.srcObject = remoteStream;
