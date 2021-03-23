@@ -6,7 +6,7 @@
 	import {push} from 'svelte-spa-router';
 	import {getRtcConfig} from '../../utils/rtcConfig';
 
-	export let params: {lobbyId?: string} = {};
+	export let params: {lobbyId?: string};
 
 	const players: Record<string, Player> = {};
 	const audioElements: Record<string, HTMLMediaElement> = {};
@@ -14,30 +14,27 @@
 	const rtcConfig = getRtcConfig();
 
 	let localStream: MediaStream;
-	const initializeSockets = () => {
+
+	const joinToLobby = () => {
 		socket.connect();
 
 		socket.on('playerJoined', async (playerId: string) => {
 			const rtcPeerConnection = new RTCPeerConnection(rtcConfig);
-			players[playerId] = {
-				nickname: playerId,
-				rtcPeerConnection: rtcPeerConnection,
-				mediaStream: new MediaStream(),
-			};
+			addNewPlayer(playerId, playerId, rtcPeerConnection);
 			tick().then(() => {
-				addRemoteStreamAsSrcForAudio(playerId);
+				addSrcToAudioTagByPlayerId(playerId);
 			});
-			addLocalStream(rtcPeerConnection);
-			rtcPeerConnection.addEventListener('track', (event) => {
-				players[playerId].mediaStream.addTrack(event.track);
-			});
-			rtcPeerConnection.addEventListener('icecandidate', (event) => {
-				if (event.candidate) {
-					socket.emit('rtcCandidate', {playerId, rtcIceCandidate: event.candidate});
-				}
-			});
+			addStreamToRtcPeerConnection(rtcPeerConnection);
 			const rtcOffer = await rtcPeerConnection.createOffer();
 			await rtcPeerConnection.setLocalDescription(rtcOffer);
+
+			rtcPeerConnection.addEventListener('track', (event) => {
+				addTrackToStreamByPlayerId(event, playerId);
+			});
+			rtcPeerConnection.addEventListener('icecandidate', (event) => {
+				sendIceCandidate(event, playerId);
+			});
+
 			socket.emit('rtcOffer', {playerId, rtcOffer});
 		});
 
@@ -45,61 +42,74 @@
 			allPlayerIds
 				.filter((playerId) => playerId !== socket.id)
 				.forEach((playerId) => {
-					players[playerId] = {
-						nickname: playerId,
-						mediaStream: new MediaStream(),
-					};
+					addNewPlayer(playerId, playerId);
 				});
+
 			tick().then(() => {
 				Object.keys(players).forEach((playerId) => {
-					addRemoteStreamAsSrcForAudio(playerId);
+					addSrcToAudioTagByPlayerId(playerId);
 				});
 			});
 		});
 
 		socket.on('playerLeft', (playerId: string) => {
-			const rtcPeerConnection = players[playerId].rtcPeerConnection;
-			rtcPeerConnection?.close();
+			players[playerId].rtcPeerConnection?.close();
 			delete players[playerId];
 		});
 
 		socket.on('rtcAnswer', async ({playerId, rtcAnswer}: {playerId: string; rtcAnswer: RTCSessionDescriptionInit}) => {
-			const rtcPeerConnection = players[playerId].rtcPeerConnection;
 			const rtcDescription = new RTCSessionDescription(rtcAnswer);
-			await rtcPeerConnection?.setRemoteDescription(rtcDescription);
+			await players[playerId].rtcPeerConnection?.setRemoteDescription(rtcDescription);
 		});
 
 		socket.on('rtcOffer', async ({playerId, rtcOffer}: {playerId: string; rtcOffer: RTCSessionDescriptionInit}) => {
 			const rtcPeerConnection = new RTCPeerConnection(rtcConfig);
-			addLocalStream(rtcPeerConnection);
-			rtcPeerConnection.addEventListener('track', (event) => {
-				players[playerId].mediaStream.addTrack(event.track);
-			});
-			rtcPeerConnection.addEventListener('icecandidate', (event) => {
-				if (event.candidate) {
-					socket.emit('rtcCandidate', {playerId, rtcIceCandidate: event.candidate});
-				}
-			});
-			players[playerId].rtcPeerConnection = rtcPeerConnection;
+			addStreamToRtcPeerConnection(rtcPeerConnection);
 			const rtcDescription = new RTCSessionDescription(rtcOffer);
 			rtcPeerConnection.setRemoteDescription(rtcDescription);
 			const rtcAnswer = await rtcPeerConnection.createAnswer();
 			await rtcPeerConnection.setLocalDescription(rtcAnswer);
+
+			players[playerId].rtcPeerConnection = rtcPeerConnection;
+			rtcPeerConnection.addEventListener('track', (event) => {
+				addTrackToStreamByPlayerId(event, playerId);
+			});
+			rtcPeerConnection.addEventListener('icecandidate', (event) => {
+				sendIceCandidate(event, playerId);
+			});
+
 			socket.emit('rtcAnswer', {playerId, rtcAnswer});
 		});
 
 		socket.on('rtcCandidate', async ({playerId, rtcIceCandidate}: {playerId: string; rtcIceCandidate: RTCIceCandidate}) => {
-			const rtcPeerConnection = players[playerId].rtcPeerConnection;
-			await rtcPeerConnection?.addIceCandidate(rtcIceCandidate);
+			await players[playerId].rtcPeerConnection?.addIceCandidate(rtcIceCandidate);
 		});
 	};
 
-	const addLocalStream = (pc: RTCPeerConnection) => {
-		localStream.getTracks().forEach((track) => pc.addTrack(track, localStream));
+	const addStreamToRtcPeerConnection = (rtcPeerConnection: RTCPeerConnection): void => {
+		localStream.getTracks().forEach((track) => rtcPeerConnection.addTrack(track, localStream));
 	};
 
-	const addRemoteStreamAsSrcForAudio = (playerId: string) => {
+	const addSrcToAudioTagByPlayerId = (playerId: string): void => {
 		audioElements[playerId].srcObject = players[playerId].mediaStream;
+	};
+
+	const addTrackToStreamByPlayerId = (event: RTCTrackEvent, playerId: string): void => {
+		players[playerId].mediaStream.addTrack(event.track);
+	};
+
+	const sendIceCandidate = (event: RTCPeerConnectionIceEvent, playerId: string): void => {
+		if (event.candidate) {
+			socket.emit('rtcCandidate', {playerId, rtcIceCandidate: event.candidate});
+		}
+	};
+
+	const addNewPlayer = (playerId: string, nickname: string, rtcPeerConnection?: RTCPeerConnection): void => {
+		players[playerId] = {
+			nickname: nickname,
+			rtcPeerConnection: rtcPeerConnection,
+			mediaStream: new MediaStream(),
+		};
 	};
 
 	onMount(() => {
@@ -107,7 +117,7 @@
 			.getUserMedia({audio: true})
 			.then((stream) => {
 				localStream = stream;
-				initializeSockets();
+				joinToLobby();
 			})
 			.catch(() => {
 				window.alert('You need to enable microphone access to play this game');
