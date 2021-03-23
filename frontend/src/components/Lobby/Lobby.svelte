@@ -39,11 +39,9 @@
 		});
 
 		socket.on('successfullyJoinedLobby', (allPlayerIds: Array<string>) => {
-			allPlayerIds
-				.filter((playerId) => playerId !== socket.id)
-				.forEach((playerId) => {
-					addNewPlayer(playerId, playerId);
-				});
+			allPlayerIds.forEach((playerId) => {
+				addNewPlayer(playerId, playerId);
+			});
 
 			tick().then(() => {
 				Object.keys(players).forEach((playerId) => {

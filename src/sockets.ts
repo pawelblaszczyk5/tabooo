@@ -26,7 +26,10 @@ export const handleSocket = (socket: Socket): void => {
 
 	socket.to(lobbyId).emit('playerJoined', socket.id);
 
-	socket.emit('successfullyJoinedLobby', lobbies[lobbyId]);
+	socket.emit(
+		'successfullyJoinedLobby',
+		lobbies[lobbyId].filter((playerId) => playerId !== socket.id),
+	);
 };
 
 const addSocketToProperLobby = (socket: Socket, lobbyId: string): void => {
