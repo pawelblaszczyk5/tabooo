@@ -19,42 +19,42 @@
 		socket.connect();
 		audioElement.srcObject = remoteStream;
 
-		socket.on('playerJoined', async (joinedPlayerId: string) => {
+		socket.on('playerJoined', async (playerId: string) => {
 			const peerConnection = new RTCPeerConnection(rtcConfig);
-			playerIds.push(joinedPlayerId);
+			playerIds.push(playerId);
 			addLocalStream(peerConnection);
 			peerConnection.addEventListener('track', (event) => {
 				remoteStream.addTrack(event.track);
 			});
 			peerConnection.addEventListener('icecandidate', (event) => {
 				if (event.candidate) {
-					socket.emit('rtcCandidate', {id: joinedPlayerId, candidate: event.candidate});
+					socket.emit('rtcCandidate', {playerId, candidate: event.candidate});
 				}
 			});
-			peers[joinedPlayerId] = peerConnection;
+			peers[playerId] = peerConnection;
 			const offer = await peerConnection.createOffer();
 			await peerConnection.setLocalDescription(offer);
-			socket.emit('rtcOffer', {id: joinedPlayerId, offer});
+			socket.emit('rtcOffer', {playerId, offer});
 		});
 
 		socket.on('successfullyJoinedLobby', (allPlayerIds: Array<string>) => {
 			playerIds.push(...allPlayerIds.filter((id) => id != socket.id));
 		});
 
-		socket.on('playerLeft', (leftPlayerId: string) => {
-			playerIds.splice(playerIds.indexOf(leftPlayerId), 1);
-			const peerConnection = peers[leftPlayerId];
+		socket.on('playerLeft', (playerId: string) => {
+			playerIds.splice(playerIds.indexOf(playerId), 1);
+			const peerConnection = peers[playerId];
 			peerConnection.close();
-			delete peers[leftPlayerId];
+			delete peers[playerId];
 		});
 
-		socket.on('rtcAnswer', async ({id, answer}: {id: string; answer: any}) => {
-			const peerConnection = peers[id];
+		socket.on('rtcAnswer', async ({playerId, answer}: {playerId: string; answer: any}) => {
+			const peerConnection = peers[playerId];
 			const desc = new RTCSessionDescription(answer);
 			await peerConnection.setRemoteDescription(desc);
 		});
 
-		socket.on('rtcOffer', async ({id, offer}: {id: string; offer: any}) => {
+		socket.on('rtcOffer', async ({playerId, offer}: {playerId: string; offer: any}) => {
 			const peerConnection = new RTCPeerConnection(rtcConfig);
 			addLocalStream(peerConnection);
 			peerConnection.addEventListener('track', (event) => {
@@ -62,19 +62,19 @@
 			});
 			peerConnection.addEventListener('icecandidate', (event) => {
 				if (event.candidate) {
-					socket.emit('rtcCandidate', {id, candidate: event.candidate});
+					socket.emit('rtcCandidate', {playerId, candidate: event.candidate});
 				}
 			});
-			peers[id] = peerConnection;
+			peers[playerId] = peerConnection;
 			const desc = new RTCSessionDescription(offer);
 			peerConnection.setRemoteDescription(desc);
 			const answer = await peerConnection.createAnswer();
 			await peerConnection.setLocalDescription(answer);
-			socket.emit('rtcAnswer', {id, answer});
+			socket.emit('rtcAnswer', {playerId, answer});
 		});
 
-		socket.on('rtcCandidate', async ({id, candidate}: {id: string; candidate: any}) => {
-			const peerConnection = peers[id];
+		socket.on('rtcCandidate', async ({playerId, candidate}: {playerId: string; candidate: any}) => {
+			const peerConnection = peers[playerId];
 			await peerConnection.addIceCandidate(candidate);
 		});
 	};
