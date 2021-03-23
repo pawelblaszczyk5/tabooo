@@ -1,86 +1,105 @@
 <script lang="ts">
 	import type {Socket} from 'socket.io-client';
+	import type {Player} from '../../utils/player';
 	import {io} from 'socket.io-client';
-	import {onMount} from 'svelte';
+	import {onMount, tick} from 'svelte';
 	import {push} from 'svelte-spa-router';
 	import {getRtcConfig} from '../../utils/rtcConfig';
 
 	export let params: {lobbyId?: string} = {};
 
-	const playerIds: Array<string> = [];
+	const players: Record<string, Player> = {};
+	const audioElements: Record<string, HTMLMediaElement> = {};
 	const socket: Socket = io('', {path: '/api/ws/', query: {lobbyId: params.lobbyId ?? ''}, autoConnect: false});
 	const rtcConfig = getRtcConfig();
-	const peers: Record<string, RTCPeerConnection> = {};
-	const remoteStream: MediaStream = new MediaStream();
 
 	let localStream: MediaStream;
-	let audioElement: HTMLMediaElement;
 	const initializeSockets = () => {
 		socket.connect();
-		audioElement.srcObject = remoteStream;
 
 		socket.on('playerJoined', async (playerId: string) => {
-			const peerConnection = new RTCPeerConnection(rtcConfig);
-			playerIds.push(playerId);
-			addLocalStream(peerConnection);
-			peerConnection.addEventListener('track', (event) => {
-				remoteStream.addTrack(event.track);
+			const rtcPeerConnection = new RTCPeerConnection(rtcConfig);
+			players[playerId] = {
+				nickname: playerId,
+				rtcPeerConnection: rtcPeerConnection,
+				mediaStream: new MediaStream(),
+			};
+			tick().then(() => {
+				addRemoteStreamAsSrcForAudio(playerId);
 			});
-			peerConnection.addEventListener('icecandidate', (event) => {
+			addLocalStream(rtcPeerConnection);
+			rtcPeerConnection.addEventListener('track', (event) => {
+				players[playerId].mediaStream.addTrack(event.track);
+			});
+			rtcPeerConnection.addEventListener('icecandidate', (event) => {
 				if (event.candidate) {
-					socket.emit('rtcCandidate', {playerId, candidate: event.candidate});
+					socket.emit('rtcCandidate', {playerId, rtcIceCandidate: event.candidate});
 				}
 			});
-			peers[playerId] = peerConnection;
-			const offer = await peerConnection.createOffer();
-			await peerConnection.setLocalDescription(offer);
-			socket.emit('rtcOffer', {playerId, offer});
+			const rtcOffer = await rtcPeerConnection.createOffer();
+			await rtcPeerConnection.setLocalDescription(rtcOffer);
+			socket.emit('rtcOffer', {playerId, rtcOffer});
 		});
 
 		socket.on('successfullyJoinedLobby', (allPlayerIds: Array<string>) => {
-			playerIds.push(...allPlayerIds.filter((id) => id != socket.id));
+			allPlayerIds
+				.filter((playerId) => playerId !== socket.id)
+				.forEach((playerId) => {
+					players[playerId] = {
+						nickname: playerId,
+						mediaStream: new MediaStream(),
+					};
+				});
+			tick().then(() => {
+				Object.keys(players).forEach((playerId) => {
+					addRemoteStreamAsSrcForAudio(playerId);
+				});
+			});
 		});
 
 		socket.on('playerLeft', (playerId: string) => {
-			playerIds.splice(playerIds.indexOf(playerId), 1);
-			const peerConnection = peers[playerId];
-			peerConnection.close();
-			delete peers[playerId];
+			const rtcPeerConnection = players[playerId].rtcPeerConnection;
+			rtcPeerConnection?.close();
+			delete players[playerId];
 		});
 
-		socket.on('rtcAnswer', async ({playerId, answer}: {playerId: string; answer: any}) => {
-			const peerConnection = peers[playerId];
-			const desc = new RTCSessionDescription(answer);
-			await peerConnection.setRemoteDescription(desc);
+		socket.on('rtcAnswer', async ({playerId, rtcAnswer}: {playerId: string; rtcAnswer: RTCSessionDescriptionInit}) => {
+			const rtcPeerConnection = players[playerId].rtcPeerConnection;
+			const rtcDescription = new RTCSessionDescription(rtcAnswer);
+			await rtcPeerConnection?.setRemoteDescription(rtcDescription);
 		});
 
-		socket.on('rtcOffer', async ({playerId, offer}: {playerId: string; offer: any}) => {
-			const peerConnection = new RTCPeerConnection(rtcConfig);
-			addLocalStream(peerConnection);
-			peerConnection.addEventListener('track', (event) => {
-				remoteStream.addTrack(event.track);
+		socket.on('rtcOffer', async ({playerId, rtcOffer}: {playerId: string; rtcOffer: RTCSessionDescriptionInit}) => {
+			const rtcPeerConnection = new RTCPeerConnection(rtcConfig);
+			addLocalStream(rtcPeerConnection);
+			rtcPeerConnection.addEventListener('track', (event) => {
+				players[playerId].mediaStream.addTrack(event.track);
 			});
-			peerConnection.addEventListener('icecandidate', (event) => {
+			rtcPeerConnection.addEventListener('icecandidate', (event) => {
 				if (event.candidate) {
-					socket.emit('rtcCandidate', {playerId, candidate: event.candidate});
+					socket.emit('rtcCandidate', {playerId, rtcIceCandidate: event.candidate});
 				}
 			});
-			peers[playerId] = peerConnection;
-			const desc = new RTCSessionDescription(offer);
-			peerConnection.setRemoteDescription(desc);
-			const answer = await peerConnection.createAnswer();
-			await peerConnection.setLocalDescription(answer);
-			socket.emit('rtcAnswer', {playerId, answer});
+			players[playerId].rtcPeerConnection = rtcPeerConnection;
+			const rtcDescription = new RTCSessionDescription(rtcOffer);
+			rtcPeerConnection.setRemoteDescription(rtcDescription);
+			const rtcAnswer = await rtcPeerConnection.createAnswer();
+			await rtcPeerConnection.setLocalDescription(rtcAnswer);
+			socket.emit('rtcAnswer', {playerId, rtcAnswer});
 		});
 
-		socket.on('rtcCandidate', async ({playerId, candidate}: {playerId: string; candidate: any}) => {
-			const peerConnection = peers[playerId];
-			await peerConnection.addIceCandidate(candidate);
+		socket.on('rtcCandidate', async ({playerId, rtcIceCandidate}: {playerId: string; rtcIceCandidate: RTCIceCandidate}) => {
+			const rtcPeerConnection = players[playerId].rtcPeerConnection;
+			await rtcPeerConnection?.addIceCandidate(rtcIceCandidate);
 		});
 	};
 
 	const addLocalStream = (pc: RTCPeerConnection) => {
 		localStream.getTracks().forEach((track) => pc.addTrack(track, localStream));
+	};
+
+	const addRemoteStreamAsSrcForAudio = (playerId: string) => {
+		audioElements[playerId].srcObject = players[playerId].mediaStream;
 	};
 
 	onMount(() => {
@@ -98,4 +117,7 @@
 </script>
 
 <p>Lobby works!</p>
-<audio bind:this={audioElement} autoplay />
+{#each Object.values(players) as player}
+	<p>Player: {player.nickname}</p>
+	<audio bind:this={audioElements[player.nickname]} autoplay />
+{/each}
