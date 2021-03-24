@@ -20,19 +20,18 @@
 
 		socket.on('playerJoined', async (playerId: string) => {
 			const rtcPeerConnection = new RTCPeerConnection(rtcConfig);
+
 			rtcPeerConnection.addEventListener('track', (event) => {
 				addTrackToStreamByPlayerId(event, playerId);
+			});
+			rtcPeerConnection.addEventListener('icecandidate', (event) => {
+				sendIceCandidate(event, playerId);
 			});
 
 			addNewPlayer(playerId, playerId, rtcPeerConnection);
 			addStreamToRtcPeerConnection(rtcPeerConnection);
 			const rtcOffer = await rtcPeerConnection.createOffer();
 			await rtcPeerConnection.setLocalDescription(rtcOffer);
-
-			rtcPeerConnection.addEventListener('icecandidate', (event) => {
-				sendIceCandidate(event, playerId);
-			});
-
 			socket.emit('rtcOffer', {playerId, rtcOffer});
 		});
 
@@ -55,24 +54,24 @@
 
 		socket.on('rtcOffer', async ({playerId, rtcOffer}: {playerId: string; rtcOffer: RTCSessionDescriptionInit}) => {
 			const rtcPeerConnection = new RTCPeerConnection(rtcConfig);
+
 			rtcPeerConnection.addEventListener('track', (event) => {
 				addTrackToStreamByPlayerId(event, playerId);
 			});
-
-			addStreamToRtcPeerConnection(rtcPeerConnection);
-			const rtcDescription = new RTCSessionDescription(rtcOffer);
-			rtcPeerConnection.setRemoteDescription(rtcDescription);
-			const rtcAnswer = await rtcPeerConnection.createAnswer();
-			await rtcPeerConnection.setLocalDescription(rtcAnswer);
+			rtcPeerConnection.addEventListener('icecandidate', (event) => {
+				sendIceCandidate(event, playerId);
+			});
 
 			const player = players.find((player) => player.id === playerId);
 			if (player) {
 				player.rtcPeerConnection = rtcPeerConnection;
 			}
 
-			rtcPeerConnection.addEventListener('icecandidate', (event) => {
-				sendIceCandidate(event, playerId);
-			});
+			addStreamToRtcPeerConnection(rtcPeerConnection);
+			const rtcDescription = new RTCSessionDescription(rtcOffer);
+			rtcPeerConnection.setRemoteDescription(rtcDescription);
+			const rtcAnswer = await rtcPeerConnection.createAnswer();
+			await rtcPeerConnection.setLocalDescription(rtcAnswer);
 
 			socket.emit('rtcAnswer', {playerId, rtcAnswer});
 		});
