@@ -2,9 +2,10 @@
 	import type {Socket} from 'socket.io-client';
 	import type {Player} from '../../utils/player';
 	import {io} from 'socket.io-client';
-	import {onMount, tick} from 'svelte';
+	import {onMount} from 'svelte';
 	import {push} from 'svelte-spa-router';
 	import {getRtcConfig} from '../../utils/rtcConfig';
+	import RemoteAudio from './RemoteAudio.svelte';
 
 	export let params: {lobbyId?: string};
 
@@ -20,9 +21,6 @@
 		socket.on('playerJoined', async (playerId: string) => {
 			const rtcPeerConnection = new RTCPeerConnection(rtcConfig);
 			addNewPlayer(playerId, playerId, rtcPeerConnection);
-			tick().then(() => {
-				addSrcToAudioTagByPlayerId(playerId);
-			});
 			addStreamToRtcPeerConnection(rtcPeerConnection);
 			const rtcOffer = await rtcPeerConnection.createOffer();
 			await rtcPeerConnection.setLocalDescription(rtcOffer);
@@ -40,12 +38,6 @@
 		socket.on('successfullyJoinedLobby', (allPlayerIds: Array<string>) => {
 			allPlayerIds.forEach((playerId) => {
 				addNewPlayer(playerId, playerId);
-			});
-
-			tick().then(() => {
-				players.forEach((player) => {
-					addSrcToAudioTagByPlayerId(player.id);
-				});
 			});
 		});
 
@@ -90,13 +82,6 @@
 		localStream.getTracks().forEach((track) => rtcPeerConnection.addTrack(track, localStream));
 	};
 
-	const addSrcToAudioTagByPlayerId = (playerId: string): void => {
-		const audioElement = players.find((player) => player.id === playerId)?.audioElement;
-		if (audioElement) {
-			audioElement.srcObject = players.find((player) => player.id === playerId)?.mediaStream ?? null;
-		}
-	};
-
 	const addTrackToStreamByPlayerId = (event: RTCTrackEvent, playerId: string): void => {
 		players.find((player) => player.id === playerId)?.mediaStream.addTrack(event.track);
 	};
@@ -113,6 +98,7 @@
 			nickname: nickname,
 			rtcPeerConnection: rtcPeerConnection,
 			mediaStream: new MediaStream(),
+			volume: 1,
 		});
 		players = players;
 	};
@@ -135,5 +121,5 @@
 
 {#each players as player (player.id)}
 	<p>Player: {player.nickname}</p>
-	<audio bind:this={player.audioElement} autoplay />
+	<RemoteAudio mediaStream={player.mediaStream} volume={player.volume} />
 {/each}

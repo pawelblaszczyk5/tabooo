@@ -4,4 +4,5 @@ export interface Player {
 	mediaStream: MediaStream;
 	rtcPeerConnection?: RTCPeerConnection;
 	audioElement?: HTMLMediaElement;
+	volume: number;
 }
