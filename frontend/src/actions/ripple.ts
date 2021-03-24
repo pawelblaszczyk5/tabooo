@@ -4,7 +4,7 @@ interface RGBColor {
 	b: number;
 }
 
-export const ripple = (element: HTMLElement, duration = 300): {destroy: () => void} => {
+export const ripple = (element: HTMLElement, duration = 400): {destroy: () => void} => {
 	const parent = element.parentElement;
 
 	const getRGBValues = (rgbColor: string): RGBColor => {
@@ -41,7 +41,7 @@ export const ripple = (element: HTMLElement, duration = 300): {destroy: () => vo
 		});
 		setTimeout(() => {
 			parent?.removeChild(ripple);
-		}, duration - 50);
+		}, duration);
 		parent?.appendChild(ripple);
 	};
 
