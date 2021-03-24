@@ -20,14 +20,15 @@
 
 		socket.on('playerJoined', async (playerId: string) => {
 			const rtcPeerConnection = new RTCPeerConnection(rtcConfig);
+			rtcPeerConnection.addEventListener('track', (event) => {
+				addTrackToStreamByPlayerId(event, playerId);
+			});
+
 			addNewPlayer(playerId, playerId, rtcPeerConnection);
 			addStreamToRtcPeerConnection(rtcPeerConnection);
 			const rtcOffer = await rtcPeerConnection.createOffer();
 			await rtcPeerConnection.setLocalDescription(rtcOffer);
 
-			rtcPeerConnection.addEventListener('track', (event) => {
-				addTrackToStreamByPlayerId(event, playerId);
-			});
 			rtcPeerConnection.addEventListener('icecandidate', (event) => {
 				sendIceCandidate(event, playerId);
 			});
@@ -44,6 +45,7 @@
 		socket.on('playerLeft', (playerId: string) => {
 			players.find((player) => player.id === playerId)?.rtcPeerConnection?.close();
 			players.filter((player) => player.id !== playerId);
+			players = players;
 		});
 
 		socket.on('rtcAnswer', async ({playerId, rtcAnswer}: {playerId: string; rtcAnswer: RTCSessionDescriptionInit}) => {
@@ -53,6 +55,10 @@
 
 		socket.on('rtcOffer', async ({playerId, rtcOffer}: {playerId: string; rtcOffer: RTCSessionDescriptionInit}) => {
 			const rtcPeerConnection = new RTCPeerConnection(rtcConfig);
+			rtcPeerConnection.addEventListener('track', (event) => {
+				addTrackToStreamByPlayerId(event, playerId);
+			});
+
 			addStreamToRtcPeerConnection(rtcPeerConnection);
 			const rtcDescription = new RTCSessionDescription(rtcOffer);
 			rtcPeerConnection.setRemoteDescription(rtcDescription);
@@ -63,9 +69,7 @@
 			if (player) {
 				player.rtcPeerConnection = rtcPeerConnection;
 			}
-			rtcPeerConnection.addEventListener('track', (event) => {
-				addTrackToStreamByPlayerId(event, playerId);
-			});
+
 			rtcPeerConnection.addEventListener('icecandidate', (event) => {
 				sendIceCandidate(event, playerId);
 			});
@@ -98,7 +102,7 @@
 			nickname: nickname,
 			rtcPeerConnection: rtcPeerConnection,
 			mediaStream: new MediaStream(),
-			volume: 1,
+			volume: 100,
 		});
 		players = players;
 	};
@@ -121,5 +125,6 @@
 
 {#each players as player (player.id)}
 	<p>Player: {player.nickname}</p>
+	<input type="range" bind:value={player.volume} min="0" max="100" step="1" />
 	<RemoteAudio mediaStream={player.mediaStream} volume={player.volume} />
 {/each}

@@ -7,7 +7,7 @@
 	$: {
 		if (audioElement) {
 			audioElement.srcObject = mediaStream;
-			audioElement.volume = volume;
+			audioElement.volume = volume / 100;
 		}
 	}
 </script>
