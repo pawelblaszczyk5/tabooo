@@ -3,6 +3,6 @@
 	export let y = 0;
 </script>
 
-<div class="px-{x} py-{y}">
+<div class="mx-{x} my-{y}">
 	<slot />
 </div>
