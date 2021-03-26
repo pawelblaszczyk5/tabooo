@@ -7,6 +7,7 @@ module.exports = {
 				...(content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || []),
 				...(content.match(/(?<=class:)[^=>\/\s]*/g) || []),
 			],
+			safelist: ['py-0', 'py-1', 'py-2', 'py-3', 'py-4', 'py-5', 'py-6', 'px-0', 'px-1', 'px-2', 'px-3', 'px-4', 'px-5', 'px-6'],
 			keyframes: true,
 		},
 	},
