@@ -4,5 +4,5 @@
 </script>
 
 <Intro />
-<Button classes="my-5" type={ButtonType.PRIMARY} />
+<Button type={ButtonType.PRIMARY} />
 <Button type={ButtonType.SECONDARY} />

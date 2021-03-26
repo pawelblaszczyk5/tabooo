@@ -8,11 +8,10 @@
 <script lang="ts">
 	import {ripple} from '../../actions/ripple';
 
-	export let classes = '';
 	export let type: ButtonType = ButtonType.PRIMARY;
 </script>
 
-<div class="shadow-2xl {classes}">
+<div class="shadow-2xl">
 	<div class="overflow-hidden relative rounded">
 		<button
 			type="button"
