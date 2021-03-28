@@ -13,15 +13,13 @@
 	};
 </script>
 
-<main class="p-6 min-h-screen w-screen bg-primary transition-colors duration-300">
+<main class="flex flex-col items-center p-6 min-h-screen w-screen bg-primary transition-colors duration-300">
 	<Router {routes} />
 	<Theme />
-	<div class="absolute top-4 right-4">
-		<div
-			on:click={() => toggleModalState(!showSettingsModal)}
-			class="w-8 h-8 cursor-pointer transform hover:rotate-90 transition-transform duration-500">
-			<FaCog />
-		</div>
+	<div
+		on:click={() => toggleModalState(!showSettingsModal)}
+		class="absolute top-4 right-4 w-8 h-8 cursor-pointer transform hover:rotate-90 transition-transform duration-500">
+		<FaCog />
 	</div>
 	{#if showSettingsModal}
 		<Modal on:closeModal={() => toggleModalState(false)}><Settings /></Modal>
