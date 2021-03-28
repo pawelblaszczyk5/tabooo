@@ -11,9 +11,17 @@
 
 	@layer utilities {
 		.glass-sm {
-			background: var(--primaryOpacity25);
+			background: var(--primaryOpacity90);
 			box-shadow: 0 8px 32px 0 var(--primaryOpacity40);
-			backdrop-filter: blur(0.5rem);
+		}
+
+		@supports ((-webkit-backdrop-filter: blur(0.5rem)) or (backdrop-filter: blur(0.5rem))) {
+			.glass-sm {
+				background: var(--primaryOpacity25);
+				box-shadow: 0 8px 32px 0 var(--primaryOpacity40);
+				backdrop-filter: blur(0.5rem);
+				-webkit-backdrop-filter: blur(0.5rem);
+			}
 		}
 	}
 
@@ -33,6 +41,7 @@
 		--primary: #06d6a0;
 		--primaryOpacity25: rgba(6, 214, 160, 0.25);
 		--primaryOpacity40: rgba(6, 214, 160, 0.4);
+		--primaryOpacity90: rgba(6, 214, 160, 0.9);
 		--primaryAccent: #ffd166;
 		--primaryAccentHover: #ffda85;
 		--primaryAccentFocus: #ffe099;
@@ -50,6 +59,7 @@
 		--primary: #212f45;
 		--primaryOpacity25: rgba(33, 47, 69, 0.25);
 		--primaryOpacity40: rgba(33, 47, 69, 0.4);
+		--primaryOpacity90: rgba(33, 47, 69, 0.9);
 		--primaryAccent: #144552;
 		--primaryAccentHover: #0b525b;
 		--primaryAccentFocus: #065a60;
@@ -67,6 +77,7 @@
 		--primary: #a8dadc;
 		--primaryOpacity25: rgba(168, 218, 220, 0.25);
 		--primaryOpacity40: rgba(168, 218, 220, 0.4);
+		--primaryOpacity90: rgba(168, 218, 220, 0.9);
 		--primaryAccent: #d8f1d0;
 		--primaryAccentHover: #e5f6df;
 		--primaryAccentFocus: #f1faee;
@@ -84,6 +95,7 @@
 		--primary: #caffbf;
 		--primaryOpacity25: rgba(202, 255, 191, 0.25);
 		--primaryOpacity40: rgba(202, 255, 191, 0.4);
+		--primaryOpacity90: rgba(202, 255, 191, 0.9);
 		--primaryAccent: #fdffb6;
 		--primaryAccentHover: #fcffad;
 		--primaryAccentFocus: #fbff85;
@@ -101,6 +113,7 @@
 		--primary: #bee3db;
 		--primaryOpacity25: rgba(190, 227, 219, 0.25);
 		--primaryOpacity40: rgba(190, 227, 219, 0.4);
+		--primaryOpacity90: rgba(190, 227, 219, 0.9);
 		--primaryAccent: #89b0ae;
 		--primaryAccentHover: #9dbebc;
 		--primaryAccentFocus: #a9c6c4;
