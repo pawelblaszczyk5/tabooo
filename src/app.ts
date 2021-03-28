@@ -5,7 +5,7 @@ import {createServer} from 'http';
 import {Server} from 'socket.io';
 import * as dotenv from 'dotenv';
 import {handleSocket} from './sockets';
-import {createLobby, getLobbyInfo} from './lobby';
+import {createLobby, getLobbyInfo, lobbies} from './lobby';
 import {LobbyData} from './model/lobbyData';
 import {LobbyInfo} from './model/lobbyInfo';
 
@@ -31,9 +31,20 @@ app.use(express.json());
 
 app.post('/api/lobby', (req, res) => {
 	const lobbyData: LobbyData = req.body;
-	createLobby(lobbyData.language, lobbyData.password)
+	createLobby(lobbyData.language, lobbyData.name, lobbyData.password)
 		.then((id) => res.send(id))
 		.catch((err) => res.send(err));
+});
+
+app.get('/api/lobby', (req, res) => {
+	res.send(
+		Array.from(lobbies.values()).map((lobby) => ({
+			id: lobby.id,
+			secured: lobby.secured,
+			name: lobby.name,
+			language: lobby.language,
+		})),
+	);
 });
 
 app.get('/api/isLobby', (req, res) => {

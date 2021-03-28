@@ -2,17 +2,18 @@ import {Lobby} from './model/lobby';
 import {Player} from './model/player';
 import {Language} from './model/language';
 import crypto from 'crypto';
-import {hashPassword, verifyPassword} from './helpers/password';
+import {hashPassword} from './helpers/password';
 import {LobbyInfo} from './model/lobbyInfo';
 
 export const lobbies: Map<string, Lobby> = new Map();
 
-export const createLobby = (language: Language, password?: string): Promise<string> => {
+export const createLobby = (language: Language, name: string, password?: string): Promise<string> => {
 	return new Promise((resolve, reject) => {
 		const id = crypto.randomBytes(20).toString('hex');
 		const newLobby: Lobby = {
 			players: [],
 			id,
+			name,
 			language,
 			secured: password ? true : false,
 		};
