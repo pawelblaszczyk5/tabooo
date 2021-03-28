@@ -3,6 +3,8 @@
 	import {createEventDispatcher} from 'svelte';
 	import {fly} from 'svelte/transition';
 
+	export let preventExit = false;
+
 	const dispatch = createEventDispatcher();
 
 	const closeModal = () => {
@@ -14,6 +16,8 @@
 <div
 	transition:fly={{duration: 500, y: -200}}
 	class="z-20 glass-sm transition-colors duration-300 border border-gray-200 border-opacity-40 absolute top-48 left-1/2 transform -translate-x-1/2 p-5 sm:p-10 bg-primary rounded-2xl">
-	<div on:click={closeModal} class="absolute top-3 right-3 w-6 h-6 cursor-pointer"><FaTimes /></div>
+	{#if !preventExit}
+		<div on:click={closeModal} class="absolute top-3 right-3 w-6 h-6 cursor-pointer"><FaTimes /></div>
+	{/if}
 	<slot />
 </div>

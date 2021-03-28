@@ -8,23 +8,25 @@
 	import {push} from 'svelte-spa-router';
 	import RemoteAudio from './RemoteAudio.svelte';
 	import axios from 'axios';
-	import {getRtcConfig} from '../helpers/rtcConfig';
+	import {getRtcConfig} from '../../helpers/rtcConfig';
 	import {settings} from '../../stores/settings';
+	import Modal from '../commons/Modal.svelte';
+	import ChangeNicknameModal from './ChangeNicknameModal.svelte';
 
 	export let params: {lobbyId?: string};
 
-	const socket: Socket = io('', {
-		path: '/api/ws/',
-		query: {lobbyId: params.lobbyId ?? '', nickname: $settings.nickname},
-		autoConnect: false,
-	});
+	let socket: Socket;
 	const rtcConfig = getRtcConfig();
 
 	let localStream: MediaStream;
 	let players: Array<Player> = [];
+	let showMissingNicknameModal = false;
 
 	const joinToLobby = () => {
-		socket.connect();
+		socket = io('', {
+			path: '/api/ws/',
+			query: {lobbyId: params.lobbyId ?? '', nickname: $settings.nickname},
+		});
 
 		socket.on('playerJoined', async (playerData: PlayerData) => {
 			const rtcPeerConnection = new RTCPeerConnection(rtcConfig);
@@ -130,7 +132,13 @@
 		push('/');
 	};
 
-	onMount(() => {
+	const nicknameSet = (value: CustomEvent<string>) => {
+		settings.setNickname(value.detail);
+		showMissingNicknameModal = false;
+		checkLobby();
+	};
+
+	const checkLobby = () => {
 		if (params.lobbyId) {
 			axios
 				.get<boolean>(`/api/isLobby?lobbyId=${params.lobbyId}`)
@@ -143,6 +151,14 @@
 				})
 				.catch((err) => console.log(err));
 		}
+	};
+
+	onMount(() => {
+		if (!$settings.nickname) {
+			showMissingNicknameModal = true;
+		} else {
+			checkLobby();
+		}
 	});
 </script>
 
@@ -153,3 +169,9 @@
 	<input type="range" bind:value={player.volume} min="0" max="100" step="1" />
 	<RemoteAudio mediaStream={player.mediaStream} volume={player.volume} />
 {/each}
+
+{#if showMissingNicknameModal}
+	<Modal preventExit={true}>
+		<ChangeNicknameModal on:nicknameSet={nicknameSet} />
+	</Modal>
+{/if}

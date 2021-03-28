@@ -15,8 +15,8 @@
 </script>
 
 <div class="flex flex-col items-center p-4 sm:p-24">
-	<p class="text-4xl font-semibold my-2 transition-colors duration-300">Settings</p>
-	<p class="text-2xl font-semibold mb-2 transition-colors duration-300">Select theme</p>
+	<p class="text-3xl font-semibold my-2 transition-colors duration-300">Settings</p>
+	<p class="text-lg font-semibold mb-2 transition-colors duration-300">Select theme</p>
 	<div class="flex">
 		{#each themesArray as theme}
 			<div
@@ -31,7 +31,7 @@
 					: 'border-darkAccentColor'}  border-2" />
 		{/each}
 	</div>
-	<Spacer y={3}>
+	<Spacer y={5}>
 		<TextInput bind:value={nickname} placeholder="Enter nickname">Change your nickname</TextInput>
 	</Spacer>
 </div>
