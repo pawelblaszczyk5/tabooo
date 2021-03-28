@@ -129,8 +129,8 @@
 		if (params.lobbyId) {
 			axios
 				.get<boolean>(`/api/isLobby?lobbyId=${params.lobbyId}`)
-				.then((response) => {
-					if (response.data) {
+				.then(({data}) => {
+					if (data) {
 						getPermissions();
 					} else {
 						redirectToHome('Lobby does not exist');

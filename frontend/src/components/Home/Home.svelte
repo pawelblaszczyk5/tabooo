@@ -5,6 +5,7 @@
 	import Spacer from '../commons/Spacer.svelte';
 	import Intro from './Intro.svelte';
 	import axios from 'axios';
+	import {push} from 'svelte-spa-router';
 
 	const createLobby = () => {
 		const lobbyData: LobbyData = {
@@ -14,8 +15,8 @@
 
 		axios
 			.post<string>('/api/lobby', lobbyData)
-			.then((id) => {
-				console.log(id);
+			.then(({data}) => {
+				push(`/lobby/${data}`);
 			})
 			.catch((err) => console.log(err));
 	};
