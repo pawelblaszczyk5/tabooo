@@ -1,13 +1,14 @@
 <script lang="ts">
 	import type {Socket} from 'socket.io-client';
+	import type {Player} from '../../model/player';
+	import type {PlayerData} from '../../model/playerData';
+
 	import {io} from 'socket.io-client';
 	import {onMount} from 'svelte';
 	import {push} from 'svelte-spa-router';
 	import RemoteAudio from './RemoteAudio.svelte';
 	import axios from 'axios';
-	import type {Player} from '../../model/player';
 	import {getRtcConfig} from '../helpers/rtcConfig';
-	import type {PlayerData} from '../../model/playerData';
 
 	export let params: {lobbyId?: string};
 
