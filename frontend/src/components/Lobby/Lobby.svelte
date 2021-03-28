@@ -1,15 +1,17 @@
 <script lang="ts">
 	import type {Socket} from 'socket.io-client';
-	import type {Player} from '../../utils/player';
 	import {io} from 'socket.io-client';
 	import {onMount} from 'svelte';
 	import {push} from 'svelte-spa-router';
-	import {getRtcConfig} from '../../utils/rtcConfig';
 	import RemoteAudio from './RemoteAudio.svelte';
+	import axios from 'axios';
+	import type {Player} from '../../model/player';
+	import {getRtcConfig} from '../helpers/rtcConfig';
+	import type {PlayerData} from '../../model/playerData';
 
 	export let params: {lobbyId?: string};
 
-	const socket: Socket = io('', {path: '/api/ws/', query: {lobbyId: params.lobbyId ?? ''}, autoConnect: false});
+	const socket: Socket = io('', {path: '/api/ws/', query: {lobbyId: params.lobbyId ?? '', nickname: 'test'}, autoConnect: false});
 	const rtcConfig = getRtcConfig();
 
 	let localStream: MediaStream;
@@ -18,26 +20,26 @@
 	const joinToLobby = () => {
 		socket.connect();
 
-		socket.on('playerJoined', async (playerId: string) => {
+		socket.on('playerJoined', async (playerData: PlayerData) => {
 			const rtcPeerConnection = new RTCPeerConnection(rtcConfig);
 
 			rtcPeerConnection.addEventListener('track', (event) => {
-				addTrackToStreamByPlayerId(event, playerId);
+				addTrackToStreamByPlayerId(event, playerData.id);
 			});
 			rtcPeerConnection.addEventListener('icecandidate', (event) => {
-				sendIceCandidate(event, playerId);
+				sendIceCandidate(event, playerData.id);
 			});
 
-			addNewPlayer(playerId, playerId, rtcPeerConnection);
+			addNewPlayer(playerData.id, playerData.nickname, rtcPeerConnection);
 			addStreamToRtcPeerConnection(rtcPeerConnection);
 			const rtcOffer = await rtcPeerConnection.createOffer();
 			await rtcPeerConnection.setLocalDescription(rtcOffer);
-			socket.emit('rtcOffer', {playerId, rtcOffer});
+			socket.emit('rtcOffer', {playerId: playerData.id, rtcOffer});
 		});
 
-		socket.on('successfullyJoinedLobby', (allPlayerIds: Array<string>) => {
-			allPlayerIds.forEach((playerId) => {
-				addNewPlayer(playerId, playerId);
+		socket.on('successfullyJoinedLobby', (allPlayersData: Array<PlayerData>) => {
+			allPlayersData.forEach((player) => {
+				addNewPlayer(player.id, player.nickname);
 			});
 		});
 
@@ -106,7 +108,7 @@
 		players = players;
 	};
 
-	onMount(() => {
+	const getPermissions = (): void => {
 		navigator.mediaDevices
 			.getUserMedia({audio: true})
 			.then((stream) => {
@@ -114,9 +116,28 @@
 				joinToLobby();
 			})
 			.catch(() => {
-				window.alert('You need to enable microphone access to play this game');
-				push('/');
+				redirectToHome('No permissions');
 			});
+	};
+
+	const redirectToHome = (error: string) => {
+		window.alert(error);
+		push('/');
+	};
+
+	onMount(() => {
+		if (params.lobbyId) {
+			axios
+				.get<boolean>(`/api/isLobby?lobbyId=${params.lobbyId}`)
+				.then((response) => {
+					if (response.data) {
+						getPermissions();
+					} else {
+						redirectToHome('Lobby does not exist');
+					}
+				})
+				.catch((err) => console.log(err));
+		}
 	});
 </script>
 

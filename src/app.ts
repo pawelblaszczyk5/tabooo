@@ -5,6 +5,8 @@ import {createServer} from 'http';
 import {Server} from 'socket.io';
 import * as dotenv from 'dotenv';
 import {handleSocket} from './sockets';
+import {createLobby, isLobby} from './lobby';
+import {LobbyData} from './model/lobbyData';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -24,9 +26,21 @@ app.use(function (req, res, next) {
 
 app.use(compression());
 app.use(express.static(path.resolve(__dirname, '../frontend', 'public')));
+app.use(express.json());
 
-app.get('/api/test', (req, res) => {
-	res.json({test: 'test2'});
+app.post('/api/lobby', (req, res) => {
+	const lobbyData: LobbyData = req.body;
+	createLobby(lobbyData.language, lobbyData.password)
+		.then((id) => res.send(id))
+		.catch((err) => res.send(err));
+});
+
+app.get('/api/isLobby', (req, res) => {
+	if (typeof req.query.lobbyId === 'string') {
+		res.send(isLobby(req.query.lobbyId));
+	} else {
+		res.send(false);
+	}
 });
 
 app.get('*', (req, res) => {
