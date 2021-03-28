@@ -5,19 +5,19 @@
 	import Spacer from '../commons/Spacer.svelte';
 	import TextInput from '../commons/TextInput.svelte';
 
-	const dispatch = createEventDispatcher<{nicknameSet: string}>();
+	const dispatch = createEventDispatcher<{password: string}>();
 
 	let nickname: string;
 
 	const changeNickname = () => {
-		dispatch('nicknameSet', nickname);
+		dispatch('password', nickname);
 	};
 </script>
 
 <div class="flex flex-col items-center">
-	<p>Nickname is required to join a lobby</p>
+	<p>This lobby is password protected</p>
 	<Spacer y={5}>
-		<TextInput placeholder="Enter nickname..." bind:value={nickname} />
+		<TextInput placeholder="Enter password..." bind:value={nickname} />
 	</Spacer>
-	<Button on:click={changeNickname}>Save</Button>
+	<Button on:click={changeNickname}>Join</Button>
 </div>

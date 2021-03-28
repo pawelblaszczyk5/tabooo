@@ -2,6 +2,7 @@
 	import type {Socket} from 'socket.io-client';
 	import type {Player} from '../../model/player';
 	import type {PlayerData} from '../../model/playerData';
+	import type {LobbyInfo} from '../../model/lobbyInfo';
 
 	import {io} from 'socket.io-client';
 	import {onMount} from 'svelte';
@@ -12,6 +13,7 @@
 	import {settings} from '../../stores/settings';
 	import Modal from '../commons/Modal.svelte';
 	import ChangeNicknameModal from './ChangeNicknameModal.svelte';
+	import AskForPasswordModal from './AskForPasswordModal.svelte';
 
 	export let params: {lobbyId?: string};
 
@@ -21,11 +23,16 @@
 	let localStream: MediaStream;
 	let players: Array<Player> = [];
 	let showMissingNicknameModal = false;
+	let showAskForPasswordModal = false;
 
-	const joinToLobby = () => {
+	const joinToLobby = (password?: string) => {
 		socket = io('', {
 			path: '/api/ws/',
-			query: {lobbyId: params.lobbyId ?? '', nickname: $settings.nickname},
+			query: {lobbyId: params.lobbyId ?? '', nickname: $settings.nickname, password: password ?? ''},
+		});
+
+		socket.on('wrongPassword', () => {
+			redirectToHome('Wrong password');
 		});
 
 		socket.on('playerJoined', async (playerData: PlayerData) => {
@@ -115,12 +122,12 @@
 		players = players;
 	};
 
-	const getPermissions = (): void => {
+	const getPermissions = (password?: string): void => {
 		navigator.mediaDevices
 			.getUserMedia({audio: true})
 			.then((stream) => {
 				localStream = stream;
-				joinToLobby();
+				joinToLobby(password);
 			})
 			.catch(() => {
 				redirectToHome('No permissions');
@@ -132,19 +139,26 @@
 		push('/');
 	};
 
-	const nicknameSet = (value: CustomEvent<string>) => {
-		settings.setNickname(value.detail);
+	const nicknameSet = (event: CustomEvent<string>) => {
+		settings.setNickname(event.detail);
 		showMissingNicknameModal = false;
 		checkLobby();
+	};
+
+	const tryToJoinPasswordProtectedLobby = (event: CustomEvent<string>) => {
+		showAskForPasswordModal = false;
+		getPermissions(event.detail);
 	};
 
 	const checkLobby = () => {
 		if (params.lobbyId) {
 			axios
-				.get<boolean>(`/api/isLobby?lobbyId=${params.lobbyId}`)
+				.get<LobbyInfo>(`/api/isLobby?lobbyId=${params.lobbyId}`)
 				.then(({data}) => {
-					if (data) {
+					if (data.isExisting && !data.secured) {
 						getPermissions();
+					} else if (data.isExisting && data.secured) {
+						showAskForPasswordModal = true;
 					} else {
 						redirectToHome('Lobby does not exist');
 					}
@@ -173,5 +187,11 @@
 {#if showMissingNicknameModal}
 	<Modal preventExit={true}>
 		<ChangeNicknameModal on:nicknameSet={nicknameSet} />
+	</Modal>
+{/if}
+
+{#if showAskForPasswordModal}
+	<Modal preventExit={true}>
+		<AskForPasswordModal on:password={tryToJoinPasswordProtectedLobby} />
 	</Modal>
 {/if}

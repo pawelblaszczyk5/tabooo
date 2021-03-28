@@ -5,8 +5,9 @@ import {createServer} from 'http';
 import {Server} from 'socket.io';
 import * as dotenv from 'dotenv';
 import {handleSocket} from './sockets';
-import {createLobby, isLobby} from './lobby';
+import {createLobby, getLobbyInfo} from './lobby';
 import {LobbyData} from './model/lobbyData';
+import {LobbyInfo} from './model/lobbyInfo';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -37,9 +38,12 @@ app.post('/api/lobby', (req, res) => {
 
 app.get('/api/isLobby', (req, res) => {
 	if (typeof req.query.lobbyId === 'string') {
-		res.send(isLobby(req.query.lobbyId));
+		res.send(getLobbyInfo(req.query.lobbyId));
 	} else {
-		res.send(false);
+		const nonExistingLobbyInfo: LobbyInfo = {
+			isExisting: false,
+		};
+		res.send(nonExistingLobbyInfo);
 	}
 });
 

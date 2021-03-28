@@ -1,18 +1,24 @@
 import {Socket} from 'socket.io';
-import {addPlayerToLobby, getPlayersInLobby, removePlayerFromLobby} from './lobby';
+import {verifyPassword} from './helpers/password';
+import {addPlayerToLobby, getLobbyHash, getPlayersInLobby, isLobbySecured, removePlayerFromLobby} from './lobby';
 import {Player} from './model/player';
 
 export const handleSocket = (socket: Socket): void => {
 	const lobbyId: string = socket.handshake.query.lobbyId as string;
 	const nickname: string = socket.handshake.query.nickname as string;
+	const password: string = socket.handshake.query.password as string;
 
-	const player: Player = {
-		nickname,
-		id: socket.id,
-		admin: false,
-	};
-	socket.join(lobbyId);
-	addPlayerToLobby(lobbyId, player);
+	if (isLobbySecured(lobbyId)) {
+		verifyPassword(password, getLobbyHash(lobbyId))
+			.then((isMatch) => {
+				isMatch ? joinLobby(socket, lobbyId, nickname) : socket.emit('wrongPassword');
+			})
+			.catch(() => {
+				socket.emit('wrongPassword');
+			});
+	} else {
+		joinLobby(socket, lobbyId, nickname);
+	}
 
 	socket.on('disconnect', () => {
 		socket.to(lobbyId).emit('playerLeft', socket.id);
@@ -30,6 +36,17 @@ export const handleSocket = (socket: Socket): void => {
 	socket.on('rtcCandidate', ({playerId, rtcIceCandidate}) => {
 		socket.to(playerId).emit('rtcCandidate', {playerId: socket.id, rtcIceCandidate});
 	});
+};
+
+const joinLobby = (socket: Socket, lobbyId: string, nickname: string) => {
+	const player: Player = {
+		nickname,
+		id: socket.id,
+		admin: false,
+	};
+
+	socket.join(lobbyId);
+	addPlayerToLobby(lobbyId, player);
 
 	socket.to(lobbyId).emit('playerJoined', player);
 

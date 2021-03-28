@@ -2,7 +2,8 @@ import {Lobby} from './model/lobby';
 import {Player} from './model/player';
 import {Language} from './model/language';
 import crypto from 'crypto';
-import {hashPassword} from './helpers/hashPassword';
+import {hashPassword, verifyPassword} from './helpers/password';
+import {LobbyInfo} from './model/lobbyInfo';
 
 export const lobbies: Map<string, Lobby> = new Map();
 
@@ -49,6 +50,18 @@ export const getPlayersInLobby = (lobbyId: string): Array<Player> => {
 	return lobbies.get(lobbyId)?.players ?? [];
 };
 
-export const isLobby = (lobbyId: string): boolean => {
-	return lobbies.get(lobbyId) ? true : false;
+export const getLobbyInfo = (lobbyId: string): LobbyInfo => {
+	const lobby = lobbies.get(lobbyId);
+	return {
+		isExisting: lobby ? true : false,
+		secured: lobby?.secured ?? false,
+	};
+};
+
+export const isLobbySecured = (lobbyId: string): boolean => {
+	return lobbies.get(lobbyId)?.secured ?? false;
+};
+
+export const getLobbyHash = (lobbyId: string): string => {
+	return lobbies.get(lobbyId)?.password ?? '';
 };
