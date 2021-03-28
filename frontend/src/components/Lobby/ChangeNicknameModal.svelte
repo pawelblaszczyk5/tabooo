@@ -16,8 +16,10 @@
 
 <div class="flex flex-col items-center">
 	<p>Nickname is required to join a lobby</p>
-	<Spacer y={5}>
-		<TextInput placeholder="Enter nickname..." bind:value={nickname} />
-	</Spacer>
-	<Button on:click={changeNickname}>Save</Button>
+	<form class="flex flex-col items-center" on:submit={changeNickname}>
+		<Spacer y={5}>
+			<TextInput placeholder="Enter nickname..." bind:value={nickname} />
+		</Spacer>
+		<Button>Save</Button>
+	</form>
 </div>

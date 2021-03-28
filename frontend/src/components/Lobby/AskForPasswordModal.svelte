@@ -9,15 +9,17 @@
 
 	let nickname: string;
 
-	const changeNickname = () => {
+	const setPassword = () => {
 		dispatch('password', nickname);
 	};
 </script>
 
 <div class="flex flex-col items-center">
 	<p>This lobby is password protected</p>
-	<Spacer y={5}>
-		<TextInput placeholder="Enter password..." bind:value={nickname} />
-	</Spacer>
-	<Button on:click={changeNickname}>Join</Button>
+	<form class="flex flex-col items-center" on:submit={setPassword}>
+		<Spacer y={5}>
+			<TextInput placeholder="Enter password..." bind:value={nickname} />
+		</Spacer>
+		<Button>Join</Button>
+	</form>
 </div>
