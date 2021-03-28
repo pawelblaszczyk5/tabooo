@@ -6,6 +6,7 @@
 	import LobbyCreator from './LobbyCreator.svelte';
 	import LobbyList from './LobbyList.svelte';
 	import FaArrowLeft from 'svelte-icons/fa/FaArrowLeft.svelte';
+	import {password} from '../../stores/password';
 
 	let homeStep: HomeStep = HomeStep.INTRO;
 	let transitionInProgress = false;
@@ -16,6 +17,7 @@
 		}
 		homeStep = newStep;
 	};
+	password.clearPassword();
 </script>
 
 {#if homeStep === HomeStep.INTRO && !transitionInProgress}

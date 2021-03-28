@@ -14,6 +14,7 @@
 	import Modal from '../commons/Modal.svelte';
 	import ChangeNicknameModal from './ChangeNicknameModal.svelte';
 	import AskForPasswordModal from './AskForPasswordModal.svelte';
+	import {password} from '../../stores/password';
 
 	export let params: {lobbyId?: string};
 
@@ -155,8 +156,9 @@
 			axios
 				.get<LobbyInfo>(`/api/isLobby?lobbyId=${params.lobbyId}`)
 				.then(({data}) => {
-					if (data.isExisting && !data.secured) {
-						getPermissions();
+					if (data.isExisting && (!data.secured || $password)) {
+						getPermissions($password);
+						password.clearPassword();
 					} else if (data.isExisting && data.secured) {
 						showAskForPasswordModal = true;
 					} else {
