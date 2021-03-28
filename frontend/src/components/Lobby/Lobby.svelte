@@ -9,10 +9,15 @@
 	import RemoteAudio from './RemoteAudio.svelte';
 	import axios from 'axios';
 	import {getRtcConfig} from '../helpers/rtcConfig';
+	import {settings} from '../../stores/settings';
 
 	export let params: {lobbyId?: string};
 
-	const socket: Socket = io('', {path: '/api/ws/', query: {lobbyId: params.lobbyId ?? '', nickname: 'test'}, autoConnect: false});
+	const socket: Socket = io('', {
+		path: '/api/ws/',
+		query: {lobbyId: params.lobbyId ?? '', nickname: $settings.nickname},
+		autoConnect: false,
+	});
 	const rtcConfig = getRtcConfig();
 
 	let localStream: MediaStream;

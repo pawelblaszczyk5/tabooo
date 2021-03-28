@@ -1,11 +1,17 @@
 <script lang="ts">
-	import {settingsStore, Theme} from '../../stores/settings';
+	import {settings, Theme} from '../../stores/settings';
+	import Spacer from '../commons/Spacer.svelte';
+	import TextInput from '../commons/TextInput.svelte';
 
 	const themesArray: Array<Theme> = Object.values(Theme);
 
 	const selectTheme = (newTheme: Theme) => {
-		settingsStore.setTheme(newTheme);
+		settings.setTheme(newTheme);
 	};
+
+	let nickname = $settings.nickname;
+
+	$: settings.setNickname(nickname);
 </script>
 
 <div class="flex flex-col items-center p-4 sm:p-24">
@@ -19,10 +25,13 @@
 				}}
 				data-taboo-theme={theme}
 				class="bg-gradient-to-br from-primaryFirstTeam via-primary to-primarySecondTeam w-7 h-7 sm:w-9 sm:h-9 rounded-full mx-2 sm:mx-3 
-				{$settingsStore.theme ===
+				{$settings.theme ===
 				theme
 					? 'border-white'
 					: 'border-darkAccentColor'}  border-2" />
 		{/each}
 	</div>
+	<Spacer y={3}>
+		<TextInput bind:value={nickname} placeholder="Enter nickname">Change your nickname</TextInput>
+	</Spacer>
 </div>

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import {settingsStore} from '../../stores/settings';
+	import {settings} from '../../stores/settings';
 
-	$: document.body.dataset.tabooTheme = $settingsStore.theme;
+	$: document.body.dataset.tabooTheme = $settings.theme;
 </script>
 
 <style global>
