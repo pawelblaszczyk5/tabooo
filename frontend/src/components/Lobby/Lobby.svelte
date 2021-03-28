@@ -51,8 +51,7 @@
 
 		socket.on('playerLeft', (playerId: string) => {
 			players.find((player) => player.id === playerId)?.rtcPeerConnection?.close();
-			players.filter((player) => player.id !== playerId);
-			players = players;
+			players = players.filter((player) => player.id !== playerId);
 		});
 
 		socket.on('rtcAnswer', async ({playerId, rtcAnswer}: {playerId: string; rtcAnswer: RTCSessionDescriptionInit}) => {
