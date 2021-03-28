@@ -20,6 +20,8 @@
 				>Name: {lobby.name}, secured: {lobby.secured ? 'Yes' : 'No'}, language: {lobby.language === Language.POLISH
 					? 'Polish'
 					: 'English'}</a>
+		{:else}
+			<p>No lobbies, go create one</p>
 		{/each}
 	{:catch}
 		<p>Error while loading</p>
