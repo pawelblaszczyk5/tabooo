@@ -5,6 +5,7 @@
 	import {fly} from 'svelte/transition';
 	import type {LobbyData} from '../../model/lobbyData';
 	import {link} from 'svelte-spa-router';
+	import {Language} from '../../model/language';
 
 	const dispatch = createEventDispatcher();
 	const lobbies: Promise<AxiosResponse<Array<LobbyData>>> = axios.get<Array<LobbyData>>('/api/lobby');
@@ -15,7 +16,10 @@
 		<p>Loading...</p>
 	{:then { data }}
 		{#each data as lobby}
-			<a href="/lobby/{lobby.id}" use:link>{lobby.name}, {lobby.secured}, {lobby.language}</a>
+			<a href="/lobby/{lobby.id}" use:link
+				>Name: {lobby.name}, secured: {lobby.secured ? 'Yes' : 'No'}, language: {lobby.language === Language.POLISH
+					? 'Polish'
+					: 'English'}</a>
 		{/each}
 	{:catch}
 		<p>Error while loading</p>
