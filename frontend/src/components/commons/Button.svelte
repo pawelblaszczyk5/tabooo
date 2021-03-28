@@ -14,7 +14,6 @@
 <div class="shadow-2xl">
 	<div class="overflow-hidden relative rounded">
 		<button
-			type="button"
 			use:ripple
 			class="px-5 py-2 select-none rounded text-xl focus:outline-none transition-colors duration-300
 				{type === ButtonType.PRIMARY
