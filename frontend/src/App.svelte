@@ -13,7 +13,7 @@
 	};
 </script>
 
-<main class="flex p-6 flex-col min-h-screen w-screen items-center bg-primary transition-colors duration-300">
+<main class="p-6 min-h-screen w-screen bg-primary transition-colors duration-300">
 	<Router {routes} />
 	<Theme />
 	<div class="absolute top-4 right-4">
