@@ -1,5 +1,5 @@
 <script lang="ts">
-	import axios, {AxiosResponse} from 'axios';
+	import axios from 'axios';
 
 	import {createEventDispatcher} from 'svelte';
 	import {fly} from 'svelte/transition';
@@ -8,7 +8,7 @@
 	import {Language} from '../../model/language';
 
 	const dispatch = createEventDispatcher();
-	const lobbies: Promise<AxiosResponse<Array<LobbyData>>> = axios.get<Array<LobbyData>>('/api/lobby');
+	const lobbies = axios.get<Array<LobbyData>>('/api/lobby');
 </script>
 
 <div on:outroend={() => dispatch('outroFinished')} transition:fly={{x: -500, duration: 1000}} class="flex flex-col items-center">
