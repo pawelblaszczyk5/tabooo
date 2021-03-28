@@ -16,7 +16,7 @@
 
 <div class="flex flex-col items-center">
 	<p>This lobby is password protected</p>
-	<form class="flex flex-col items-center" on:submit={setPassword}>
+	<form class="flex flex-col items-center" on:submit|preventDefault={setPassword}>
 		<Spacer y={5}>
 			<TextInput placeholder="Enter password..." bind:value={nickname} />
 		</Spacer>
