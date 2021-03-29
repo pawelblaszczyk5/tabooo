@@ -1,9 +1,9 @@
 <script lang="ts">
-	import axios from 'axios';
+	import type {LobbyData} from '../../model/lobbyData';
 
+	import axios from 'axios';
 	import {createEventDispatcher} from 'svelte';
 	import {fly} from 'svelte/transition';
-	import type {LobbyData} from '../../model/lobbyData';
 	import {link} from 'svelte-spa-router';
 	import {Language} from '../../model/language';
 
