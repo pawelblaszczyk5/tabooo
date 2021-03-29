@@ -2,16 +2,13 @@
 	import type {LobbyData} from '../../model/lobbyData';
 
 	import axios from 'axios';
-	import {createEventDispatcher} from 'svelte';
-	import {fly} from 'svelte/transition';
 	import {link} from 'svelte-spa-router';
 	import {Language} from '../../model/language';
 
-	const dispatch = createEventDispatcher();
 	const lobbies = axios.get<Array<LobbyData>>('/api/lobby');
 </script>
 
-<div on:outroend={() => dispatch('outroFinished')} transition:fly={{x: -500, duration: 1000}} class="flex flex-col items-center">
+<div class="flex flex-col items-center">
 	{#await lobbies}
 		<p>Loading...</p>
 	{:then { data }}
