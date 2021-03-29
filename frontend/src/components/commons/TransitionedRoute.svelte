@@ -9,6 +9,6 @@
 	out:fly={{duration: 1000, x: 500}}
 	on:introend={() => (transitionInProgress = false)}
 	on:outrostart={() => (transitionInProgress = true)}
-	style="position: {transitionInProgress ? 'absolute' : undefined}">
+	style="position: {transitionInProgress ? 'absolute' : 'static'}">
 	<slot />
 </div>
