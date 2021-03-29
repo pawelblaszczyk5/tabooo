@@ -13,10 +13,10 @@
 
 	let newPassword: string;
 	let newLobbyName: string;
-	let shouldShowMissingNicknameModal = false;
+	let showMissingNicknameModal = false;
 
 	if ($settings.nickname.trim() === '') {
-		shouldShowMissingNicknameModal = true;
+		showMissingNicknameModal = true;
 	} else {
 		newLobbyName = $settings.nickname + "'s lobby";
 	}
@@ -38,7 +38,7 @@
 
 	const nicknameSet = (event: CustomEvent<string>) => {
 		settings.setNickname(event.detail);
-		shouldShowMissingNicknameModal = false;
+		showMissingNicknameModal = false;
 		newLobbyName = $settings.nickname + "'s lobby";
 	};
 </script>
@@ -54,7 +54,7 @@
 			</Spacer>
 			<Button>Create</Button>
 		</form>
-		{#if shouldShowMissingNicknameModal}
+		{#if showMissingNicknameModal}
 			<NicknameModal on:nicknameSet={nicknameSet} />
 		{/if}
 	</div>
