@@ -15,6 +15,7 @@
 	import ChangeNicknameModal from './ChangeNicknameModal.svelte';
 	import AskForPasswordModal from './AskForPasswordModal.svelte';
 	import {password} from '../../stores/password';
+	import TransitionedRoute from '../commons/TransitionedRoute.svelte';
 
 	export let params: {lobbyId?: string};
 
@@ -178,22 +179,24 @@
 	});
 </script>
 
-<p>Lobby works!</p>
+<TransitionedRoute>
+	<p>Lobby works!</p>
 
-{#each players as player (player.id)}
-	<p>Player: {player.nickname}</p>
-	<input type="range" bind:value={player.volume} min="0" max="100" step="1" />
-	<RemoteAudio mediaStream={player.mediaStream} volume={player.volume} />
-{/each}
+	{#each players as player (player.id)}
+		<p>Player: {player.nickname}</p>
+		<input type="range" bind:value={player.volume} min="0" max="100" step="1" />
+		<RemoteAudio mediaStream={player.mediaStream} volume={player.volume} />
+	{/each}
 
-{#if showMissingNicknameModal}
-	<Modal preventExit={true}>
-		<ChangeNicknameModal on:nicknameSet={nicknameSet} />
-	</Modal>
-{/if}
+	{#if showMissingNicknameModal}
+		<Modal preventExit={true}>
+			<ChangeNicknameModal on:nicknameSet={nicknameSet} />
+		</Modal>
+	{/if}
 
-{#if showAskForPasswordModal}
-	<Modal preventExit={true}>
-		<AskForPasswordModal on:password={tryToJoinPasswordProtectedLobby} />
-	</Modal>
-{/if}
+	{#if showAskForPasswordModal}
+		<Modal preventExit={true}>
+			<AskForPasswordModal on:password={tryToJoinPasswordProtectedLobby} />
+		</Modal>
+	{/if}
+</TransitionedRoute>

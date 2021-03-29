@@ -7,6 +7,7 @@
 	import Spacer from '../commons/Spacer.svelte';
 	import Button from '../commons/Button.svelte';
 	import {password} from '../../stores/password';
+	import TransitionedRoute from '../commons/TransitionedRoute.svelte';
 
 	let newPassword: string;
 	let newLobbyName: string;
@@ -27,14 +28,16 @@
 	};
 </script>
 
-<div class="flex flex-col items-center">
-	<form class="flex flex-col items-center" on:submit|preventDefault={createLobby}>
-		<Spacer y={5}>
-			<TextInput bind:value={newLobbyName} placeholder="Enter name">Lobby name</TextInput>
-		</Spacer>
-		<Spacer y={5}>
-			<TextInput bind:value={newPassword} placeholder="Leave empty if no password">Lobby password</TextInput>
-		</Spacer>
-		<Button>Create</Button>
-	</form>
-</div>
+<TransitionedRoute>
+	<div class="flex flex-col items-center">
+		<form class="flex flex-col items-center" on:submit|preventDefault={createLobby}>
+			<Spacer y={5}>
+				<TextInput bind:value={newLobbyName} placeholder="Enter name">Lobby name</TextInput>
+			</Spacer>
+			<Spacer y={5}>
+				<TextInput bind:value={newPassword} placeholder="Leave empty if no password">Lobby password</TextInput>
+			</Spacer>
+			<Button>Create</Button>
+		</form>
+	</div>
+</TransitionedRoute>
