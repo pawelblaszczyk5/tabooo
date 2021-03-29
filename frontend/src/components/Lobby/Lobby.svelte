@@ -15,6 +15,7 @@
 	import AskForPasswordModal from './AskForPasswordModal.svelte';
 	import {password} from '../../stores/password';
 	import TransitionedRoute from '../commons/TransitionedRoute.svelte';
+	import {mediaStream} from '../../stores/mediaStream';
 
 	export let params: {lobbyId?: string};
 
@@ -128,6 +129,7 @@
 			.getUserMedia({audio: true})
 			.then((stream) => {
 				localStream = stream;
+				mediaStream.saveStream(stream);
 				joinToLobby(password);
 			})
 			.catch(() => {

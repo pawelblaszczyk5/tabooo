@@ -7,6 +7,7 @@
 	import Theme from './components/App/Theme.svelte';
 	import {routes} from './routes';
 	import FaCog from 'svelte-icons/fa/FaCog.svelte';
+	import {mediaStream} from './stores/mediaStream';
 
 	const homeRoutes = ['*', '/'];
 
@@ -19,6 +20,10 @@
 
 	const routeLoaded = (event: RouteLoadedEvent) => {
 		showBackHome = !homeRoutes.includes(event.detail.route + '');
+		if ($mediaStream) {
+			$mediaStream?.getTracks().forEach((track) => track.stop());
+			mediaStream.removeStream();
+		}
 	};
 </script>
 
