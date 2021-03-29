@@ -25,6 +25,7 @@ module.exports = {
 				primaryFirstTeam: 'var(--primaryFirstTeam)',
 				primarySecondTeam: 'var(--primarySecondTeam)',
 				primaryFontColor: 'var(--primaryFontColor)',
+				primaryFontColorOpacity: 'var(--primaryFontColorOpacity)',
 				secondaryFontColor: 'var(--secondaryFontColor)',
 				darkAccentColor: 'var(--darkAccentColor)',
 			},

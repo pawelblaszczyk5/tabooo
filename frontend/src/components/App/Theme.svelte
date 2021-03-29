@@ -51,6 +51,7 @@
 		--primaryFirstTeam: #073b4c;
 		--primarySecondTeam: #ef476f;
 		--primaryFontColor: #333;
+		--primaryFontColorOpacity: rgba(51, 51, 51, 0.5);
 		--secondaryFontColor: #eee;
 		--darkAccentColor: #333;
 	}
@@ -69,6 +70,7 @@
 		--primaryFirstTeam: #006466;
 		--primarySecondTeam: #4d194d;
 		--primaryFontColor: #eee;
+		--primaryFontColorOpacity: rgba(238, 238, 238, 0.5);
 		--secondaryFontColor: #eee;
 		--darkAccentColor: #666;
 	}
@@ -87,6 +89,7 @@
 		--primaryFirstTeam: #1d3557;
 		--primarySecondTeam: #e63946;
 		--primaryFontColor: #333;
+		--primaryFontColorOpacity: rgba(51, 51, 51, 0.5);
 		--secondaryFontColor: #eee;
 		--darkAccentColor: #333;
 	}
@@ -105,6 +108,7 @@
 		--primaryFirstTeam: #ffadad;
 		--primarySecondTeam: #bdb2ff;
 		--primaryFontColor: #111;
+		--primaryFontColorOpacity: rgba(17, 17, 17, 0.5);
 		--secondaryFontColor: #111;
 		--darkAccentColor: #333;
 	}
@@ -123,6 +127,7 @@
 		--primaryFirstTeam: #555b6e;
 		--primarySecondTeam: #ffd6ba;
 		--primaryFontColor: #111;
+		--primaryFontColorOpacity: rgba(17, 17, 17, 0.5);
 		--secondaryFontColor: #111;
 		--darkAccentColor: #333;
 	}
