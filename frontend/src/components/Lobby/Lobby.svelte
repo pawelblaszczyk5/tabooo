@@ -11,8 +11,7 @@
 	import axios from 'axios';
 	import {getRtcConfig} from '../../helpers/rtcConfig';
 	import {settings} from '../../stores/settings';
-	import Modal from '../commons/Modal.svelte';
-	import ChangeNicknameModal from './ChangeNicknameModal.svelte';
+	import NicknameModal from '../commons/NicknameModal.svelte';
 	import AskForPasswordModal from './AskForPasswordModal.svelte';
 	import {password} from '../../stores/password';
 	import TransitionedRoute from '../commons/TransitionedRoute.svelte';
@@ -171,7 +170,7 @@
 	};
 
 	onMount(() => {
-		if (!$settings.nickname) {
+		if ($settings.nickname.trim() === '') {
 			showMissingNicknameModal = true;
 		} else {
 			checkLobby();
@@ -189,14 +188,10 @@
 	{/each}
 
 	{#if showMissingNicknameModal}
-		<Modal preventExit={true}>
-			<ChangeNicknameModal on:nicknameSet={nicknameSet} />
-		</Modal>
+		<NicknameModal on:nicknameSet={nicknameSet} />
 	{/if}
 
 	{#if showAskForPasswordModal}
-		<Modal preventExit={true}>
-			<AskForPasswordModal on:password={tryToJoinPasswordProtectedLobby} />
-		</Modal>
+		<AskForPasswordModal on:password={tryToJoinPasswordProtectedLobby} />
 	{/if}
 </TransitionedRoute>
