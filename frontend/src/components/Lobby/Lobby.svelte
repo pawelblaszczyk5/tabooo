@@ -16,6 +16,7 @@
 	import {password} from '../../stores/password';
 	import TransitionedRoute from '../commons/TransitionedRoute.svelte';
 	import {mediaStream} from '../../stores/mediaStream';
+	import {get} from 'svelte/store';
 
 	export let params: {lobbyId?: string};
 
@@ -28,9 +29,10 @@
 	let showAskForPasswordModal = false;
 
 	const joinToLobby = (password?: string) => {
+		const nicknameFromStore = get(settings).nickname;
 		socket = io('', {
 			path: '/api/ws/',
-			query: {lobbyId: params.lobbyId ?? '', nickname: $settings.nickname, password: password ?? ''},
+			query: {lobbyId: params.lobbyId ?? '', nickname: nicknameFromStore, password: password ?? ''},
 		});
 
 		socket.on('wrongPassword', () => {
@@ -158,8 +160,9 @@
 			axios
 				.get<LobbyInfo>(`/api/isLobby?lobbyId=${params.lobbyId}`)
 				.then(({data}) => {
-					if (data.isExisting && (!data.secured || $password)) {
-						getPermissions($password);
+					const passwordFromStore = get(password);
+					if (data.isExisting && (!data.secured || passwordFromStore)) {
+						getPermissions(passwordFromStore);
 						password.clearPassword();
 					} else if (data.isExisting && data.secured) {
 						showAskForPasswordModal = true;
@@ -172,7 +175,7 @@
 	};
 
 	onMount(() => {
-		if ($settings.nickname.trim() === '') {
+		if (get(settings).nickname.trim() === '') {
 			showMissingNicknameModal = true;
 		} else {
 			checkLobby();

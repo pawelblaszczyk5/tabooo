@@ -10,15 +10,17 @@
 	import TransitionedRoute from '../commons/TransitionedRoute.svelte';
 	import {settings} from '../../stores/settings';
 	import NicknameModal from '../commons/NicknameModal.svelte';
+	import {get} from 'svelte/store';
 
 	let newPassword: string;
 	let newLobbyName: string;
 	let showMissingNicknameModal = false;
 
-	if ($settings.nickname.trim() === '') {
+	const nickname = get(settings).nickname;
+	if (nickname.trim() === '') {
 		showMissingNicknameModal = true;
 	} else {
-		newLobbyName = $settings.nickname + "'s lobby";
+		newLobbyName = nickname + "'s lobby";
 	}
 
 	const createLobby = () => {
@@ -39,7 +41,7 @@
 	const nicknameSet = (event: CustomEvent<string>) => {
 		settings.setNickname(event.detail);
 		showMissingNicknameModal = false;
-		newLobbyName = $settings.nickname + "'s lobby";
+		newLobbyName = get(settings).nickname + "'s lobby";
 	};
 </script>
 

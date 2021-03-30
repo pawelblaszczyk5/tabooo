@@ -8,10 +8,10 @@
 
 	const dispatch = createEventDispatcher<{password: string}>();
 
-	let nickname: string;
+	let password: string;
 
 	const setPassword = () => {
-		dispatch('password', nickname);
+		dispatch('password', password);
 	};
 </script>
 
@@ -20,7 +20,7 @@
 		<p>This lobby is password protected</p>
 		<form class="flex flex-col items-center" on:submit|preventDefault={setPassword}>
 			<Spacer y={5}>
-				<TextInput placeholder="Enter password..." bind:value={nickname} />
+				<TextInput placeholder="Enter password..." bind:value={password} />
 			</Spacer>
 			<Button>Join</Button>
 		</form>

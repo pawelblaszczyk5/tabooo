@@ -8,6 +8,7 @@
 	import {routes} from './routes';
 	import FaCog from 'svelte-icons/fa/FaCog.svelte';
 	import {mediaStream} from './stores/mediaStream';
+	import {get} from 'svelte/store';
 
 	const homeRoutes = ['*', '/'];
 
@@ -20,8 +21,9 @@
 
 	const routeLoaded = (event: RouteLoadedEvent) => {
 		showBackHome = !homeRoutes.includes(event.detail.route + '');
-		if ($mediaStream) {
-			$mediaStream?.getTracks().forEach((track) => track.stop());
+		const mediaStreamFromStore = get(mediaStream);
+		if (mediaStreamFromStore) {
+			mediaStreamFromStore?.getTracks().forEach((track) => track.stop());
 			mediaStream.removeStream();
 		}
 	};
