@@ -1,4 +1,6 @@
 <script lang="ts">
+	import {tick} from 'svelte';
+	import {get} from 'svelte/store';
 	import {settings, Theme} from '../../stores/settings';
 	import Spacer from '../commons/Spacer.svelte';
 	import TextInput from '../commons/TextInput.svelte';
@@ -9,9 +11,14 @@
 		settings.setTheme(newTheme);
 	};
 
-	let nickname = $settings.nickname;
+	let nickname = get(settings).nickname;
 
 	$: settings.setNickname(nickname);
+	settings.subscribe((settingsStoreValue) => {
+		tick().then(() => {
+			nickname = settingsStoreValue.nickname;
+		});
+	});
 </script>
 
 <div class="flex flex-col items-center p-4 sm:p-24">
