@@ -180,6 +180,9 @@
 		} else {
 			checkLobby();
 		}
+		return () => {
+			socket?.disconnect();
+		};
 	});
 </script>
 
