@@ -17,11 +17,11 @@ const createToastrStore = () => {
 					id,
 					message: toastrMessage,
 				};
-				// setTimeout(() => {
-				// 	update((toastrArray) => {
-				// 		return toastrArray.filter((toastr) => toastr.id !== id);
-				// 	});
-				// }, 2500);
+				setTimeout(() => {
+					update((toastrArray) => {
+						return toastrArray.filter((toastr) => toastr.id !== id);
+					});
+				}, 2500);
 				return [...toastrArray, newToastr];
 			});
 		},
