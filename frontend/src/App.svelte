@@ -9,6 +9,7 @@
 	import FaCog from 'svelte-icons/fa/FaCog.svelte';
 	import {mediaStream} from './stores/mediaStream';
 	import {get} from 'svelte/store';
+	import ToastrContainer from './components/App/ToastrContainer.svelte';
 
 	const homeRoutes = ['*', '/'];
 
@@ -47,4 +48,5 @@
 		<Modal on:closeModal={() => toggleModalState(false)}><Settings /></Modal>
 	{/if}
 	<Theme />
+	<ToastrContainer />
 </main>
