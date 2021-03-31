@@ -29,7 +29,7 @@
 	};
 </script>
 
-<main class="flex flex-col items-center p-6 min-h-screen w-screen bg-primary transition-colors duration-300">
+<main class="flex flex-col items-center p-6 min-h-screen w-screen bg-primary transition-colors duration-300 overflow-hidden">
 	<Router on:routeLoaded={routeLoaded} {routes} />
 	<div
 		on:click={() => toggleModalState(!showSettingsModal)}
