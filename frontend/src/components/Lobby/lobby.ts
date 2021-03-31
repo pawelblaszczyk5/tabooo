@@ -7,6 +7,7 @@ import {mediaStream} from '../../stores/mediaStream';
 import {players} from '../../stores/players';
 import {settings} from '../../stores/settings';
 import {socket} from '../../stores/socket';
+import {toastr} from '../../stores/toastr';
 
 export const joinToLobby = (lobbyId = '', password = ''): void => {
 	const rtcConfig = getRtcConfig();
@@ -18,7 +19,7 @@ export const joinToLobby = (lobbyId = '', password = ''): void => {
 	socket.saveSocket(localSocket);
 
 	localSocket.on('wrongPassword', () => {
-		window.alert('Wrong password');
+		toastr.addToastr('Wrong password');
 		push('/');
 	});
 

@@ -15,6 +15,7 @@
 	import {joinToLobby} from './lobby';
 	import {players} from '../../stores/players';
 	import {socket} from '../../stores/socket';
+	import {toastr} from '../../stores/toastr';
 
 	export let params: {lobbyId?: string};
 
@@ -36,7 +37,7 @@
 	};
 
 	const redirectToHome = (error: string) => {
-		window.alert(error);
+		toastr.addToastr(error);
 		push('/');
 	};
 
