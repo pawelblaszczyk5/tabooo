@@ -34,13 +34,13 @@
 	<Router on:routeLoaded={routeLoaded} {routes} />
 	<div
 		on:click={() => toggleModalState(!showSettingsModal)}
-		class="absolute top-4 right-4 w-8 h-8 cursor-pointer transform hover:rotate-90 transition-transform duration-500">
+		class="absolute top-4 right-4 w-6 h-6 md:w-8 md:h-8 cursor-pointer transform hover:rotate-90 transition-transform duration-500">
 		<FaCog />
 	</div>
 	{#if showBackHome}
 		<div
 			on:click={() => push('/')}
-			class="absolute top-4 left-4 w-8 h-8 cursor-pointer transform hover:scale-125 transition-transform duration-500">
+			class="absolute top-4 left-4 w-6 h-6 md:w-8 md:h-8 cursor-pointer transform hover:scale-125 transition-transform duration-500">
 			<FaArrowLeft />
 		</div>
 	{/if}
