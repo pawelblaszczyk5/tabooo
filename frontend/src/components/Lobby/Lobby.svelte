@@ -32,7 +32,7 @@
 				joinToLobby(params.lobbyId, localPassword);
 			})
 			.catch(() => {
-				redirectToHome('No permissions');
+				redirectToHome('Access to microphone is required');
 			});
 	};
 
@@ -71,7 +71,7 @@
 		}
 	};
 
-	const initLobby = (key = '') => {
+	const initLobby = (key?: string) => {
 		players.resetStore();
 		if (get(settings).nickname.trim() === '') {
 			showMissingNicknameModal = true;
