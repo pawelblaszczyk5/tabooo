@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type {LobbyInfo} from '../../model/lobbyInfo';
 
-	import {onMount} from 'svelte';
+	import {onDestroy} from 'svelte';
 	import {push} from 'svelte-spa-router';
 	import RemoteAudio from './RemoteAudio.svelte';
 	import axios from 'axios';
@@ -71,16 +71,22 @@
 		}
 	};
 
-	onMount(() => {
+	const initLobby = (key = '') => {
+		players.resetStore();
 		if (get(settings).nickname.trim() === '') {
 			showMissingNicknameModal = true;
 		} else {
 			checkLobby();
 		}
+	};
+
+	onDestroy(() => {
 		return () => {
 			get(socket)?.disconnect();
 		};
 	});
+
+	$: initLobby(params.lobbyId);
 </script>
 
 <TransitionedRoute>
