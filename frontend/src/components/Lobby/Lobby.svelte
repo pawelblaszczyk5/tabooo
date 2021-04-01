@@ -72,6 +72,7 @@
 	};
 
 	const initLobby = (key?: string) => {
+		get(socket)?.disconnect();
 		players.resetStore();
 		if (get(settings).nickname.trim() === '') {
 			showMissingNicknameModal = true;
@@ -81,9 +82,7 @@
 	};
 
 	onDestroy(() => {
-		return () => {
-			get(socket)?.disconnect();
-		};
+		get(socket)?.disconnect();
 	});
 
 	$: initLobby(params.lobbyId);
