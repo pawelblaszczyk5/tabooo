@@ -11,7 +11,7 @@
 	export let type: ButtonType = ButtonType.PRIMARY;
 </script>
 
-<div class="shadow-2xl">
+<div class="shadow-2xl w-max">
 	<div class="overflow-hidden relative rounded">
 		<button
 			use:ripple

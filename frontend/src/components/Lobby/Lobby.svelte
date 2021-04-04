@@ -17,11 +17,13 @@
 	import {socket} from '../../stores/socket';
 	import {toastr} from '../../stores/toastr';
 	import {admin} from '../../stores/admin';
+	import Button from '../commons/Button.svelte';
 
 	export let params: {lobbyId?: string};
 
 	let showMissingNicknameModal = false;
 	let showAskForPasswordModal = false;
+	let muted = false;
 
 	const getPermissions = (): void => {
 		navigator.mediaDevices
@@ -83,6 +85,14 @@
 		}
 	};
 
+	const changeMuteStatus = () => {
+		muted = !muted;
+		const localMediaStream = get(mediaStream);
+		localMediaStream?.getTracks().forEach((track) => {
+			track.enabled = !muted;
+		});
+	};
+
 	onDestroy(() => {
 		get(socket)?.disconnect();
 	});
@@ -108,4 +118,6 @@
 	{#if showAskForPasswordModal}
 		<AskForPasswordModal on:password={tryToJoinPasswordProtectedLobby} />
 	{/if}
+
+	<Button on:click={changeMuteStatus}>{muted ? 'Unmute' : 'Mute'} yourself</Button>
 </TransitionedRoute>
