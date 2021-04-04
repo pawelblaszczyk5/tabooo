@@ -66,3 +66,25 @@ export const isLobbySecured = (lobbyId: string): boolean => {
 export const getLobbyHash = (lobbyId: string): string => {
 	return lobbies.get(lobbyId)?.password ?? '';
 };
+
+export const isLobbyFirstPlayer = (lobbyId: string): boolean => {
+	return lobbies.get(lobbyId)?.players.length === 0;
+};
+
+export const shouldPickNewAdmin = (lobbyId: string, playerId: string): boolean => {
+	const lobby = lobbies.get(lobbyId);
+	if (!lobby) {
+		return false;
+	}
+	return (lobby.players.find((player) => player.id === playerId)?.admin && lobby.players.length !== 0) || false;
+};
+
+export const pickNewAdmin = (lobbyId: string): string => {
+	const lobby = lobbies.get(lobbyId);
+	if (!lobby) {
+		return '';
+	}
+	const newAdmin = lobby.players[Math.floor(Math.random() * lobby.players.length)];
+	newAdmin.admin = true;
+	return newAdmin.id;
+};

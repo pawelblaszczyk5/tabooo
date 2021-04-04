@@ -3,6 +3,7 @@ import {push} from 'svelte-spa-router';
 import {get} from 'svelte/store';
 import {getRtcConfig} from '../../helpers/rtcConfig';
 import type {PlayerData} from '../../model/playerData';
+import {admin} from '../../stores/admin';
 import {mediaStream} from '../../stores/mediaStream';
 import {players} from '../../stores/players';
 import {settings} from '../../stores/settings';
@@ -44,6 +45,10 @@ export const joinToLobby = (lobbyId = '', password = ''): void => {
 		allPlayersData.forEach((player) => {
 			addNewPlayer(player.id, player.nickname);
 		});
+	});
+
+	localSocket.on('lobbyAdmin', () => {
+		admin.set(true);
 	});
 
 	localSocket.on('playerLeft', (playerId: string) => {

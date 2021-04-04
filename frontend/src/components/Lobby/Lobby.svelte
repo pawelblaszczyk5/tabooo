@@ -16,6 +16,7 @@
 	import {players} from '../../stores/players';
 	import {socket} from '../../stores/socket';
 	import {toastr} from '../../stores/toastr';
+	import {admin} from '../../stores/admin';
 
 	export let params: {lobbyId?: string};
 
@@ -72,6 +73,7 @@
 	};
 
 	const initLobby = (key?: string) => {
+		admin.set(false);
 		get(socket)?.disconnect();
 		players.resetStore();
 		if (get(settings).nickname.trim() === '') {
@@ -90,7 +92,9 @@
 
 <TransitionedRoute>
 	<p>Lobby works!</p>
-
+	{#if $admin}
+		<p>You are an admin of this lobby</p>
+	{/if}
 	{#each $players as player (player.id)}
 		<p>Player: {player.nickname}</p>
 		<input type="range" bind:value={player.volume} min="0" max="100" step="1" />

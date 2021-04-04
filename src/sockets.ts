@@ -1,6 +1,15 @@
 import {Socket} from 'socket.io';
 import {verifyPassword} from './helpers/password';
-import {addPlayerToLobby, getLobbyHash, getPlayersInLobby, isLobbySecured, removePlayerFromLobby} from './lobby';
+import {
+	addPlayerToLobby,
+	getLobbyHash,
+	getPlayersInLobby,
+	isLobbyFirstPlayer,
+	isLobbySecured,
+	pickNewAdmin,
+	removePlayerFromLobby,
+	shouldPickNewAdmin,
+} from './lobby';
 import {Player} from './model/player';
 
 export const handleSocket = (socket: Socket): void => {
@@ -21,8 +30,13 @@ export const handleSocket = (socket: Socket): void => {
 	}
 
 	socket.on('disconnect', () => {
+		const wasAdmin = shouldPickNewAdmin(lobbyId, socket.id);
 		socket.to(lobbyId).emit('playerLeft', socket.id);
 		removePlayerFromLobby(lobbyId, socket.id);
+
+		if (wasAdmin) {
+			socket.to(pickNewAdmin(lobbyId)).emit('lobbyAdmin');
+		}
 	});
 
 	socket.on('rtcOffer', ({playerId, rtcOffer}) => {
@@ -42,7 +56,7 @@ const joinLobby = (socket: Socket, lobbyId: string, nickname: string) => {
 	const player: Player = {
 		nickname,
 		id: socket.id,
-		admin: false,
+		admin: isLobbyFirstPlayer(lobbyId),
 	};
 
 	socket.join(lobbyId);
@@ -54,4 +68,8 @@ const joinLobby = (socket: Socket, lobbyId: string, nickname: string) => {
 		'successfullyJoinedLobby',
 		getPlayersInLobby(lobbyId).filter((player) => player.id !== socket.id),
 	);
+
+	if (player.admin) {
+		socket.emit('lobbyAdmin');
+	}
 };
