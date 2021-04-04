@@ -11,9 +11,11 @@
 	import {settings} from '../../stores/settings';
 	import NicknameModal from '../commons/NicknameModal.svelte';
 	import {get} from 'svelte/store';
+	import RadioInput from '../commons/RadioInput.svelte';
 
 	let newPassword: string;
 	let newLobbyName: string;
+	let newLobbyLanguage: Language = Language.ENGLISH;
 	let showMissingNicknameModal = false;
 
 	const nickname = get(settings).nickname;
@@ -26,7 +28,7 @@
 	const createLobby = () => {
 		password.setPassword(newPassword);
 		const lobbyData: LobbyData = {
-			language: Language.ENGLISH,
+			language: newLobbyLanguage,
 			name: newLobbyName,
 			password: newPassword,
 		};
@@ -48,11 +50,16 @@
 <TransitionedRoute>
 	<div class="flex flex-col items-center relative">
 		<form class="flex flex-col items-center" on:submit|preventDefault={createLobby}>
-			<Spacer y={5}>
+			<Spacer y={4}>
 				<TextInput bind:value={newLobbyName} placeholder="Enter name">Lobby name</TextInput>
 			</Spacer>
-			<Spacer y={5}>
+			<Spacer y={4}>
 				<TextInput bind:value={newPassword} placeholder="Leave empty if no password">Lobby password</TextInput>
+			</Spacer>
+			<Spacer y={4}>
+				<p>Choose language</p>
+				<RadioInput bind:group={newLobbyLanguage} value={Language.ENGLISH}>English</RadioInput>
+				<RadioInput bind:group={newLobbyLanguage} value={Language.POLISH}>Polish</RadioInput>
 			</Spacer>
 			<Button>Create</Button>
 		</form>
