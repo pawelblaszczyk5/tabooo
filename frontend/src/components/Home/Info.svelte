@@ -3,7 +3,7 @@
 	import FaLinkedin from 'svelte-icons/fa/FaLinkedin.svelte';
 </script>
 
-<div class="flex flex-wrap items-center justify-center max-w-full sm:max-w-xs w-96 sm:w-max p-2 sm:p-4">
+<div class="flex flex-wrap items-center justify-center max-w-full sm:max-w-md w-96 sm:w-max p-2 sm:p-4">
 	<p class="text-center w-full mb-3">
 		Tabooo is a cybernetically enhanced taboo game built with Svelte, as catchphrase can suggest. The goal is simple - describe a word to
 		your team without using given words and let them guess it. Better team wins, good luck and have fun!
