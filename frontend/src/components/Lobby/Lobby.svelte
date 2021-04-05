@@ -18,6 +18,8 @@
 	import {toastr} from '../../stores/toastr';
 	import {admin} from '../../stores/admin';
 	import Button from '../commons/Button.svelte';
+	import RangeInput from '../commons/RangeInput.svelte';
+	import App from '../../App.svelte';
 
 	export let params: {lobbyId?: string};
 
@@ -107,7 +109,7 @@
 	{/if}
 	{#each $players as player (player.id)}
 		<p>Player: {player.nickname}</p>
-		<input type="range" bind:value={player.volume} min="0" max="100" step="1" />
+		<RangeInput bind:value={player.volume} />
 		<RemoteAudio mediaStream={player.mediaStream} volume={player.volume} />
 	{/each}
 
