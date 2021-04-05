@@ -55,6 +55,7 @@ export const getLobbyInfo = (lobbyId: string): LobbyInfo => {
 	const lobby = lobbies.get(lobbyId);
 	return {
 		isExisting: lobby ? true : false,
+		name: lobby?.name,
 		secured: lobby?.secured ?? false,
 	};
 };

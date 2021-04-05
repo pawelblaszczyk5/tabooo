@@ -25,6 +25,7 @@
 	let showMissingNicknameModal = false;
 	let showAskForPasswordModal = false;
 	let muted = false;
+	let lobbyName = '';
 
 	const getPermissions = (): void => {
 		navigator.mediaDevices
@@ -63,6 +64,7 @@
 				.get<LobbyInfo>(`/api/isLobby?lobbyId=${params.lobbyId}`)
 				.then(({data}) => {
 					const passwordFromStore = get(password);
+					lobbyName = data.name ?? '';
 					if (data.isExisting && (!data.secured || passwordFromStore)) {
 						getPermissions();
 					} else if (data.isExisting && data.secured) {
@@ -102,23 +104,25 @@
 </script>
 
 <TransitionedRoute>
-	<p>Lobby works!</p>
-	{#if $admin}
-		<p>You are an admin of this lobby</p>
-	{/if}
-	{#each $players as player (player.id)}
-		<p>Player: {player.nickname}</p>
-		<RangeInput bind:value={player.volume} />
-		<RemoteAudio mediaStream={player.mediaStream} volume={player.volume} />
-	{/each}
+	<div class="w-full flex flex-col items-center">
+		<h1 class="font-semibold text-2xl">{lobbyName}</h1>
+		{#if $admin}
+			<p>You are an admin of this lobby</p>
+		{/if}
+		{#each $players as player (player.id)}
+			<p>Player: {player.nickname}</p>
+			<RangeInput bind:value={player.volume} />
+			<RemoteAudio mediaStream={player.mediaStream} volume={player.volume} />
+		{/each}
 
-	{#if showMissingNicknameModal}
-		<NicknameModal on:nicknameSet={nicknameSet} />
-	{/if}
+		{#if showMissingNicknameModal}
+			<NicknameModal on:nicknameSet={nicknameSet} />
+		{/if}
 
-	{#if showAskForPasswordModal}
-		<AskForPasswordModal on:password={tryToJoinPasswordProtectedLobby} />
-	{/if}
+		{#if showAskForPasswordModal}
+			<AskForPasswordModal on:password={tryToJoinPasswordProtectedLobby} />
+		{/if}
 
-	<Button on:click={changeMuteStatus}>{muted ? 'Unmute' : 'Mute'} yourself</Button>
+		<Button on:click={changeMuteStatus}>{muted ? 'Unmute' : 'Mute'} yourself</Button>
+	</div>
 </TransitionedRoute>
