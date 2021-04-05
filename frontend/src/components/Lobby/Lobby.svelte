@@ -19,7 +19,6 @@
 	import {admin} from '../../stores/admin';
 	import Button from '../commons/Button.svelte';
 	import RangeInput from '../commons/RangeInput.svelte';
-	import App from '../../App.svelte';
 
 	export let params: {lobbyId?: string};
 
