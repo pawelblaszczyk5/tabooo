@@ -38,9 +38,7 @@
 </script>
 
 <main class="flex flex-col items-center min-h-screen w-screen bg-primary transition-colors duration-300">
-	<div class="p-6 mt-8 sm:mt-2 w-full">
-		<Router on:routeLoaded={routeLoaded} {routes} />
-	</div>
+	<Router on:routeLoaded={routeLoaded} {routes} />
 	<div
 		on:click={() => toggleSettingsModalState(!showSettingsModal)}
 		class="fixed top-4 right-4 w-6 h-6 md:w-8 md:h-8 cursor-pointer transform hover:rotate-90 transition-transform duration-500">
