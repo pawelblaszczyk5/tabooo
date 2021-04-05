@@ -35,6 +35,7 @@
 
 	body {
 		background-color: var(--primary);
+		min-height: 100vh;
 	}
 
 	[data-taboo-theme='default'] {
