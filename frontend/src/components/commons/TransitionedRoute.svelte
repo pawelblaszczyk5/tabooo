@@ -9,8 +9,7 @@
 	out:fly={{duration: 1000, x: 500}}
 	on:introend={() => (transitionInProgress = false)}
 	on:outrostart={() => (transitionInProgress = true)}
-	class="w-full top-0"
-	class:p-6={transitionInProgress}
+	class="w-full"
 	style="position: {transitionInProgress ? 'absolute' : 'static'}">
 	<slot />
 </div>
