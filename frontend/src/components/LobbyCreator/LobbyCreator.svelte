@@ -13,8 +13,8 @@
 	import {get} from 'svelte/store';
 	import RadioInput from '../commons/RadioInput.svelte';
 
-	let newPassword: string;
-	let newLobbyName: string;
+	let newPassword = '';
+	let newLobbyName = '';
 	let newLobbyLanguage: Language = Language.ENGLISH;
 	let showMissingNicknameModal = false;
 
