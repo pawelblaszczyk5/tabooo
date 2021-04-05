@@ -30,7 +30,7 @@
 	};
 </script>
 
-<main class="flex flex-col mt-8 sm:mt-2 items-center p-6 w-screen bg-primary transition-colors duration-300">
+<main class="flex flex-col mt-8 sm:mt-2 items-center p-6 min-h-screen w-screen bg-primary transition-colors duration-300">
 	<Router on:routeLoaded={routeLoaded} {routes} />
 	<div
 		on:click={() => toggleModalState(!showSettingsModal)}
