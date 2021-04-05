@@ -17,8 +17,8 @@
 	import {socket} from '../../stores/socket';
 	import {toastr} from '../../stores/toastr';
 	import {admin} from '../../stores/admin';
-	import Button from '../commons/Button.svelte';
 	import RangeInput from '../commons/RangeInput.svelte';
+	import MuteButton from './MuteButton.svelte';
 
 	export let params: {lobbyId?: string};
 
@@ -122,7 +122,7 @@
 		{#if showAskForPasswordModal}
 			<AskForPasswordModal on:password={tryToJoinPasswordProtectedLobby} />
 		{/if}
-
-		<Button on:click={changeMuteStatus}>{muted ? 'Unmute' : 'Mute'} yourself</Button>
 	</div>
 </TransitionedRoute>
+
+<MuteButton {muted} on:click={changeMuteStatus} />
