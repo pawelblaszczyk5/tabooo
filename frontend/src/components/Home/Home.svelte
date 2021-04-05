@@ -2,11 +2,8 @@
 	import Button, {ButtonType} from '../commons/Button.svelte';
 	import Spacer from '../commons/Spacer.svelte';
 	import Intro from './Intro.svelte';
-	import {password} from '../../stores/password';
 	import {push} from 'svelte-spa-router';
 	import TransitionedRoute from '../commons/TransitionedRoute.svelte';
-
-	password.clearPassword();
 </script>
 
 <TransitionedRoute>
