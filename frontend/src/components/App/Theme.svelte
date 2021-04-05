@@ -15,6 +15,10 @@
 			box-shadow: 0 8px 32px 0 var(--primaryOpacity40);
 		}
 
+		.max-w-full-margin {
+			max-width: calc(100% - 2rem);
+		}
+
 		@supports ((-webkit-backdrop-filter: blur(0.5rem)) or (backdrop-filter: blur(0.5rem))) {
 			.glass-sm {
 				background: var(--primaryOpacity25);
