@@ -29,11 +29,6 @@
 
 	const routeLoaded = (event: RouteLoadedEvent) => {
 		showBackHome = !homeRoutes.includes(event.detail.route + '');
-		const mediaStreamFromStore = get(mediaStream);
-		if (mediaStreamFromStore) {
-			mediaStreamFromStore?.getTracks().forEach((track) => track.stop());
-			mediaStream.removeStream();
-		}
 	};
 </script>
 

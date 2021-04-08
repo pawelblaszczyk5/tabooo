@@ -98,6 +98,10 @@
 
 	onDestroy(() => {
 		get(socket)?.disconnect();
+		get(mediaStream)
+			?.getTracks()
+			.forEach((track) => track.stop());
+		mediaStream.removeStream();
 	});
 
 	$: initLobby(params.lobbyId);
