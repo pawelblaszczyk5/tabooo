@@ -1,3 +1,5 @@
+import type {Team} from './team';
+
 export interface Player {
 	id: string;
 	nickname: string;
@@ -5,4 +7,5 @@ export interface Player {
 	rtcPeerConnection?: RTCPeerConnection;
 	audioElement?: HTMLMediaElement;
 	volume: number;
+	team: Team;
 }

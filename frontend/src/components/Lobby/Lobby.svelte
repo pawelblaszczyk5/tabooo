@@ -3,7 +3,6 @@
 
 	import {onDestroy} from 'svelte';
 	import {push} from 'svelte-spa-router';
-	import RemoteAudio from './RemoteAudio.svelte';
 	import axios from 'axios';
 	import {settings} from '../../stores/settings';
 	import NicknameModal from '../commons/NicknameModal.svelte';

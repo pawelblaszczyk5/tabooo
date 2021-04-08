@@ -4,6 +4,7 @@ import {Language} from './model/language';
 import crypto from 'crypto';
 import {hashPassword} from './helpers/password';
 import {LobbyInfo} from './model/lobbyInfo';
+import {TeamChange} from './model/teamChange';
 
 export const lobbies: Map<string, Lobby> = new Map();
 
@@ -88,4 +89,16 @@ export const pickNewAdmin = (lobbyId: string): string => {
 	const newAdmin = lobby.players[Math.floor(Math.random() * lobby.players.length)];
 	newAdmin.admin = true;
 	return newAdmin.id;
+};
+
+export const updatePlayerTeam = (lobbyId: string, teamChange: TeamChange): void => {
+	const lobby = lobbies.get(lobbyId);
+	if (!lobby) {
+		return;
+	}
+	const playerToUpdate = lobby.players.find((player) => (player.id = teamChange.playerId));
+	if (!playerToUpdate) {
+		return;
+	}
+	playerToUpdate.team = teamChange.team;
 };

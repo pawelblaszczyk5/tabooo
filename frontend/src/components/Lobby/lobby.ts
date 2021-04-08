@@ -3,6 +3,8 @@ import {push} from 'svelte-spa-router';
 import {get} from 'svelte/store';
 import {getRtcConfig} from '../../helpers/rtcConfig';
 import type {PlayerData} from '../../model/playerData';
+import {Team} from '../../model/team';
+import type {TeamChange} from '../../model/teamChange';
 import {admin} from '../../stores/admin';
 import {mediaStream} from '../../stores/mediaStream';
 import {players} from '../../stores/players';
@@ -34,7 +36,7 @@ export const joinToLobby = (lobbyId = '', password = ''): void => {
 			sendIceCandidate(event, playerData.id);
 		});
 
-		addNewPlayer(playerData.id, playerData.nickname, rtcPeerConnection);
+		addNewPlayer(playerData.id, playerData.nickname, Team.OBSERVER, rtcPeerConnection);
 		addStreamToRtcPeerConnection(rtcPeerConnection);
 		const rtcOffer = await rtcPeerConnection.createOffer();
 		await rtcPeerConnection.setLocalDescription(rtcOffer);
@@ -43,12 +45,16 @@ export const joinToLobby = (lobbyId = '', password = ''): void => {
 
 	localSocket.on('successfullyJoinedLobby', (allPlayersData: Array<PlayerData>) => {
 		allPlayersData.forEach((player) => {
-			addNewPlayer(player.id, player.nickname);
+			addNewPlayer(player.id, player.nickname, player.team);
 		});
 	});
 
 	localSocket.on('lobbyAdmin', () => {
 		admin.set(true);
+	});
+
+	localSocket.on('teamChange', (teamChange: TeamChange) => {
+		players.updatePlayerTeam(teamChange);
 	});
 
 	localSocket.on('playerLeft', (playerId: string) => {
@@ -114,12 +120,13 @@ const sendIceCandidate = (event: RTCPeerConnectionIceEvent, playerId: string): v
 	}
 };
 
-const addNewPlayer = (playerId: string, nickname: string, rtcPeerConnection?: RTCPeerConnection): void => {
+const addNewPlayer = (playerId: string, nickname: string, team: Team, rtcPeerConnection?: RTCPeerConnection): void => {
 	players.addPlayer({
 		id: playerId,
 		nickname: nickname,
 		rtcPeerConnection: rtcPeerConnection,
 		mediaStream: new MediaStream(),
 		volume: 100,
+		team: team,
 	});
 };

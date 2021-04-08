@@ -7,5 +7,6 @@
 
 <div>
 	<p>Player: {player.nickname}</p>
+	<p>Team: {player.team}</p>
 	<RangeInput bind:value={player.volume} />
 </div>

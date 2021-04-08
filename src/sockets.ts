@@ -9,8 +9,11 @@ import {
 	pickNewAdmin,
 	removePlayerFromLobby,
 	shouldPickNewAdmin,
+	updatePlayerTeam,
 } from './lobby';
 import {Player} from './model/player';
+import {Team} from './model/team';
+import {TeamChange} from './model/teamChange';
 
 export const handleSocket = (socket: Socket): void => {
 	const lobbyId: string = socket.handshake.query.lobbyId as string;
@@ -50,6 +53,11 @@ export const handleSocket = (socket: Socket): void => {
 	socket.on('rtcCandidate', ({playerId, rtcIceCandidate}) => {
 		socket.to(playerId).emit('rtcCandidate', {playerId: socket.id, rtcIceCandidate});
 	});
+
+	socket.on('teamChange', (teamChange: TeamChange) => {
+		updatePlayerTeam(lobbyId, teamChange);
+		socket.to(lobbyId).emit('teamChange', teamChange);
+	});
 };
 
 const joinLobby = (socket: Socket, lobbyId: string, nickname: string) => {
@@ -57,6 +65,7 @@ const joinLobby = (socket: Socket, lobbyId: string, nickname: string) => {
 		nickname,
 		id: socket.id,
 		admin: isLobbyFirstPlayer(lobbyId),
+		team: Team.OBSERVER,
 	};
 
 	socket.join(lobbyId);
