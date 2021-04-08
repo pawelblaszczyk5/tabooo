@@ -8,8 +8,6 @@
 	import Theme from './components/App/Theme.svelte';
 	import {routes} from './routes';
 	import FaCog from 'svelte-icons/fa/FaCog.svelte';
-	import {mediaStream} from './stores/mediaStream';
-	import {get} from 'svelte/store';
 	import ToastrContainer from './components/App/ToastrContainer.svelte';
 	import Info from './components/App/Info.svelte';
 

@@ -17,8 +17,8 @@
 	import {socket} from '../../stores/socket';
 	import {toastr} from '../../stores/toastr';
 	import {admin} from '../../stores/admin';
-	import RangeInput from '../commons/RangeInput.svelte';
 	import MuteButton from './MuteButton.svelte';
+	import Players from './Players.svelte';
 
 	export let params: {lobbyId?: string};
 
@@ -113,20 +113,13 @@
 		{#if $admin}
 			<p>You are an admin of this lobby</p>
 		{/if}
-		{#each $players as player (player.id)}
-			<p>Player: {player.nickname}</p>
-			<RangeInput bind:value={player.volume} />
-			<RemoteAudio mediaStream={player.mediaStream} volume={player.volume} />
-		{/each}
-
+		<Players />
 		{#if showMissingNicknameModal}
 			<NicknameModal on:nicknameSet={nicknameSet} />
 		{/if}
-
 		{#if showAskForPasswordModal}
 			<AskForPasswordModal on:password={tryToJoinPasswordProtectedLobby} />
 		{/if}
 	</div>
 </TransitionedRoute>
-
 <MuteButton {muted} on:click={changeMuteStatus} />
