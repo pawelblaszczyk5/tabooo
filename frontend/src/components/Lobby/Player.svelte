@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type {Player} from '../../model/player';
+	import {teamsNames} from '../../helpers/teamNames';
 	import RangeInput from '../commons/RangeInput.svelte';
 
 	export let player: Player;
@@ -7,6 +8,6 @@
 
 <div>
 	<p>Player: {player.nickname}</p>
-	<p>Team: {player.team}</p>
+	<p>Team: {teamsNames[player.team]}</p>
 	<RangeInput bind:value={player.volume} />
 </div>
