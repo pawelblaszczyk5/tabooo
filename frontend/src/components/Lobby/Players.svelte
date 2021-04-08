@@ -5,6 +5,7 @@
 	import {players} from '../../stores/players';
 	import {socket} from '../../stores/socket';
 	import Button from '../commons/Button.svelte';
+	import Spacer from '../commons/Spacer.svelte';
 	import Player from './Player.svelte';
 	import RemoteAudio from './RemoteAudio.svelte';
 
@@ -21,10 +22,28 @@
 	};
 </script>
 
-<div>
-	{#each $players as player (player.id)}
-		<Player {player} />
-	{/each}
+<div class="flex my-4">
+	<div class="mx-3 w-40">
+		{#each $players.filter((player) => player.team === Team.FIRST) as player (player.id)}
+			<Spacer y={2}>
+				<Player {player} />
+			</Spacer>
+		{/each}
+	</div>
+	<div class="mx-3 w-40">
+		{#each $players.filter((player) => player.team === Team.OBSERVER) as player (player.id)}
+			<Spacer y={2}>
+				<Player {player} />
+			</Spacer>
+		{/each}
+	</div>
+	<div class="mx-3 w-40">
+		{#each $players.filter((player) => player.team === Team.SECOND) as player (player.id)}
+			<Spacer y={2}>
+				<Player {player} />
+			</Spacer>
+		{/each}
+	</div>
 </div>
 
 <div>
