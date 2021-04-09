@@ -96,7 +96,7 @@ export const updatePlayerTeam = (lobbyId: string, teamChange: TeamChange): void 
 	if (!lobby) {
 		return;
 	}
-	const playerToUpdate = lobby.players.find((player) => (player.id = teamChange.playerId));
+	const playerToUpdate = lobby.players.find((player) => player.id === teamChange.playerId);
 	if (!playerToUpdate) {
 		return;
 	}
