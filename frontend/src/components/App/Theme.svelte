@@ -15,10 +15,6 @@
 			box-shadow: 0 8px 32px 0 var(--primaryOpacity40);
 		}
 
-		.max-w-full-margin {
-			max-width: calc(100% - 2rem);
-		}
-
 		@supports ((-webkit-backdrop-filter: blur(0.5rem)) or (backdrop-filter: blur(0.5rem))) {
 			.glass-primary {
 				background: var(--primaryOpacity25);
@@ -26,6 +22,26 @@
 				backdrop-filter: blur(0.5rem);
 				-webkit-backdrop-filter: blur(0.5rem);
 			}
+		}
+
+		@variatns responsive {
+			.non-glass {
+				background: unset;
+				box-shadow: unset;
+				backdrop-filter: unset;
+			}
+
+			.max-h-unset {
+				max-height: unset;
+			}
+		}
+
+		.max-w-full-margin {
+			max-width: calc(100% - 2rem);
+		}
+
+		.max-h-screen-margin {
+			max-height: calc(100% - 5rem);
 		}
 	}
 

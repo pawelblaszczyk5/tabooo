@@ -5,8 +5,12 @@
 	import Spacer from '../commons/Spacer.svelte';
 	import FaTimes from 'svelte-icons/fa/FaTimes.svelte';
 	import {Team} from '../../model/team';
+	import {get} from 'svelte/store';
+	import {socket} from '../../stores/socket';
 
 	export let player: Player;
+
+	const isSelf = player.id === get(socket)?.id;
 
 	const kickPlayer = () => {
 		console.log(player.id);
@@ -19,7 +23,7 @@
 		: player.team === Team.SECOND
 		? 'bg-primarySecondTeam'
 		: ''} border border-gray-200 border-opacity-40 rounded-md p-6 relative">
-	{#if $admin}
+	{#if $admin && !isSelf}
 		<div
 			on:click={kickPlayer}
 			class="{player.team === Team.FIRST
@@ -38,7 +42,11 @@
 			: ''} font-semibold overflow-ellipsis h-6 text-base overflow-hidden whitespace-nowrap w-full">
 		Nickname: {player.nickname}
 	</p>
-	<Spacer y={1}>
-		<RangeInput bind:value={player.volume} />
-	</Spacer>
+	{#if isSelf}
+		<p>It's you!</p>
+	{:else}
+		<Spacer y={1}>
+			<RangeInput bind:value={player.volume} />
+		</Spacer>
+	{/if}
 </div>

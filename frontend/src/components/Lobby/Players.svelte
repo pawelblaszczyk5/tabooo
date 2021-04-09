@@ -10,6 +10,9 @@
 	import Player from './Player.svelte';
 	import RemoteAudio from './RemoteAudio.svelte';
 	import {teamsNames} from '../../helpers/teamNames';
+	import {flip} from 'svelte/animate';
+
+	const teamsOrder = [Team.FIRST, Team.OBSERVER, Team.SECOND];
 
 	const changeTeam = (team: Team) => {
 		const localSocket = get(socket);
@@ -20,34 +23,56 @@
 			playerId: localSocket.id,
 			team: team,
 		};
+		players.updatePlayerTeam(teamChange);
 		localSocket.emit('teamChange', teamChange);
 	};
 
-	const teamsOrder = [Team.FIRST, Team.OBSERVER, Team.SECOND];
+	const getSidebarClassesByTeam = (team: Team) => {
+		const base =
+			'transform transition-transform duration-500 p-4 z-10 border border-gray-200 border-opacity-40 md:border-0 ' +
+			'glass-primary md:non-glass hover:translate-x-0 absolute md:rounded-none md:translate-x-0 top-16 max-h-screen-margin md:max-h-unset ';
+		if (team === Team.FIRST) {
+			return base + 'left-0 -translate-x-full rounded-r-md';
+		} else if (team === Team.SECOND) {
+			return base + 'right-0 translate-x-full rounded-l-md';
+		}
+	};
+
+	const getSidebarOpenClassesByTeam = (team: Team) => {
+		const base = 'absolute top-2 ';
+		if (team == Team.FIRST) {
+			return base + '-right-5 bg-primaryFirstTeam rounded-r-md';
+		} else {
+			return base + '-left-5 bg-primarySecondTeam rounded-l-md';
+		}
+	};
 </script>
 
-<div class="flex my-4 w-full max-w-5xl justify-between">
+<div class="flex my-4 w-full max-w-7xl justify-center md:justify-between">
 	{#each teamsOrder as team}
-		<div class="w-3/12">
-			{#each $players.filter((player) => player.team === team) as player (player.id)}
-				<div in:receive={{key: player.id}} out:send={{key: player.id}}>
-					<Spacer y={2}>
-						<Player {player} />
-					</Spacer>
-				</div>
-			{/each}
+		<div class="{getSidebarClassesByTeam(team)} w-9/12 md:static md:w-3/12 max-w-sm flex flex-col items-center">
+			<div class="{team !== Team.OBSERVER ? 'overflow-y-auto' : ''} w-full">
+				{#each $players.filter((player) => player.team === team) as player (player.id)}
+					<div class="w-full" in:receive={{key: player.id}} out:send={{key: player.id}} animate:flip={{duration: 200}}>
+						<Spacer y={2}>
+							<Player {player} />
+						</Spacer>
+					</div>
+				{:else}
+					<p class="text-sm text-center">No players in {teamsNames[team]} team</p>
+				{/each}
+			</div>
+			<Spacer y={2}>
+				<Button on:click={() => changeTeam(team)}>Join {teamsNames[team]} team</Button>
+			</Spacer>
+			{#if team !== Team.OBSERVER}
+				<div class="w-5 h-12 {getSidebarOpenClassesByTeam(team)} md:hidden" />
+			{/if}
 		</div>
 	{/each}
 </div>
-
 <div>
 	{#each $players as player (player.id)}
 		<RemoteAudio mediaStream={player.mediaStream} volume={player.volume} />
 	{/each}
 </div>
-
-{#each teamsOrder as team}
-	<Spacer y={2}>
-		<Button on:click={() => changeTeam(team)}>Join {teamsNames[team]} team</Button>
-	</Spacer>
-{/each}
