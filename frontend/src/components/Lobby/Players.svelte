@@ -51,7 +51,7 @@
 <div class="flex my-4 w-full max-w-7xl justify-center md:justify-between">
 	{#each teamsOrder as team}
 		<div class="{getSidebarClassesByTeam(team)} w-9/12 md:static md:w-3/12 max-w-sm flex flex-col items-center">
-			<div class="{team !== Team.OBSERVER ? 'overflow-y-auto' : ''} w-full">
+			<div class="{team !== Team.OBSERVER ? 'overflow-x-hidden overflow-y-auto md:overflow-visible' : ''} w-full">
 				{#each $players.filter((player) => player.team === team) as player (player.id)}
 					<div class="w-full" in:receive={{key: player.id}} out:send={{key: player.id}} animate:flip={{duration: 200}}>
 						<Spacer y={2}>
