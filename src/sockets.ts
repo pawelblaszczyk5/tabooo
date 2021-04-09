@@ -73,10 +73,7 @@ const joinLobby = (socket: Socket, lobbyId: string, nickname: string) => {
 
 	socket.to(lobbyId).emit('playerJoined', player);
 
-	socket.emit(
-		'successfullyJoinedLobby',
-		getPlayersInLobby(lobbyId).filter((player) => player.id !== socket.id),
-	);
+	socket.emit('successfullyJoinedLobby', getPlayersInLobby(lobbyId));
 
 	if (player.admin) {
 		socket.emit('lobbyAdmin');
