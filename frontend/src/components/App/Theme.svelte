@@ -24,7 +24,7 @@
 			}
 		}
 
-		@variatns responsive {
+		@variants responsive {
 			.non-glass {
 				background: unset;
 				box-shadow: unset;
