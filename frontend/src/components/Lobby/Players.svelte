@@ -26,9 +26,9 @@
 	const teamsOrder = [Team.FIRST, Team.OBSERVER, Team.SECOND];
 </script>
 
-<div class="flex my-4">
+<div class="flex my-4 w-full max-w-5xl justify-between">
 	{#each teamsOrder as team}
-		<div class="mx-3 w-40">
+		<div class="w-3/12">
 			{#each $players.filter((player) => player.team === team) as player (player.id)}
 				<div in:receive={{key: player.id}} out:send={{key: player.id}}>
 					<Spacer y={2}>

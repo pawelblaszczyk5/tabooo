@@ -10,13 +10,13 @@
 	</p>
 	<a
 		href="https://github.com/pawelblaszczyk5"
-		class="block w-8 h-8 transform hover:scale-125 transition-transform duration-500 mx-2"
+		class="block w-8 h-8 transform hover:scale-125 transition-transform duration-500 mx-2 text-primaryFontColor"
 		target="_blank">
 		<FaGithub />
 	</a>
 	<a
 		href="https://www.linkedin.com/in/pawel-blaszczyk/"
-		class="block w-8 h-8 transform hover:scale-125 transition-transform duration-500 mx-2"
+		class="block w-8 h-8 transform hover:scale-125 transition-transform duration-500 mx-2 text-primaryFontColor"
 		target="_blank">
 		<FaLinkedin />
 	</a>

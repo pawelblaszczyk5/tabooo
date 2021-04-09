@@ -10,7 +10,7 @@
 	@import 'tailwindcss/utilities';
 
 	@layer utilities {
-		.glass-sm {
+		.glass-primary {
 			background: var(--primaryOpacity90);
 			box-shadow: 0 8px 32px 0 var(--primaryOpacity40);
 		}
@@ -20,7 +20,7 @@
 		}
 
 		@supports ((-webkit-backdrop-filter: blur(0.5rem)) or (backdrop-filter: blur(0.5rem))) {
-			.glass-sm {
+			.glass-primary {
 				background: var(--primaryOpacity25);
 				box-shadow: 0 8px 32px 0 var(--primaryOpacity40);
 				backdrop-filter: blur(0.5rem);
@@ -33,8 +33,13 @@
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
-		color: var(--primaryFontColor);
 		font-family: Overpass, sans-serif;
+	}
+
+	p,
+	span,
+	div {
+		color: var(--primaryFontColor);
 	}
 
 	body {
