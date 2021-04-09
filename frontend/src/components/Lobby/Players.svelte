@@ -32,9 +32,9 @@
 			'transform transition-transform duration-500 p-4 z-10 border border-gray-200 border-opacity-40 md:border-0 ' +
 			'glass-primary md:non-glass hover:translate-x-0 absolute md:rounded-none md:translate-x-0 top-16 max-h-screen-margin md:max-h-unset ';
 		if (team === Team.FIRST) {
-			return base + 'left-0 -translate-x-full rounded-r-md';
+			return base + 'left-0 border-l-0 -translate-x-full rounded-r-md';
 		} else if (team === Team.SECOND) {
-			return base + 'right-0 translate-x-full rounded-l-md';
+			return base + 'right-0 border-r-0 translate-x-full rounded-l-md';
 		}
 	};
 

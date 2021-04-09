@@ -48,6 +48,8 @@ module.exports = {
 				'top-16',
 				'max-h-screen-margin',
 				'md:max-h-unset',
+				'border-l-0',
+				'border-r-0',
 			],
 			keyframes: true,
 		},
