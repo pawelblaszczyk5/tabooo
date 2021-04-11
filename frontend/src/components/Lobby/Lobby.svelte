@@ -20,7 +20,7 @@
 	import Game from './Game.svelte';
 	import Button from '../commons/Button.svelte';
 	import Spacer from '../commons/Spacer.svelte';
-	import {game, GameStatus} from '../../stores/game';
+	import {Team} from '../../model/team';
 
 	export let params: {lobbyId?: string};
 
@@ -98,7 +98,17 @@
 		});
 	};
 
-	const startGame = () => {};
+	const startGame = () => {
+		const localPlayers = get(players);
+		if (localPlayers.filter((player) => player.team === Team.OBSERVER).length) {
+			toastr.addToastr('Every player need to join a team');
+			return;
+		}
+		if (localPlayers.filter((player) => player.team === Team.FIRST) || localPlayers.filter((player) => player.team === Team.SECOND)) {
+			toastr.addToastr('Every team need to have at least two players');
+			return;
+		}
+	};
 
 	onDestroy(() => {
 		get(socket)?.disconnect();
