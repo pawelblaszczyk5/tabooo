@@ -12,7 +12,7 @@ const createToastrStore = () => {
 		subscribe,
 		addToastr: (toastrMessage: string) => {
 			update((toastrArray) => {
-				const id = (toastrArray[toastrArray.length]?.id ?? 0) + 1;
+				const id = (toastrArray[toastrArray.length - 1]?.id ?? 0) + 1;
 				const newToastr: Toastr = {
 					id,
 					message: toastrMessage,
