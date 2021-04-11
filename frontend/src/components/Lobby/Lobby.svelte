@@ -17,9 +17,10 @@
 	import {toastr} from '../../stores/toastr';
 	import {admin} from '../../stores/admin';
 	import MuteButton from './MuteButton.svelte';
-	import Players from './Players.svelte';
+	import Game from './Game.svelte';
 	import Button from '../commons/Button.svelte';
 	import Spacer from '../commons/Spacer.svelte';
+	import {game, GameStatus} from '../../stores/game';
 
 	export let params: {lobbyId?: string};
 
@@ -97,6 +98,8 @@
 		});
 	};
 
+	const startGame = () => {};
+
 	onDestroy(() => {
 		get(socket)?.disconnect();
 		get(mediaStream)
@@ -113,10 +116,10 @@
 		<h1 class="font-semibold text-2xl">{lobbyName}</h1>
 		{#if $admin}
 			<Spacer y={2}>
-				<Button>Start the game</Button>
+				<Button on:click={startGame}>Start the game</Button>
 			</Spacer>
 		{/if}
-		<Players />
+		<Game />
 		{#if showMissingNicknameModal}
 			<NicknameModal on:nicknameSet={nicknameSet} />
 		{/if}
