@@ -1,3 +1,4 @@
+import {Game} from './game';
 import {Language} from './language';
 import {Player} from './player';
 
@@ -8,4 +9,5 @@ export interface Lobby {
 	language: Language;
 	secured: boolean;
 	password?: string;
+	game: Game;
 }

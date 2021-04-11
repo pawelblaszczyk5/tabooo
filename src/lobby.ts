@@ -5,18 +5,29 @@ import crypto from 'crypto';
 import {hashPassword} from './helpers/password';
 import {LobbyInfo} from './model/lobbyInfo';
 import {TeamChange} from './model/teamChange';
+import {Game} from './model/game';
+import {GameStatus} from './model/gameStatus';
+import {Team} from './model/team';
 
 export const lobbies: Map<string, Lobby> = new Map();
 
 export const createLobby = (language: Language, name: string, password?: string): Promise<string> => {
 	return new Promise((resolve, reject) => {
 		const id = crypto.randomBytes(20).toString('hex');
+		const newGame: Game = {
+			status: GameStatus.NOT_STARTED,
+			score: {
+				[Team.FIRST]: 0,
+				[Team.SECOND]: 0,
+			},
+		};
 		const newLobby: Lobby = {
 			players: [],
 			id,
 			name,
 			language,
 			secured: password ? true : false,
+			game: newGame,
 		};
 		lobbies.set(id, newLobby);
 		if (password) {
@@ -107,5 +118,12 @@ export const removeLobbyIfNoPlayers = (lobbyId: string): void => {
 	const lobby = lobbies.get(lobbyId);
 	if (lobby && !lobby.players.length) {
 		lobbies.delete(lobbyId);
+	}
+};
+
+export const startGame = (lobbyId: string): void => {
+	const lobby = lobbies.get(lobbyId);
+	if (lobby) {
+		lobby.game.status = GameStatus.IN_PROGRESS;
 	}
 };

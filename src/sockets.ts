@@ -9,6 +9,7 @@ import {
 	pickNewAdmin,
 	removePlayerFromLobby,
 	shouldPickNewAdmin,
+	startGame,
 	updatePlayerTeam,
 } from './lobby';
 import {Player} from './model/player';
@@ -62,6 +63,11 @@ export const handleSocket = (socket: Socket): void => {
 	socket.on('playerKick', (playerId: string) => {
 		socket.to(playerId).emit('playerKick');
 		removePlayerFromLobby(lobbyId, playerId);
+	});
+
+	socket.on('gameStart', () => {
+		socket.to(lobbyId).emit('gameStart');
+		startGame(lobbyId);
 	});
 };
 
