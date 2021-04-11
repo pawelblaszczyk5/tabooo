@@ -102,3 +102,10 @@ export const updatePlayerTeam = (lobbyId: string, teamChange: TeamChange): void 
 	}
 	playerToUpdate.team = teamChange.team;
 };
+
+export const removeLobbyIfNoPlayers = (lobbyId: string): void => {
+	const lobby = lobbies.get(lobbyId);
+	if (lobby && !lobby.players.length) {
+		lobbies.delete(lobbyId);
+	}
+};
