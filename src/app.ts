@@ -5,9 +5,10 @@ import {createServer} from 'http';
 import {Server} from 'socket.io';
 import * as dotenv from 'dotenv';
 import {handleSocket} from './sockets';
-import {createLobby, getLobbyInfo, lobbies, removeLobbyIfNoPlayers} from './lobby';
+import {createLobby, getLobbyInfo, isLobbyFirstPlayer, lobbies, removeLobbyIfNoPlayers} from './lobby';
 import {LobbyData} from './model/lobbyData';
 import {LobbyInfo} from './model/lobbyInfo';
+import {GameStatus} from './model/gameStatus';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -41,12 +42,14 @@ app.post('/api/lobby', (req, res) => {
 
 app.get('/api/lobby', (req, res) => {
 	res.send(
-		Array.from(lobbies.values()).map((lobby) => ({
-			id: lobby.id,
-			secured: lobby.secured,
-			name: lobby.name,
-			language: lobby.language,
-		})),
+		Array.from(lobbies.values())
+			.filter((lobby) => lobby.game.status === GameStatus.NOT_STARTED)
+			.map((lobby) => ({
+				id: lobby.id,
+				secured: lobby.secured,
+				name: lobby.name,
+				language: lobby.language,
+			})),
 	);
 });
 

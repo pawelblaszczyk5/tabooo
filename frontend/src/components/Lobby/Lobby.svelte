@@ -68,12 +68,14 @@
 				.then(({data}) => {
 					const passwordFromStore = get(password);
 					lobbyName = data.name ?? '';
-					if (data.isExisting && (!data.secured || passwordFromStore)) {
-						getPermissions();
-					} else if (data.isExisting && data.secured) {
-						showAskForPasswordModal = true;
-					} else {
+					if (!data.isExisting) {
 						redirectToHome('Lobby does not exist');
+					} else if (data.status !== GameStatus.NOT_STARTED) {
+						redirectToHome('Game already started');
+					} else if (!data.secured || passwordFromStore) {
+						getPermissions();
+					} else {
+						showAskForPasswordModal = true;
 					}
 				})
 				.catch((err) => console.log(err));
