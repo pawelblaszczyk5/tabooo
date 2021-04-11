@@ -18,6 +18,8 @@
 	import {admin} from '../../stores/admin';
 	import MuteButton from './MuteButton.svelte';
 	import Players from './Players.svelte';
+	import Button from '../commons/Button.svelte';
+	import Spacer from '../commons/Spacer.svelte';
 
 	export let params: {lobbyId?: string};
 
@@ -110,7 +112,9 @@
 	<div class="w-full flex flex-col items-center">
 		<h1 class="font-semibold text-2xl">{lobbyName}</h1>
 		{#if $admin}
-			<p>You are an admin of this lobby</p>
+			<Spacer y={2}>
+				<Button>Start the game</Button>
+			</Spacer>
 		{/if}
 		<Players />
 		{#if showMissingNicknameModal}
