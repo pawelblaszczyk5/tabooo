@@ -6,6 +6,7 @@ import type {PlayerData} from '../../model/playerData';
 import {Team} from '../../model/team';
 import type {TeamChange} from '../../model/teamChange';
 import {admin} from '../../stores/admin';
+import {game, GameStatus} from '../../stores/game';
 import {mediaStream} from '../../stores/mediaStream';
 import {players} from '../../stores/players';
 import {settings} from '../../stores/settings';
@@ -60,6 +61,10 @@ export const joinToLobby = (lobbyId = '', password = ''): void => {
 	localSocket.on('playerKick', () => {
 		toastr.addToastr('You have been kicked');
 		push('/');
+	});
+
+	localSocket.on('gameStart', () => {
+		game.changeGameStatus(GameStatus.IN_PROGRESS);
 	});
 
 	localSocket.on('playerLeft', (playerId: string) => {

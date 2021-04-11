@@ -21,6 +21,7 @@
 	import Button from '../commons/Button.svelte';
 	import Spacer from '../commons/Spacer.svelte';
 	import {Team} from '../../model/team';
+	import {game, GameStatus} from '../../stores/game';
 
 	export let params: {lobbyId?: string};
 
@@ -104,10 +105,16 @@
 			toastr.addToastr('Every player need to join a team');
 			return;
 		}
-		if (localPlayers.filter((player) => player.team === Team.FIRST) || localPlayers.filter((player) => player.team === Team.SECOND)) {
+		if (
+			localPlayers.filter((player) => player.team === Team.FIRST).length < 2 ||
+			localPlayers.filter((player) => player.team === Team.SECOND).length < 2
+		) {
 			toastr.addToastr('Every team need to have at least two players');
 			return;
 		}
+		const localSocket = get(socket);
+		localSocket?.emit('gameStart');
+		game.changeGameStatus(GameStatus.IN_PROGRESS);
 	};
 
 	onDestroy(() => {
@@ -124,7 +131,7 @@
 <TransitionedRoute>
 	<div class="w-full flex flex-col items-center">
 		<h1 class="font-semibold text-2xl">{lobbyName}</h1>
-		{#if $admin}
+		{#if $admin && $game.status === GameStatus.NOT_STARTED}
 			<Spacer y={2}>
 				<Button on:click={startGame}>Start the game</Button>
 			</Spacer>

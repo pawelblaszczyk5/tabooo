@@ -20,11 +20,13 @@ const createGameStore = () => {
 			[Team.SECOND]: 0,
 		},
 	};
-	const {subscribe, set} = writable<Game>(newGame);
+	const {subscribe, update} = writable<Game>(newGame);
 
 	return {
 		subscribe,
-		set,
+		changeGameStatus: (newStatus: GameStatus) => {
+			update((game) => ({...game, status: newStatus}));
+		},
 	};
 };
 
