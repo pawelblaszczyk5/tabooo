@@ -13,7 +13,7 @@
 	const isSelf = player.id === get(socket)?.id;
 
 	const kickPlayer = () => {
-		console.log(player.id);
+		get(socket)?.emit('playerKick', player.id);
 	};
 </script>
 

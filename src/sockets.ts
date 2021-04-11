@@ -59,8 +59,8 @@ export const handleSocket = (socket: Socket): void => {
 		socket.to(lobbyId).emit('teamChange', teamChange);
 	});
 
-	socket.on('playerKick', ({playerId, lobbyId}: {playerId: string; lobbyId: string}) => {
-		socket.to(playerId).emit('playerKicked');
+	socket.on('playerKick', (playerId: string) => {
+		socket.to(playerId).emit('playerKick');
 		removePlayerFromLobby(lobbyId, playerId);
 	});
 };

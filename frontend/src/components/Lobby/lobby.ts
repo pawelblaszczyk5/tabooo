@@ -57,6 +57,11 @@ export const joinToLobby = (lobbyId = '', password = ''): void => {
 		players.updatePlayerTeam(teamChange);
 	});
 
+	localSocket.on('playerKick', () => {
+		toastr.addToastr('You got kicked :(');
+		push('/');
+	});
+
 	localSocket.on('playerLeft', (playerId: string) => {
 		const localPlayers = get(players);
 		localPlayers.find((player) => player.id === playerId)?.rtcPeerConnection?.close();
