@@ -26,32 +26,20 @@
 		players.updatePlayerTeam(teamChange);
 		localSocket.emit('teamChange', teamChange);
 	};
-
-	const getSidebarClassesByTeam = (team: Team) => {
-		const base =
-			'transform transition-transform duration-500 p-4 z-10 border border-gray-200 border-opacity-40 md:border-0 ' +
-			'glass-primary md:non-glass hover:translate-x-0 absolute md:rounded-none md:translate-x-0 top-16 max-h-screen-margin md:max-h-unset ';
-		if (team === Team.FIRST) {
-			return base + 'left-0 border-l-0 -translate-x-full rounded-r-md';
-		} else if (team === Team.SECOND) {
-			return base + 'right-0 border-r-0 translate-x-full rounded-l-md';
-		}
-	};
-
-	const getSidebarOpenClassesByTeam = (team: Team) => {
-		const base = 'absolute top-2 ';
-		if (team == Team.FIRST) {
-			return base + '-right-5 bg-primaryFirstTeam rounded-r-md';
-		} else {
-			return base + '-left-5 bg-primarySecondTeam rounded-l-md';
-		}
-	};
 </script>
 
 <div class="flex my-4 w-full max-w-7xl justify-center md:justify-between">
 	{#each teamsOrder as team}
-		<div class="{getSidebarClassesByTeam(team)} w-9/12 md:static md:w-3/12 max-w-sm flex flex-col items-center">
-			<div class="{team !== Team.OBSERVER ? 'overflow-x-hidden overflow-y-auto md:overflow-visible' : ''} w-full">
+		<div
+			class="w-9/12 md:static md:w-3/12 max-w-sm flex flex-col items-center 
+				{team !== Team.OBSERVER &&
+				'transform transition-transform duration-500 p-4 z-10 border border-gray-200 border-opacity-40 ' +
+					'md:border-0 glass-primary md:non-glass hover:translate-x-0 absolute md:rounded-none md:translate-x-0 top-16 max-h-screen-margin md:max-h-unset'} 
+				{team ===
+				Team.FIRST && 'left-0 border-l-0 -translate-x-full rounded-r-md'}
+				{team === Team.SECOND &&
+				'right-0 border-r-0 translate-x-full rounded-l-md'}">
+			<div class="{team !== Team.OBSERVER && 'overflow-x-hidden overflow-y-auto md:overflow-visible'} w-full">
 				{#each $players.filter((player) => player.team === team) as player (player.id)}
 					<div class="w-full" in:receive={{key: player.id}} out:send={{key: player.id}} animate:flip={{duration: 200}}>
 						<Spacer y={2}>
@@ -66,7 +54,11 @@
 				<Button on:click={() => changeTeam(team)}>Join {teamsNames[team]} team</Button>
 			</Spacer>
 			{#if team !== Team.OBSERVER}
-				<div class="w-5 h-12 {getSidebarOpenClassesByTeam(team)} md:hidden" />
+				<div
+					class="w-5 h-12 absolute top-2 md:hidden 
+				{team === Team.FIRST && '-right-5 bg-primaryFirstTeam rounded-r-md'} 
+				{team ===
+						Team.SECOND && '-left-5 bg-primarySecondTeam rounded-l-md'}" />
 			{/if}
 		</div>
 	{/each}
