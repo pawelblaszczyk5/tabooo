@@ -58,7 +58,7 @@ export const joinToLobby = (lobbyId = '', password = ''): void => {
 	});
 
 	localSocket.on('playerKick', () => {
-		toastr.addToastr('You got kicked :(');
+		toastr.addToastr('You have been kicked');
 		push('/');
 	});
 
