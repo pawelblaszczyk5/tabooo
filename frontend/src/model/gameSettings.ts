@@ -9,3 +9,7 @@ export const defaultGameSettings: GameSettings = {
 	pointsToWin: 20,
 	skipsAvailable: 2,
 };
+
+export const roundTimesAvailable = [30, 60, 90, 120];
+export const pointsToWinAvailable = [10, 20, 30, 40];
+export const skipsAvailable = [0, 1, 2, 3, 4];
