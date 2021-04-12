@@ -67,7 +67,15 @@
 				.get<LobbyInfo>(`/api/isLobby?lobbyId=${params.lobbyId}`)
 				.then(({data}) => {
 					const passwordFromStore = get(password);
-					lobbyName = data.name ?? '';
+
+					if (!data.settings || !data.name) {
+						redirectToHome('Unexpected error occurred, try again later');
+						return;
+					}
+
+					lobbyName = data.name;
+					game.setSettings(data.settings);
+
 					if (!data.isExisting) {
 						redirectToHome('Lobby does not exist');
 					} else if (data.status !== GameStatus.NOT_STARTED) {

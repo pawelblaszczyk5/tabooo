@@ -1,3 +1,4 @@
+import {GameSettings} from './gameSettings';
 import {GameStatus} from './gameStatus';
 
 export interface LobbyInfo {
@@ -5,4 +6,5 @@ export interface LobbyInfo {
 	name?: string;
 	secured?: boolean;
 	status?: GameStatus;
+	settings?: GameSettings;
 }
