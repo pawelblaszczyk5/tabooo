@@ -12,11 +12,13 @@
 	import NicknameModal from '../commons/NicknameModal.svelte';
 	import {get} from 'svelte/store';
 	import RadioInput from '../commons/RadioInput.svelte';
+	import {defaultGameSettings} from '../../model/gameSettings';
 
 	let newPassword = '';
 	let newLobbyName = '';
 	let newLobbyLanguage: Language = Language.ENGLISH;
 	let showMissingNicknameModal = false;
+	const gameSettings = {...defaultGameSettings};
 
 	const nickname = get(settings).nickname;
 	if (nickname.trim() === '') {
@@ -31,6 +33,7 @@
 			language: newLobbyLanguage,
 			name: newLobbyName,
 			password: newPassword,
+			gameSettings: gameSettings,
 		};
 		axios
 			.post<string>('/api/lobby', lobbyData)

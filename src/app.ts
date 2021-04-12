@@ -5,7 +5,7 @@ import {createServer} from 'http';
 import {Server} from 'socket.io';
 import * as dotenv from 'dotenv';
 import {handleSocket} from './sockets';
-import {createLobby, getLobbyInfo, isLobbyFirstPlayer, lobbies, removeLobbyIfNoPlayers} from './lobby';
+import {createLobby, getLobbyInfo, lobbies, removeLobbyIfNoPlayers} from './lobby';
 import {LobbyData} from './model/lobbyData';
 import {LobbyInfo} from './model/lobbyInfo';
 import {GameStatus} from './model/gameStatus';
@@ -32,7 +32,7 @@ app.use(express.json());
 
 app.post('/api/lobby', (req, res) => {
 	const lobbyData: LobbyData = req.body;
-	createLobby(lobbyData.language, lobbyData.name, lobbyData.password)
+	createLobby(lobbyData.language, lobbyData.name, lobbyData.gameSettings, lobbyData.password)
 		.then((id) => {
 			setTimeout(() => removeLobbyIfNoPlayers(id), 60000);
 			res.send(id);

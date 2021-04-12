@@ -8,10 +8,11 @@ import {TeamChange} from './model/teamChange';
 import {Game} from './model/game';
 import {GameStatus} from './model/gameStatus';
 import {Team} from './model/team';
+import {GameSettings} from './model/gameSettings';
 
 export const lobbies: Map<string, Lobby> = new Map();
 
-export const createLobby = (language: Language, name: string, password?: string): Promise<string> => {
+export const createLobby = (language: Language, name: string, gameSettings: GameSettings, password?: string): Promise<string> => {
 	return new Promise((resolve, reject) => {
 		const id = crypto.randomBytes(20).toString('hex');
 		const newGame: Game = {
@@ -20,6 +21,7 @@ export const createLobby = (language: Language, name: string, password?: string)
 				[Team.FIRST]: 0,
 				[Team.SECOND]: 0,
 			},
+			settings: gameSettings,
 		};
 		const newLobby: Lobby = {
 			players: [],
