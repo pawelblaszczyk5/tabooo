@@ -13,7 +13,7 @@ import {GameStatus} from './model/gameStatus';
 const app = express();
 const port = process.env.PORT || 3000;
 const server = createServer(app);
-const socketServer = new Server(server, {
+export const socketServer = new Server(server, {
 	path: '/api/ws',
 });
 
