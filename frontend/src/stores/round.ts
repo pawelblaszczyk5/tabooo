@@ -1,17 +1,7 @@
 import {writable} from 'svelte/store';
-
-export enum RoundState {
-	READY,
-	IN_PROGRESS,
-	END,
-}
-
-interface Round {
-	cardId?: number;
-	pointsAcquired: number;
-	state: RoundState;
-	skipsAvailable?: number;
-}
+import type {Round} from '../model/round';
+import {RoundState} from '../model/roundState';
+import type {RoundType} from '../model/roundType';
 
 const createRoundStore = () => {
 	const initialRoundState: Round = {
@@ -33,6 +23,9 @@ const createRoundStore = () => {
 		},
 		setSkipsAvailable: (skips: number) => {
 			update((round) => ({...round, skipsAvailable: skips}));
+		},
+		setType: (type: RoundType) => {
+			update((round) => ({...round, type: type}));
 		},
 		resetRound: () => {
 			set({...initialRoundState});

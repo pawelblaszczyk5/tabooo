@@ -10,7 +10,7 @@ import {admin} from '../../stores/admin';
 import {game, GameStatus} from '../../stores/game';
 import {mediaStream} from '../../stores/mediaStream';
 import {players} from '../../stores/players';
-import {roundType} from '../../stores/roundType';
+import {round} from '../../stores/round';
 import {settings} from '../../stores/settings';
 import {socket} from '../../stores/socket';
 import {toastr} from '../../stores/toastr';
@@ -70,7 +70,7 @@ export const joinToLobby = (lobbyId = '', password = ''): void => {
 	});
 
 	localSocket.on('roundType', (type: RoundType) => {
-		roundType.set(type);
+		round.setType(type);
 	});
 
 	localSocket.on('playerLeft', (playerId: string) => {
