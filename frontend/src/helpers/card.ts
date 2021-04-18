@@ -20,7 +20,7 @@ const cardsEnglish: Map<number, Card> = new Map([
 	],
 ]);
 
-const getCard = (id: number, language: Language): Card => {
+export const getCard = (id: number, language: Language): Card => {
 	const card = language === Language.ENGLISH ? cardsEnglish.get(id) : cardsPolish.get(id);
 	return card ?? badIdCard;
 };
