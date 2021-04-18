@@ -5,8 +5,281 @@ const Cards: Record<Language, Map<number, Card>> = {
 		[
 			1,
 			{
-				word: 'kościół',
-				forbidden: ['test', 'test', 'test', 'test', 'test'],
+				word: 'Kokpit',
+				forbidden: ['Pilot', 'Samolot', 'Menedżerski', 'Kabina', 'Przyciski'],
+			},
+		],
+		[
+			2,
+			{
+				word: 'Kwintesencja',
+				forbidden: ['Sprawa', 'Sedno', 'Istota', 'Meritum', 'Dokładny'],
+			},
+		],
+		[
+			3,
+			{
+				word: 'Kasacja',
+				forbidden: ['Szkoda całkowita', 'Złomowiec', 'Kolizja', 'Pojazd', 'Likwidacja'],
+			},
+		],
+		[
+			4,
+			{
+				word: 'Spadek',
+				forbidden: ['Rodzina', 'Pisać', 'Śmierć', 'Testament', 'Otrzymać'],
+			},
+		],
+		[
+			5,
+			{
+				word: 'Implantacja',
+				forbidden: ['Zahaczanie', 'Nidacja', 'Wczepianie', 'Zagnieżdżanie', 'Zarodek'],
+			},
+		],
+		[
+			6,
+			{
+				word: 'Gulnąć',
+				forbidden: ['Wypić', 'Płyn', 'Wódka', 'Przechylić', 'Gardło'],
+			},
+		],
+		[
+			7,
+			{
+				word: 'Zmarszczki',
+				forbidden: ['Mimiczne', 'Babcia', 'Twarz', 'Starość', 'Botoks'],
+			},
+		],
+		[
+			8,
+			{
+				word: 'Słonina',
+				forbidden: ['Skwarki', 'Tłuszcz', 'Smalec', 'Świunia', 'Zasmażka'],
+			},
+		],
+		[
+			9,
+			{
+				word: 'Turlać',
+				forbidden: ['Kula', 'Toczyć', 'Przesuwać', 'Podłoga', 'Pchać'],
+			},
+		],
+		[
+			10,
+			{
+				word: 'Stanowisko',
+				forbidden: ['Punkt widzenia', 'Postawić', 'Ranga', 'Awans', 'Szczebel'],
+			},
+		],
+		[
+			11,
+			{
+				word: 'Schizofrenia',
+				forbidden: ['Urojenia', 'Rozdwojenie jaźni', 'Choroba psychizna', 'Psychoza', 'Wariat'],
+			},
+		],
+		[
+			12,
+			{
+				word: 'Wakat',
+				forbidden: ['Etat', 'Firma', 'Wolny', 'Stanowisko', 'Praca'],
+			},
+		],
+		[
+			13,
+			{
+				word: 'Kraksa',
+				forbidden: ['Jechać', 'Samochód', 'Karambol', 'Wypadek', 'Stłuczka'],
+			},
+		],
+		[
+			14,
+			{
+				word: 'Defetyzm',
+				forbidden: ['Siejesz', 'Niewiara', 'Porażka', 'Pesymizm', 'Zwycięstwo'],
+			},
+		],
+		[
+			15,
+			{
+				word: 'Sterydy',
+				forbidden: ['Mieśnie', 'Środki', 'Zastrzyk', 'Sportowcy', 'Siłownia'],
+			},
+		],
+		[
+			16,
+			{
+				word: 'Latarka',
+				forbidden: ['Baterie', 'Światło', 'Pod namiotem', 'Lampa', 'Żarówka'],
+			},
+		],
+		[
+			17,
+			{
+				word: 'Remiza',
+				forbidden: ['Wesele', 'Wieś', 'Budynek', 'Strażak', 'Stypa'],
+			},
+		],
+		[
+			18,
+			{
+				word: 'ONZ',
+				forbidden: ['Świat', 'Wojna', 'Pokój', 'Skrót', 'Nowy Jork'],
+			},
+		],
+		[
+			19,
+			{
+				word: 'Waga',
+				forbidden: ['Szalka', 'Ciężar', 'Ilość', 'Gram', 'Kilogram'],
+			},
+		],
+		[
+			20,
+			{
+				word: 'Malibu',
+				forbidden: ['Kokos', 'Drink', 'Alkohol', 'Rum', 'Pić'],
+			},
+		],
+		[
+			21,
+			{
+				word: 'Konstytucja',
+				forbidden: ['3 maja', 'Sejm 4 letni', 'Obywatel', 'Demokracja', 'Państwo'],
+			},
+		],
+		[
+			22,
+			{
+				word: 'Fajerwerki',
+				forbidden: ['Niebo', 'Wybuch', 'Sylwester', 'Kolorowe', 'Rakiety'],
+			},
+		],
+		[
+			23,
+			{
+				word: 'Czas',
+				forbidden: ['Odmierzać', 'Kalendarz', 'Zegar', 'Minuta', 'Klepsydra'],
+			},
+		],
+		[
+			24,
+			{
+				word: 'Integracja',
+				forbidden: ['Nowi ludzie', 'Zabawa', 'Poznać się', 'Impreza', 'Wyjazd'],
+			},
+		],
+		[
+			25,
+			{
+				word: 'Żarcie',
+				forbidden: ['Wielkie', 'Pasibrzuch', 'Głód', 'Pokarm', 'Jedzenie'],
+			},
+		],
+		[
+			26,
+			{
+				word: 'Gorąca czekolada',
+				forbidden: ['Słodki', 'Mleczna', 'Kakao', 'Rozgrzewający', 'Napój'],
+			},
+		],
+		[
+			27,
+			{
+				word: 'Kantor',
+				forbidden: ['Euro', 'Pieniądze', 'Kurs', 'Waluta', 'Dolar'],
+			},
+		],
+		[
+			28,
+			{
+				word: 'Wenecja',
+				forbidden: ['Miasto', 'Włochhy', 'Łódź', 'Kanał', 'Rzym'],
+			},
+		],
+		[
+			29,
+			{
+				word: 'Strajk',
+				forbidden: ['Przerwa', 'Związki zawodowe', 'Praca', 'Stocznia', 'Szpital'],
+			},
+		],
+		[
+			30,
+			{
+				word: 'Rekrutacja',
+				forbidden: ['Uczelnia', 'Pobór', 'Szukanie', 'Praca', 'Rozmowa'],
+			},
+		],
+		[
+			31,
+			{
+				word: 'Ropucha',
+				forbidden: ['Brzydki', 'Żaba', 'Całus', 'Książę', 'Płaz'],
+			},
+		],
+		[
+			32,
+			{
+				word: 'Poczta głosowa',
+				forbidden: ['Wiadomośc', 'Sekretarka', 'Telefon', 'Sygnał', 'Nagranie'],
+			},
+		],
+		[
+			33,
+			{
+				word: 'Wytrych',
+				forbidden: ['Otwierać', 'Dzrwi', 'Pasować', 'Włamać', 'Klucz'],
+			},
+		],
+		[
+			34,
+			{
+				word: 'Taczka',
+				forbidden: ['Przewozić', 'Koło', 'Jeden', 'Budowa', 'Ogród'],
+			},
+		],
+		[
+			35,
+			{
+				word: 'Świerzb',
+				forbidden: ['Drapanie', 'Choroba', 'Wysypka', 'Pasożyt', 'Skóra'],
+			},
+		],
+		[
+			36,
+			{
+				word: 'Bąk',
+				forbidden: ['Smród', 'Puszczać', 'Owad', 'Osa', 'Pszczoła'],
+			},
+		],
+		[
+			37,
+			{
+				word: 'Tradycja',
+				forbidden: ['Obrzędy', 'Obyczaj', 'Historia', 'Zwyczaj', 'Kultura'],
+			},
+		],
+		[
+			38,
+			{
+				word: 'Naturysta',
+				forbidden: ['Nagi człowiek', 'Ubrania', 'Plaża', 'Nudysta', 'Golas'],
+			},
+		],
+		[
+			39,
+			{
+				word: 'Antresola',
+				forbidden: ['Półpiętro', 'Góra', 'Mieszkanie', 'Schody', 'Kondygnacja'],
+			},
+		],
+		[
+			40,
+			{
+				word: 'Moskitiera',
+				forbidden: ['Zasłona', 'Komar', 'Okno', 'Siatka', 'Firanka'],
 			},
 		],
 	]),
