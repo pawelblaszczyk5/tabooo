@@ -24,6 +24,7 @@ export const createLobby = (language: Language, name: string, gameSettings: Game
 			},
 			settings: gameSettings,
 			cards: [],
+			playerOrder: {},
 		};
 		const newLobby: Lobby = {
 			players: [],
@@ -138,8 +139,14 @@ export const startGame = (lobbyId: string): void => {
 
 export const setCards = (lobbyId: string, cards: Array<number>): void => {
 	const lobby = lobbies.get(lobbyId);
-	console.log(cards);
 	if (lobby) {
 		lobby.game.cards = cards;
+	}
+};
+
+export const setPlayersOrder = (lobbyId: string, playerOrder: Partial<Record<Team, Array<Player>>>): void => {
+	const lobby = lobbies.get(lobbyId);
+	if (lobby) {
+		lobby.game.playerOrder = playerOrder;
 	}
 };
