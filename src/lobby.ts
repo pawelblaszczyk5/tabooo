@@ -72,7 +72,7 @@ export const getLobbyInfo = (lobbyId: string): LobbyInfo => {
 		name: lobby?.name,
 		secured: lobby?.secured ?? false,
 		status: lobby?.game.status ?? GameStatus.NOT_STARTED,
-		settings: lobby?.game.settings,
+		language: lobby?.language,
 	};
 };
 

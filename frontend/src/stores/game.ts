@@ -1,11 +1,13 @@
 import {writable} from 'svelte/store';
-import type {GameSettings} from '../model/gameSettings';
+import type {Language} from '../model/language';
 import {Team} from '../model/team';
 
 export interface Game {
 	status: GameStatus;
 	score: Partial<Record<Team, number>>;
-	settings?: GameSettings;
+	time?: number;
+	card?: number;
+	language?: Language;
 }
 
 export enum GameStatus {
@@ -29,8 +31,14 @@ const createGameStore = () => {
 		changeGameStatus: (newStatus: GameStatus) => {
 			update((game) => ({...game, status: newStatus}));
 		},
-		setSettings: (gameSettings: GameSettings) => {
-			update((game) => ({...game, settings: gameSettings}));
+		setCard: (id: number) => {
+			update((game) => ({...game, card: id}));
+		},
+		setTime: (roundTime: number) => {
+			update((game) => ({...game, time: roundTime}));
+		},
+		setLanguage: (language: Language) => {
+			update((game) => ({...game, language: language}));
 		},
 	};
 };

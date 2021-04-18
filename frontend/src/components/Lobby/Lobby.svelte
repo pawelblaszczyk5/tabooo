@@ -68,13 +68,13 @@
 				.then(({data}) => {
 					const passwordFromStore = get(password);
 
-					if (!data.settings || !data.name) {
+					if (!data.language || !data.name) {
 						redirectToHome('Unexpected error occurred, try again later');
 						return;
 					}
 
 					lobbyName = data.name;
-					game.setSettings(data.settings);
+					game.setLanguage(data.language);
 
 					if (!data.isExisting) {
 						redirectToHome('Lobby does not exist');

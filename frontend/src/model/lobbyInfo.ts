@@ -1,10 +1,10 @@
 import type {GameStatus} from '../stores/game';
-import type {GameSettings} from './gameSettings';
+import type {Language} from './language';
 
 export interface LobbyInfo {
 	isExisting: boolean;
 	name?: string;
 	secured?: boolean;
 	status?: GameStatus;
-	settings?: GameSettings;
+	language: Language;
 }
