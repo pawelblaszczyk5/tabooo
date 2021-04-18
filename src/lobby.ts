@@ -9,6 +9,7 @@ import {Game} from './model/game';
 import {GameStatus} from './model/gameStatus';
 import {Team} from './model/team';
 import {GameSettings} from './model/gameSettings';
+import {initializeGame} from './game';
 
 export const lobbies: Map<string, Lobby> = new Map();
 
@@ -22,6 +23,7 @@ export const createLobby = (language: Language, name: string, gameSettings: Game
 				[Team.SECOND]: 0,
 			},
 			settings: gameSettings,
+			cards: [],
 		};
 		const newLobby: Lobby = {
 			players: [],
@@ -129,5 +131,15 @@ export const startGame = (lobbyId: string): void => {
 	const lobby = lobbies.get(lobbyId);
 	if (lobby) {
 		lobby.game.status = GameStatus.IN_PROGRESS;
+	}
+
+	initializeGame(lobbyId);
+};
+
+export const setCards = (lobbyId: string, cards: Array<number>): void => {
+	const lobby = lobbies.get(lobbyId);
+	console.log(cards);
+	if (lobby) {
+		lobby.game.cards = cards;
 	}
 };

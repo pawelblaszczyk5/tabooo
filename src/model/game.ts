@@ -6,4 +6,5 @@ export interface Game {
 	status: GameStatus;
 	score: Partial<Record<Team, number>>;
 	settings: GameSettings;
+	cards: Array<number>;
 }
