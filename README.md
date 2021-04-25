@@ -27,6 +27,7 @@ This is my first bigger project using Svelte and it was so much fun doing it. Du
 - Make sure Node and NPM are installed
 - run `npm install`
 - run `npm run dev`
+- open `localhost:3000`
 
 ## Feedback and contributions
 
