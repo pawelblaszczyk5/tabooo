@@ -53,9 +53,11 @@
 						<p class="text-sm text-center">No players in {teamsNames[team]} team</p>
 					{/each}
 				</div>
-				<Spacer y={2}>
-					<Button on:click={() => changeTeam(team)}>Join {teamsNames[team]} team</Button>
-				</Spacer>
+				{#if $game.status === GameStatus.NOT_STARTED}
+					<Spacer y={2}>
+						<Button on:click={() => changeTeam(team)}>Join {teamsNames[team]} team</Button>
+					</Spacer>
+				{/if}
 				{#if team !== Team.OBSERVER}
 					<div
 						class="w-5 h-12 absolute top-2 md:hidden 

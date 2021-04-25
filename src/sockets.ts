@@ -1,4 +1,5 @@
 import {Socket} from 'socket.io';
+import {startRound} from './game';
 import {verifyPassword} from './helpers/password';
 import {
 	addPlayerToLobby,
@@ -68,6 +69,10 @@ export const handleSocket = (socket: Socket): void => {
 	socket.on('gameStart', () => {
 		socket.to(lobbyId).emit('gameStart');
 		startGame(lobbyId);
+	});
+
+	socket.on('roundStart', () => {
+		startRound(lobbyId);
 	});
 };
 

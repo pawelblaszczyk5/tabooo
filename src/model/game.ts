@@ -9,4 +9,6 @@ export interface Game {
 	settings: GameSettings;
 	cards: Array<number>;
 	playerOrder: Partial<Record<Team, Array<Player>>>;
+	describingPlayerId?: string;
+	guessingTeam?: Team;
 }

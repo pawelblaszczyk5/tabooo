@@ -150,3 +150,17 @@ export const setPlayersOrder = (lobbyId: string, playerOrder: Partial<Record<Tea
 		lobby.game.playerOrder = playerOrder;
 	}
 };
+
+export const setDescribingPlayer = (lobbyId: string, playerId: string): void => {
+	const lobby = lobbies.get(lobbyId);
+	if (lobby) {
+		lobby.game.describingPlayerId = playerId;
+	}
+};
+
+export const setGuessingTeam = (lobbyId: string, team: Team): void => {
+	const lobby = lobbies.get(lobbyId);
+	if (lobby) {
+		lobby.game.guessingTeam = team;
+	}
+};

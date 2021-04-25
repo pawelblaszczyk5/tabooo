@@ -16,7 +16,7 @@ const createRoundStore = () => {
 			update((round) => ({...round, cardId: id}));
 		},
 		setState: (state: RoundState) => {
-			update((round) => ({...round, roundState: state}));
+			update((round) => ({...round, state: state}));
 		},
 		setPointsAcquired: (points: number) => {
 			update((round) => ({...round, pointsAcquired: points}));
