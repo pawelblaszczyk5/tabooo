@@ -83,7 +83,7 @@ export const startRound = (lobbyId: string): void => {
 	socketServer.to(lobbyId).emit('roundEndTime', roundFinishTime);
 
 	setTimeout(() => {
-		socketServer.to(lobbyId).emit('roundEnded', roundFinishTime);
+		socketServer.to(lobbyId).emit('roundEnded');
 
 		setTimeout(() => {
 			setupNewRound(lobbyId, lobby.game.guessingTeam === Team.FIRST ? Team.SECOND : Team.FIRST);
