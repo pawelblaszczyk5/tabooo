@@ -984,6 +984,426 @@ const Cards: Record<Language, Map<number, Card>> = {
 				forbidden: ['Vessel', 'Ship', 'Lock', 'Boat', 'Hoist'],
 			},
 		],
+		[
+			41,
+			{
+				word: 'Tequila',
+				forbidden: ['Mexico', 'Shot', 'Alcohol', 'Drink', 'Bar'],
+			},
+		],
+		[
+			42,
+			{
+				word: 'Asia',
+				forbidden: ['Japan', 'China', 'India', 'Russia', 'Iraq'],
+			},
+		],
+		[
+			43,
+			{
+				word: 'Strawberry',
+				forbidden: ['Food', 'Red', 'Cake', 'Fruit', 'Jam'],
+			},
+		],
+		[
+			44,
+			{
+				word: 'Pinky',
+				forbidden: ['Finger', 'Hand', 'Toe', 'Ring', 'Thumb'],
+			},
+		],
+		[
+			45,
+			{
+				word: 'Plow',
+				forbidden: ['Dirt', 'Dig', 'Farm', 'Field', 'Tractor'],
+			},
+		],
+		[
+			46,
+			{
+				word: 'Carbohydrates',
+				forbidden: ['Nutrition', 'Sugar', 'Bread', 'Beer', 'Atkins'],
+			},
+		],
+		[
+			47,
+			{
+				word: 'Sunglass',
+				forbidden: ['Eye', 'Glares', 'Protection', 'Shades', 'Accessory'],
+			},
+		],
+		[
+			48,
+			{
+				word: 'Copy',
+				forbidden: ['Test', 'Paste', 'Variant', 'Same', 'Exam'],
+			},
+		],
+		[
+			49,
+			{
+				word: 'Buddy',
+				forbidden: ['Partner', 'Friend', 'Pal', 'Best', 'System'],
+			},
+		],
+		[
+			50,
+			{
+				word: 'Bank',
+				forbidden: ['Money', 'Institution', 'Financial', 'Savings', 'Deposit'],
+			},
+		],
+		[
+			51,
+			{
+				word: 'Friendly fire',
+				forbidden: ['Shoot', 'War', 'Gun', 'Bullet', 'Damage'],
+			},
+		],
+		[
+			52,
+			{
+				word: 'CAL',
+				forbidden: ['Berkeley', 'University', 'UC', 'Bears', 'College'],
+			},
+		],
+		[
+			53,
+			{
+				word: 'Bowl',
+				forbidden: ['Eat', 'Cereal', 'Spoon', 'Pins', 'Ball'],
+			},
+		],
+		[
+			54,
+			{
+				word: 'Dial tone',
+				forbidden: ['Beep', 'Busy', 'Phone', 'Call', 'DIal'],
+			},
+		],
+		[
+			55,
+			{
+				word: 'Diagonal',
+				forbidden: ['Vertex', 'Line', 'Polygon', 'Half', 'Side'],
+			},
+		],
+		[
+			56,
+			{
+				word: 'Glue',
+				forbidden: ['Sticky', 'Elmers', 'White', 'Bind', 'Carpenter'],
+			},
+		],
+		[
+			57,
+			{
+				word: 'Cherry',
+				forbidden: ['Red', 'Fruit', 'Seed', 'Pick', 'Cola'],
+			},
+		],
+		[
+			58,
+			{
+				word: 'Flush',
+				forbidden: ['Toilet', 'Poker', 'Suit', 'Bathroom', 'Royal'],
+			},
+		],
+		[
+			59,
+			{
+				word: 'Cirrus',
+				forbidden: ['Fair', 'Clouds', 'Feathery', 'Highest', 'Weather'],
+			},
+		],
+		[
+			60,
+			{
+				word: 'Airport',
+				forbidden: ['Travel', 'Plane', 'Transportation', 'Bus', 'Train'],
+			},
+		],
+		[
+			61,
+			{
+				word: 'Author',
+				forbidden: ['Book', 'Write', 'Pen', 'Name', 'Mark Twain'],
+			},
+		],
+		[
+			62,
+			{
+				word: 'Gas Mask',
+				forbidden: ['Crying', 'Smoke', 'Chamber', 'CS', 'Breathing'],
+			},
+		],
+		[
+			63,
+			{
+				word: 'Hairstyle',
+				forbidden: ['Curl', 'Brush', 'Spray', 'Comb', 'Head'],
+			},
+		],
+		[
+			64,
+			{
+				word: 'Dollar',
+				forbidden: ['One', 'George Washingot', 'Currency', 'Ten', 'Money'],
+			},
+		],
+		[
+			65,
+			{
+				word: 'Cameron Diaz',
+				forbidden: ['Fiona', 'Shrek', 'Blonde', 'Actress', 'Mary'],
+			},
+		],
+		[
+			66,
+			{
+				word: 'Drive Max Zord',
+				forbidden: ['Lothor', 'Power Rangers', 'Mercury Ranger', 'Mr. Hardferd', 'Flurious'],
+			},
+		],
+		[
+			67,
+			{
+				word: 'Joke',
+				forbidden: ['Laugh', 'Kidding', 'Smile', 'Happy', 'Sad'],
+			},
+		],
+		[
+			68,
+			{
+				word: 'Reflection',
+				forbidden: ['Turn', 'Flip', 'Slide', 'Mirror', 'Translation'],
+			},
+		],
+		[
+			69,
+			{
+				word: 'Loud',
+				forbidden: ['Music', 'Big', 'Decibel', 'Blatant', 'Intense'],
+			},
+		],
+		[
+			70,
+			{
+				word: 'Insurgent',
+				forbidden: ['Bombing', 'Iraq', 'Enemy', 'Terrorist', 'Kill'],
+			},
+		],
+		[
+			71,
+			{
+				word: 'Devil',
+				forbidden: ['Hades', 'Hell', 'Bad', 'Evil', 'Witch'],
+			},
+		],
+		[
+			72,
+			{
+				word: 'Romance',
+				forbidden: ['Love', 'Heart', 'Date', 'Marriage', 'Single'],
+			},
+		],
+		[
+			73,
+			{
+				word: 'Cubit',
+				forbidden: ['Elbow', 'Lenght', 'Finger', 'Measure', 'Egyptian'],
+			},
+		],
+		[
+			74,
+			{
+				word: 'Billboard',
+				forbidden: ['Exit', 'Advertise', 'Sign', 'Read', 'Highway'],
+			},
+		],
+		[
+			75,
+			{
+				word: 'Marker',
+				forbidden: ['Draw', 'Kids', 'Crayola', 'Writing instrument', 'Art'],
+			},
+		],
+		[
+			76,
+			{
+				word: 'Mia Hamm',
+				forbidden: ['Nomar Garciaparra', 'Soccer', 'Woman', 'Star', 'America'],
+			},
+		],
+		[
+			77,
+			{
+				word: 'Broadway',
+				forbidden: ['Musical', 'Play', 'New York', 'Actor', 'Theatre'],
+			},
+		],
+		[
+			78,
+			{
+				word: 'Tounge',
+				forbidden: ['Body', 'Part', 'Taste', 'Eat', 'Sense'],
+			},
+		],
+		[
+			79,
+			{
+				word: 'Fighter Jet',
+				forbidden: ['Fly', 'Air force', 'Plane', 'Pilot', 'Dogfight'],
+			},
+		],
+		[
+			80,
+			{
+				word: 'Cancun',
+				forbidden: ['Mexico', 'Vacation', 'Spring break', 'Water', 'Beach'],
+			},
+		],
+		[
+			81,
+			{
+				word: 'Prescription',
+				forbidden: ['Medicine', 'Pharmacy', 'Doctor', 'CVS', 'Refill'],
+			},
+		],
+		[
+			82,
+			{
+				word: 'Rich',
+				forbidden: ['Business', 'Poor', 'Wealthy', 'Money', 'Poverty'],
+			},
+		],
+		[
+			83,
+			{
+				word: 'Modern',
+				forbidden: ['New', 'Age', 'Era', 'Ancient', 'History'],
+			},
+		],
+		[
+			84,
+			{
+				word: 'Superman',
+				forbidden: ['Hero', 'Movie', 'Flies', 'Kryptonie', 'Underwear'],
+			},
+		],
+		[
+			85,
+			{
+				word: 'Netball',
+				forbidden: ['Net', 'Girls', 'Shoot', 'Teams', 'Run'],
+			},
+		],
+		[
+			86,
+			{
+				word: 'Elbow',
+				forbidden: ['Body', 'Part', 'Joint', 'Knee', 'Arm'],
+			},
+		],
+		[
+			87,
+			{
+				word: 'Hul',
+				forbidden: ['Gamma Ray', 'Green', 'Angry', 'Dr. Banner', 'Purple'],
+			},
+		],
+		[
+			88,
+			{
+				word: 'Caribbean',
+				forbidden: ['Beaches', 'Sun', 'Sand', 'Sea', 'Pirates'],
+			},
+		],
+		[
+			89,
+			{
+				word: 'Ludhiana',
+				forbidden: ['Loud', 'Village', 'Illiterate', 'Dirty', 'Sad'],
+			},
+		],
+		[
+			90,
+			{
+				word: 'Jersey Shore',
+				forbidden: ['Guido', 'Gym', 'Laundry', 'Tan', 'Fist pump'],
+			},
+		],
+		[
+			91,
+			{
+				word: 'Take out',
+				forbidden: ['Pack', 'Dine in', 'Fast food', 'Restaurant', 'Delivery'],
+			},
+		],
+		[
+			92,
+			{
+				word: 'Prison',
+				forbidden: ['Law', 'Penalty', 'Jail', 'Illegal', 'Bars'],
+			},
+		],
+		[
+			93,
+			{
+				word: 'Direct',
+				forbidden: ['Undeviating', 'Straight', 'Through', 'Non stop', 'Straight forward'],
+			},
+		],
+		[
+			94,
+			{
+				word: 'Draft',
+				forbidden: ['Sports', 'Military', 'Pick', 'Select', 'Choose'],
+			},
+		],
+		[
+			95,
+			{
+				word: 'Govern',
+				forbidden: ['Rule', 'Establish', 'Watch', 'Preside', 'Dictate'],
+			},
+		],
+		[
+			96,
+			{
+				word: 'Diamond',
+				forbidden: ['Ring', 'Carat', 'Jewel', 'Glass', 'Ring'],
+			},
+		],
+		[
+			97,
+			{
+				word: 'Bull',
+				forbidden: ['Matador', 'Cattle', 'Red', 'Fight', 'Dog'],
+			},
+		],
+		[
+			98,
+			{
+				word: 'Promotion',
+				forbidden: ['Latter', 'Increase', 'Reward', 'Improvement', 'Bonus'],
+			},
+		],
+		[
+			99,
+			{
+				word: 'Music',
+				forbidden: ['Notes', 'Sound', 'Hear', 'Band', 'Rock'],
+			},
+		],
+		[
+			100,
+			{
+				word: 'Government',
+				forbidden: ['Country', 'Politicians', 'President', 'Congress', 'Rule'],
+			},
+		],
 	]),
 };
 
