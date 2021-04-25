@@ -54,7 +54,7 @@
 						<p class="text-sm text-center">No players in {teamsNames[team]} team</p>
 					{/each}
 				</div>
-				{#if $game.status === GameStatus.NOT_STARTED}
+				{#if $game.status !== GameStatus.IN_PROGRESS}
 					<Spacer y={2}>
 						<Button on:click={() => changeTeam(team)}>Join {teamsNames[team]} team</Button>
 					</Spacer>

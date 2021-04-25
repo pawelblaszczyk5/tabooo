@@ -68,6 +68,10 @@ export const joinToLobby = (lobbyId = '', password = ''): void => {
 
 	localSocket.on('gameStart', () => {
 		game.changeGameStatus(GameStatus.IN_PROGRESS);
+		const localGame = get(game);
+		if (localGame.result) {
+			game.reset();
+		}
 	});
 
 	localSocket.on('gameResolved', ({scoreUpdate, result}: {scoreUpdate: Record<Team.FIRST | Team.SECOND, number>; result: Result}) => {

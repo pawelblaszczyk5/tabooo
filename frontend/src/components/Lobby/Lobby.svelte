@@ -125,6 +125,9 @@
 		}
 		const localSocket = get(socket);
 		localSocket?.emit('gameStart');
+		if ($game.result) {
+			game.reset();
+		}
 		game.changeGameStatus(GameStatus.IN_PROGRESS);
 	};
 
@@ -142,7 +145,7 @@
 <TransitionedRoute>
 	<div class="w-full flex flex-col items-center">
 		<h1 class="font-semibold text-2xl">{lobbyName}</h1>
-		{#if $admin && $game.status === GameStatus.NOT_STARTED}
+		{#if $admin && $game.status !== GameStatus.IN_PROGRESS}
 			<Spacer y={2}>
 				<Button on:click={startGame}>Start the game</Button>
 			</Spacer>

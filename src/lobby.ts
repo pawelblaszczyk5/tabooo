@@ -173,3 +173,20 @@ export const setRemainingSkipsForRound = (lobbyId: string, remainingSkips: numbe
 		lobby.game.remainingSkipsInRound = remainingSkips;
 	}
 };
+
+export const resetGame = (lobbyId: string): void => {
+	const lobby = lobbies.get(lobbyId);
+	if (!lobby) {
+		return;
+	}
+
+	lobby.game.status = GameStatus.NOT_STARTED;
+	lobby.game.score = {
+		[Team.FIRST]: 0,
+		[Team.SECOND]: 0,
+	};
+	lobby.game.cards = [];
+	lobby.game.playerOrder = {};
+	lobby.game.remainingSkipsInRound = lobby.game.settings.skipsAvailable;
+	lobby.game.pointsAcquiredInRound = 0;
+};

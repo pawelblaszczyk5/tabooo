@@ -1,6 +1,6 @@
 import {socketServer} from './app';
 import {shuffle} from './helpers/shuffleArray';
-import {lobbies, setCards, setDescribingPlayer, setGuessingTeam, setPlayersOrder, setRemainingSkipsForRound} from './lobby';
+import {lobbies, resetGame, setCards, setDescribingPlayer, setGuessingTeam, setPlayersOrder, setRemainingSkipsForRound} from './lobby';
 import {GameStatus} from './model/gameStatus';
 import {Lobby} from './model/lobby';
 import {Player} from './model/player';
@@ -47,6 +47,7 @@ const setupNewRound = (lobbyId: string, team: Team.FIRST | Team.SECOND): void =>
 };
 
 export const initializeGame = (lobbyId: string): void => {
+	resetGame(lobbyId);
 	const cardsArray = Array(MAX_CARD_ID)
 		.fill(null)
 		.map((_, i) => i + 1);

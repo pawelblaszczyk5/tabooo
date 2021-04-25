@@ -40,6 +40,15 @@ const createGameStore = () => {
 		setResult: (result: Result) => {
 			update((game) => ({...game, result: result}));
 		},
+		reset: () => {
+			update((game) => ({
+				...game,
+				score: {
+					[Team.FIRST]: 0,
+					[Team.SECOND]: 0,
+				},
+			}));
+		},
 	};
 };
 
