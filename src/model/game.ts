@@ -12,5 +12,6 @@ export interface Game {
 	describingPlayerId?: string;
 	guessingTeam?: Team.FIRST | Team.SECOND;
 	remainingSkipsInRound: number;
+	pointsAcquiredInRound: number;
 	currentCardId?: number;
 }

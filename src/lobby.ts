@@ -26,6 +26,7 @@ export const createLobby = (language: Language, name: string, gameSettings: Game
 			cards: [],
 			playerOrder: {},
 			remainingSkipsInRound: gameSettings.skipsAvailable,
+			pointsAcquiredInRound: 0,
 		};
 		const newLobby: Lobby = {
 			players: [],

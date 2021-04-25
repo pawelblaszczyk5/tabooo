@@ -26,6 +26,7 @@ const setupNewRound = (lobbyId: string, team: Team.FIRST | Team.SECOND): void =>
 
 	lobby.game.playerOrder[team]?.shift();
 	lobby.game.playerOrder[team]?.push(describingPlayer);
+	lobby.game.pointsAcquiredInRound = 0;
 
 	socketServer.to(describingPlayer.id).emit('roundType', RoundType.DESCRIBING);
 	lobby.players
@@ -134,7 +135,7 @@ export const tryFailingRound = (lobbyId: string, cardId: number): void => {
 		return;
 	}
 
-	changeResult(lobbyId, lobby.game.guessingTeam, ResultChangeType.SUBTRACTION);
+	updateScore(lobbyId, lobby.game.guessingTeam, ResultChangeType.SUBTRACTION);
 	drawCard(lobbyId);
 };
 
@@ -171,11 +172,11 @@ export const tryGuessingRound = (lobbyId: string, cardId: number): void => {
 		return;
 	}
 
-	changeResult(lobbyId, lobby.game.guessingTeam, ResultChangeType.ADDITION);
+	updateScore(lobbyId, lobby.game.guessingTeam, ResultChangeType.ADDITION);
 	drawCard(lobbyId);
 };
 
-export const changeResult = (lobbyId: string, team: Team.FIRST | Team.SECOND, resultChangeType: ResultChangeType): void => {
+const updateScore = (lobbyId: string, team: Team.FIRST | Team.SECOND, resultChangeType: ResultChangeType): void => {
 	const lobby = lobbies.get(lobbyId);
 
 	if (!lobby) {
@@ -185,6 +186,8 @@ export const changeResult = (lobbyId: string, team: Team.FIRST | Team.SECOND, re
 	const resultChange = resultChangeType === ResultChangeType.ADDITION ? 1 : -1;
 
 	lobby.game.score[team] += resultChange;
+	lobby.game.pointsAcquiredInRound += resultChange;
 
+	socketServer.to(lobbyId).emit('roundPointsAcquired', lobby.game.pointsAcquiredInRound);
 	socketServer.to(lobbyId).emit('scoreUpdate', lobby.game.score);
 };

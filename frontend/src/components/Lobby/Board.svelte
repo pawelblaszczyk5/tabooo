@@ -13,6 +13,7 @@
 	import {socket} from '../../stores/socket';
 	import {onMount} from 'svelte';
 	import type {Team} from '../../model/team';
+	import RoundSummary from './RoundSummary.svelte';
 
 	const signalizeRoundStarting = () => {
 		$socket?.emit('roundStart');
@@ -51,6 +52,10 @@
 		$socket?.on('scoreUpdate', (scoreUpdate: Record<Team.FIRST | Team.SECOND, number>) => {
 			game.setScore(scoreUpdate);
 		});
+
+		$socket?.on('roundPointsAcquired', (pointsAcquiredInRound: number) => {
+			round.setPointsAcquired(pointsAcquiredInRound);
+		});
 	});
 </script>
 
@@ -85,7 +90,7 @@
 				</div>
 			{/if}
 		{:else if $round.state === RoundState.END}
-			<p>The round has ended, new round setup is in progress</p>
+			<RoundSummary />
 		{/if}
 	{:else if $round.type === RoundType.GUESSING}
 		{#if $round.state === RoundState.READY}
@@ -93,7 +98,7 @@
 		{:else if $round.state === RoundState.IN_PROGRESS}
 			<p>You are guessing, good luck!</p>
 		{:else if $round.state === RoundState.END}
-			<p>The round has ended, new round setup is in progress</p>
+			<RoundSummary />
 		{/if}
 	{:else if $round.type === RoundType.JUDGING}
 		{#if $round.state === RoundState.READY}
@@ -106,7 +111,7 @@
 				<Button on:click={signalizeFailing}>Failed</Button>
 			{/if}
 		{:else if $round.state === RoundState.END}
-			<p>The round has ended, new round setup is in progress</p>
+			<RoundSummary />
 		{/if}
 	{/if}
 </div>
