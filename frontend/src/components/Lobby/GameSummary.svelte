@@ -6,6 +6,7 @@
 	import {get} from 'svelte/store';
 	import {players} from '../../stores/players';
 	import {socket} from '../../stores/socket';
+	import ResultAnimation from './ResultAnimation.svelte';
 
 	const checkWhetherPlayerHaveWon = (): boolean => {
 		const localPlayers = get(players);
@@ -25,6 +26,7 @@
 	<Spacer y={2}>
 		<Score />
 	</Spacer>
+	<ResultAnimation result={$game.result?.winner === 'TIE' || didPlayerWon ? 'WIN' : 'LOSE'} />
 	{#if $game.result?.type === ResultType.SCORE && $game.result.winner !== 'TIE'}
 		<p>{didPlayerWon ? 'Your team have won, congratulations!' : 'Opponent was better, better luck next time!'}</p>
 	{/if}
