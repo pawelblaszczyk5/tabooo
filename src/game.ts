@@ -2,6 +2,7 @@ import {socketServer} from './app';
 import {shuffle} from './helpers/shuffleArray';
 import {lobbies, setCards, setDescribingPlayer, setGuessingTeam, setPlayersOrder, setRemainingSkipsForRound} from './lobby';
 import {GameStatus} from './model/gameStatus';
+import {Lobby} from './model/lobby';
 import {Player} from './model/player';
 import {Result} from './model/result';
 import {ResultChangeType} from './model/resultChangeType';
@@ -99,7 +100,9 @@ export const drawCard = (lobbyId: string): void => {
 		return;
 	}
 
-	//TODO what if no more cards
+	if (!lobby.game.cards.length) {
+		resolveGameByNoCardsLeft(lobbyId);
+	}
 	const drawnCard = lobby.game.cards[Math.floor(Math.random() * lobby.game.cards.length)];
 	lobby.game.cards = lobby.game.cards.filter((cardId) => cardId !== drawnCard);
 	lobby.game.currentCardId = drawnCard;
@@ -216,4 +219,33 @@ const resolveGameByScore = (lobbyId: string, winner: Team): void => {
 		scoreUpdate: lobby.game.score,
 		result,
 	});
+};
+
+const resolveGameByNoCardsLeft = (lobbyId: string): void => {
+	const lobby = lobbies.get(lobbyId);
+
+	if (!lobby) {
+		return;
+	}
+
+	const winner = concludeWinnerByPoints(lobby);
+
+	const result: Result = {
+		winner,
+		type: ResultType.OUT_OF_CARDS,
+	};
+
+	socketServer.to(lobbyId).emit('gameResolved', {
+		scoreUpdate: lobby.game.score,
+		result,
+	});
+};
+
+const concludeWinnerByPoints = (lobby: Lobby): Team | 'TIE' => {
+	const score = lobby.game.score;
+	if (score[Team.FIRST] === score[Team.SECOND]) {
+		return 'TIE';
+	} else {
+		return score[Team.FIRST] > score[Team.SECOND] ? Team.FIRST : Team.SECOND;
+	}
 };
