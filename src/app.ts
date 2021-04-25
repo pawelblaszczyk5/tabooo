@@ -43,7 +43,7 @@ app.post('/api/lobby', (req, res) => {
 app.get('/api/lobby', (req, res) => {
 	res.send(
 		Array.from(lobbies.values())
-			.filter((lobby) => lobby.game.status === GameStatus.NOT_STARTED)
+			.filter((lobby) => lobby.game.status !== GameStatus.IN_PROGRESS)
 			.map((lobby) => ({
 				id: lobby.id,
 				secured: lobby.secured,

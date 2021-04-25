@@ -79,7 +79,7 @@
 					lobbyName = data.name;
 					game.setLanguage(data.language);
 
-					if (data.status !== GameStatus.NOT_STARTED) {
+					if (data.status === GameStatus.IN_PROGRESS) {
 						redirectToHome('Game already started');
 					} else if (!data.secured || passwordFromStore) {
 						getPermissions();
