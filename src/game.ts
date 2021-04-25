@@ -7,7 +7,7 @@ import {Team} from './model/team';
 
 const MAX_CARD_ID = 40;
 
-const startNewRound = (lobbyId: string, team: Team): void => {
+const setupNewRound = (lobbyId: string, team: Team): void => {
 	const lobby = lobbies.get(lobbyId);
 
 	if (!lobby) {
@@ -59,7 +59,7 @@ export const initializeGame = (lobbyId: string): void => {
 	};
 
 	setPlayersOrder(lobbyId, playerOrder);
-	startNewRound(lobbyId, Team.FIRST);
+	setupNewRound(lobbyId, Team.FIRST);
 };
 
 export const startRound = (lobbyId: string): void => {
@@ -75,6 +75,10 @@ export const startRound = (lobbyId: string): void => {
 
 	setTimeout(() => {
 		socketServer.to(lobbyId).emit('roundEnded', roundFinishTime);
+
+		setTimeout(() => {
+			setupNewRound(lobbyId, lobby.game.guessingTeam === Team.FIRST ? Team.SECOND : Team.FIRST);
+		}, 5000);
 	}, lobby.game.settings.roundTime * 1000);
 
 	drawCard(lobbyId);

@@ -70,6 +70,7 @@ export const joinToLobby = (lobbyId = '', password = ''): void => {
 	});
 
 	localSocket.on('roundType', (type: RoundType) => {
+		round.resetRound();
 		round.setType(type);
 	});
 
