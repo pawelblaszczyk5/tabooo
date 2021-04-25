@@ -25,9 +25,9 @@ This is my first bigger project using Svelte and it was so much fun doing it. Du
 
 - Clone repo
 - Make sure Node and NPM are installed
-- run `npm install`
-- run `npm run dev`
-- open `localhost:3000`
+- Run `npm install`
+- Run `npm run dev`
+- Open `localhost:3000`
 
 ## Feedback and contributions
 
