@@ -1,6 +1,6 @@
 import {socketServer} from './app';
 import {shuffle} from './helpers/shuffleArray';
-import {lobbies, resetGame, setCards, setDescribingPlayer, setGuessingTeam, setPlayersOrder, setRemainingSkipsForRound} from './lobby';
+import {lobbies, setCards, setDescribingPlayer, setGuessingTeam, setPlayersOrder, setRemainingSkipsForRound} from './lobby';
 import {GameStatus} from './model/gameStatus';
 import {Lobby} from './model/lobby';
 import {Player} from './model/player';
@@ -10,7 +10,7 @@ import {ResultType} from './model/resultType';
 import {RoundType} from './model/roundType';
 import {Team} from './model/team';
 
-const MAX_CARD_ID = 40;
+const MAX_CARD_ID = 100;
 
 const setupNewRound = (lobbyId: string, team: Team.FIRST | Team.SECOND): void => {
 	const lobby = lobbies.get(lobbyId);
