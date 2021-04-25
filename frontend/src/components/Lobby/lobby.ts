@@ -3,6 +3,7 @@ import {push} from 'svelte-spa-router';
 import {get} from 'svelte/store';
 import {getRtcConfig} from '../../helpers/rtcConfig';
 import type {PlayerData} from '../../model/playerData';
+import type {Result} from '../../model/result';
 import type {RoundType} from '../../model/roundType';
 import {Team} from '../../model/team';
 import type {TeamChange} from '../../model/teamChange';
@@ -67,6 +68,12 @@ export const joinToLobby = (lobbyId = '', password = ''): void => {
 
 	localSocket.on('gameStart', () => {
 		game.changeGameStatus(GameStatus.IN_PROGRESS);
+	});
+
+	localSocket.on('gameResolved', ({scoreUpdate, result}: {scoreUpdate: Record<Team.FIRST | Team.SECOND, number>; result: Result}) => {
+		game.setScore(scoreUpdate);
+		game.changeGameStatus(GameStatus.ENDED);
+		game.setResult(result);
 	});
 
 	localSocket.on('roundType', (type: RoundType) => {

@@ -13,6 +13,7 @@
 	import {flip} from 'svelte/animate';
 	import {game, GameStatus} from '../../stores/game';
 	import Board from './Board.svelte';
+	import GameSummary from './GameSummary.svelte';
 
 	const teamsOrder = [Team.FIRST, Team.OBSERVER, Team.SECOND];
 
@@ -32,7 +33,7 @@
 
 <div class="flex my-4 w-full max-w-7xl justify-center md:justify-between">
 	{#each teamsOrder as team}
-		{#if $game.status !== GameStatus.IN_PROGRESS || team !== Team.OBSERVER}
+		{#if $game.status === GameStatus.NOT_STARTED || team !== Team.OBSERVER}
 			<div
 				class="w-9/12 md:static md:w-3/12 max-w-sm flex flex-col items-center 
 				{team !== Team.OBSERVER &&
@@ -70,6 +71,9 @@
 	{/each}
 	{#if $game.status === GameStatus.IN_PROGRESS}
 		<Board />
+	{/if}
+	{#if $game.status === GameStatus.ENDED}
+		<GameSummary />
 	{/if}
 </div>
 <div>

@@ -1,8 +1,11 @@
 import {socketServer} from './app';
 import {shuffle} from './helpers/shuffleArray';
 import {lobbies, setCards, setDescribingPlayer, setGuessingTeam, setPlayersOrder, setRemainingSkipsForRound} from './lobby';
+import {GameStatus} from './model/gameStatus';
 import {Player} from './model/player';
+import {Result} from './model/result';
 import {ResultChangeType} from './model/resultChangeType';
+import {ResultType} from './model/resultType';
 import {RoundType} from './model/roundType';
 import {Team} from './model/team';
 
@@ -190,4 +193,27 @@ const updateScore = (lobbyId: string, team: Team.FIRST | Team.SECOND, resultChan
 
 	socketServer.to(lobbyId).emit('roundPointsAcquired', lobby.game.pointsAcquiredInRound);
 	socketServer.to(lobbyId).emit('scoreUpdate', lobby.game.score);
+
+	if (lobby.game.score[team] >= lobby.game.settings.pointsToWin) {
+		resolveGameByScore(lobbyId, team);
+	}
+};
+
+const resolveGameByScore = (lobbyId: string, winner: Team): void => {
+	const lobby = lobbies.get(lobbyId);
+
+	if (!lobby) {
+		return;
+	}
+
+	const result: Result = {
+		winner,
+		type: ResultType.SCORE,
+	};
+
+	lobby.game.status = GameStatus.ENDED;
+	socketServer.to(lobbyId).emit('gameResolved', {
+		scoreUpdate: lobby.game.score,
+		result,
+	});
 };
