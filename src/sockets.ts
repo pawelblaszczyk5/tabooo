@@ -63,7 +63,7 @@ export const handleSocket = (socket: Socket): void => {
 
 	socket.on('playerKick', (playerId: string) => {
 		socket.to(playerId).emit('playerKick');
-		removePlayerFromLobby(lobbyId, playerId);
+		removePlayerFromLobby(lobbyId, playerId, true);
 	});
 
 	socket.on('gameStart', () => {

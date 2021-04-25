@@ -47,7 +47,6 @@ const setupNewRound = (lobbyId: string, team: Team.FIRST | Team.SECOND): void =>
 };
 
 export const initializeGame = (lobbyId: string): void => {
-	resetGame(lobbyId);
 	const cardsArray = Array(MAX_CARD_ID)
 		.fill(null)
 		.map((_, i) => i + 1);
@@ -251,4 +250,42 @@ const concludeWinnerByPoints = (lobby: Lobby): Team | 'TIE' => {
 	} else {
 		return score[Team.FIRST] > score[Team.SECOND] ? Team.FIRST : Team.SECOND;
 	}
+};
+
+export const resolveGameByPlayerKicked = (lobbyId: string): void => {
+	const lobby = lobbies.get(lobbyId);
+
+	if (!lobby) {
+		return;
+	}
+
+	const result: Result = {
+		winner: 'TIE',
+		type: ResultType.KICKED,
+	};
+
+	lobby.game.status = GameStatus.ENDED;
+	socketServer.to(lobbyId).emit('gameResolved', {
+		scoreUpdate: lobby.game.score,
+		result,
+	});
+};
+
+export const resolveGameByPlayerLeft = (lobbyId: string, team: Team): void => {
+	const lobby = lobbies.get(lobbyId);
+
+	if (!lobby) {
+		return;
+	}
+
+	const result: Result = {
+		winner: team === Team.FIRST ? Team.SECOND : Team.FIRST,
+		type: ResultType.KICKED,
+	};
+
+	lobby.game.status = GameStatus.ENDED;
+	socketServer.to(lobbyId).emit('gameResolved', {
+		scoreUpdate: lobby.game.score,
+		result,
+	});
 };

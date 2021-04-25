@@ -9,7 +9,7 @@ import {Game} from './model/game';
 import {GameStatus} from './model/gameStatus';
 import {Team} from './model/team';
 import {GameSettings} from './model/gameSettings';
-import {initializeGame} from './game';
+import {initializeGame, resolveGameByPlayerKicked, resolveGameByPlayerLeft} from './game';
 
 export const lobbies: Map<string, Lobby> = new Map();
 
@@ -56,14 +56,32 @@ export const addPlayerToLobby = (lobbyId: string, player: Player): void => {
 	lobbies.get(lobbyId)?.players.push(player);
 };
 
-export const removePlayerFromLobby = (lobbyId: string, playerId: string): void => {
+export const removePlayerFromLobby = (lobbyId: string, playerId: string, wasKicked = false): void => {
 	const lobby = lobbies.get(lobbyId);
-	if (lobby) {
-		lobby.players = lobby.players.filter((player) => player.id !== playerId);
-		if (!lobby.players.length) {
-			lobbies.delete(lobbyId);
-		}
+
+	if (!lobby) {
+		return;
 	}
+
+	const playerTeam = lobby.players.find((player) => player.id === playerId)?.team;
+
+	lobby.players = lobby.players.filter((player) => player.id !== playerId);
+
+	if (!lobby.players.length) {
+		lobbies.delete(lobbyId);
+		return;
+	}
+
+	if (lobby.game.status !== GameStatus.IN_PROGRESS) {
+		return;
+	}
+
+	const shouldConcludeGame = checkWhetherShouldConcludeGame(lobby);
+	if (!shouldConcludeGame || typeof playerTeam !== 'number') {
+		return;
+	}
+
+	wasKicked ? resolveGameByPlayerKicked(lobbyId) : resolveGameByPlayerLeft(lobbyId, playerTeam);
 };
 
 export const getPlayersInLobby = (lobbyId: string): Array<Player> => {
@@ -133,6 +151,7 @@ export const removeLobbyIfNoPlayers = (lobbyId: string): void => {
 export const startGame = (lobbyId: string): void => {
 	const lobby = lobbies.get(lobbyId);
 	if (lobby) {
+		resetGame(lobbyId);
 		lobby.game.status = GameStatus.IN_PROGRESS;
 	}
 
@@ -180,13 +199,17 @@ export const resetGame = (lobbyId: string): void => {
 		return;
 	}
 
-	lobby.game.status = GameStatus.NOT_STARTED;
 	lobby.game.score = {
 		[Team.FIRST]: 0,
 		[Team.SECOND]: 0,
 	};
-	lobby.game.cards = [];
-	lobby.game.playerOrder = {};
 	lobby.game.remainingSkipsInRound = lobby.game.settings.skipsAvailable;
 	lobby.game.pointsAcquiredInRound = 0;
+};
+
+const checkWhetherShouldConcludeGame = (lobby: Lobby): boolean => {
+	return !(
+		lobby.players.filter((player) => player.team === Team.FIRST).length >= 2 &&
+		lobby.players.filter((player) => player.team === Team.SECOND).length >= 2
+	);
 };
