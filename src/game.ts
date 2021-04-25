@@ -102,7 +102,9 @@ export const drawCard = (lobbyId: string): void => {
 
 	if (!lobby.game.cards.length) {
 		resolveGameByNoCardsLeft(lobbyId);
+		return;
 	}
+
 	const drawnCard = lobby.game.cards[Math.floor(Math.random() * lobby.game.cards.length)];
 	lobby.game.cards = lobby.game.cards.filter((cardId) => cardId !== drawnCard);
 	lobby.game.currentCardId = drawnCard;
