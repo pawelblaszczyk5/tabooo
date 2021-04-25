@@ -5,12 +5,12 @@ import {Team} from './team';
 
 export interface Game {
 	status: GameStatus;
-	score: Partial<Record<Team, number>>;
+	score: Record<Team.FIRST | Team.SECOND, number>;
 	settings: GameSettings;
 	cards: Array<number>;
 	playerOrder: Partial<Record<Team, Array<Player>>>;
 	describingPlayerId?: string;
-	guessingTeam?: Team;
+	guessingTeam?: Team.FIRST | Team.SECOND;
 	remainingSkipsInRound: number;
 	currentCardId?: number;
 }

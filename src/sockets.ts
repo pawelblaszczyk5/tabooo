@@ -1,5 +1,5 @@
 import {Socket} from 'socket.io';
-import {startRound} from './game';
+import {startRound, tryFailingRound, tryGuessingRound, trySkippingRound} from './game';
 import {verifyPassword} from './helpers/password';
 import {
 	addPlayerToLobby,
@@ -73,6 +73,18 @@ export const handleSocket = (socket: Socket): void => {
 
 	socket.on('roundStart', () => {
 		startRound(lobbyId);
+	});
+
+	socket.on('roundGuessed', (cardId) => {
+		tryGuessingRound(lobbyId, cardId);
+	});
+
+	socket.on('roundSkipped', (cardId) => {
+		trySkippingRound(lobbyId, cardId);
+	});
+
+	socket.on('roundFailed', (cardId) => {
+		tryFailingRound(lobbyId, cardId);
 	});
 };
 

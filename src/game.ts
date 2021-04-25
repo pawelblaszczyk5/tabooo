@@ -1,13 +1,14 @@
 import {socketServer} from './app';
 import {shuffle} from './helpers/shuffleArray';
-import {lobbies, setCards, setDescribingPlayer, setGuessingTeam, setPlayersOrder} from './lobby';
+import {lobbies, setCards, setDescribingPlayer, setGuessingTeam, setPlayersOrder, setRemainingSkipsForRound} from './lobby';
 import {Player} from './model/player';
+import {ResultChangeType} from './model/resultChangeType';
 import {RoundType} from './model/roundType';
 import {Team} from './model/team';
 
 const MAX_CARD_ID = 40;
 
-const setupNewRound = (lobbyId: string, team: Team): void => {
+const setupNewRound = (lobbyId: string, team: Team.FIRST | Team.SECOND): void => {
 	const lobby = lobbies.get(lobbyId);
 
 	if (!lobby) {
@@ -118,4 +119,72 @@ export const sendNewResult = (lobbyId: string): void => {
 	if (!lobby) {
 		return;
 	}
+};
+
+export const tryFailingRound = (lobbyId: string, cardId: number): void => {
+	const lobby = lobbies.get(lobbyId);
+
+	if (!lobby) {
+		return;
+	}
+	if (cardId !== lobby.game.currentCardId) {
+		return;
+	}
+	if (typeof lobby.game.guessingTeam !== 'number') {
+		return;
+	}
+
+	changeResult(lobbyId, lobby.game.guessingTeam, ResultChangeType.SUBTRACTION);
+	drawCard(lobbyId);
+};
+
+export const trySkippingRound = (lobbyId: string, cardId: number): void => {
+	const lobby = lobbies.get(lobbyId);
+
+	if (!lobby) {
+		return;
+	}
+	if (cardId !== lobby.game.currentCardId) {
+		return;
+	}
+	if (lobby.game.remainingSkipsInRound <= 0) {
+		return;
+	}
+	if (!lobby.game.describingPlayerId) {
+		return;
+	}
+	setRemainingSkipsForRound(lobbyId, lobby.game.remainingSkipsInRound - 1);
+	socketServer.to(lobby.game.describingPlayerId).emit('roundRemainingSkips', lobby.game.remainingSkipsInRound);
+	drawCard(lobbyId);
+};
+
+export const tryGuessingRound = (lobbyId: string, cardId: number): void => {
+	const lobby = lobbies.get(lobbyId);
+
+	if (!lobby) {
+		return;
+	}
+	if (cardId !== lobby.game.currentCardId) {
+		return;
+	}
+	if (typeof lobby.game.guessingTeam !== 'number') {
+		return;
+	}
+
+	changeResult(lobbyId, lobby.game.guessingTeam, ResultChangeType.ADDITION);
+	drawCard(lobbyId);
+};
+
+export const changeResult = (lobbyId: string, team: Team.FIRST | Team.SECOND, resultChangeType: ResultChangeType): void => {
+	const lobby = lobbies.get(lobbyId);
+
+	if (!lobby) {
+		return;
+	}
+
+	const resultChange = resultChangeType === ResultChangeType.ADDITION ? 1 : -1;
+
+	lobby.game.score[team] += resultChange;
+
+	socketServer.to(lobbyId).emit('scoreUpdate', lobby.game.score);
 };

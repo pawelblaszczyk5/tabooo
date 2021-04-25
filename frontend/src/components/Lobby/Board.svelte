@@ -12,21 +12,22 @@
 	import Countdown from './Countdown.svelte';
 	import {socket} from '../../stores/socket';
 	import {onMount} from 'svelte';
+	import type {Team} from '../../model/team';
 
 	const signalizeRoundStarting = () => {
 		$socket?.emit('roundStart');
 	};
 
 	const signalizeGuessing = () => {
-		$socket?.emit('roundGuessed');
+		$socket?.emit('roundGuessed', $round.cardId);
 	};
 
 	const signalizeSkipping = () => {
-		$socket?.emit('roundSkipped');
+		$socket?.emit('roundSkipped', $round.cardId);
 	};
 
 	const signalizeFailing = () => {
-		$socket?.emit('roundFailed');
+		$socket?.emit('roundFailed', $round.cardId);
 	};
 
 	onMount(() => {
@@ -45,6 +46,10 @@
 
 		$socket?.on('roundEnded', () => {
 			round.setState(RoundState.END);
+		});
+
+		$socket?.on('scoreUpdate', (scoreUpdate: Record<Team.FIRST | Team.SECOND, number>) => {
+			game.setScore(scoreUpdate);
 		});
 	});
 </script>

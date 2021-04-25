@@ -4,8 +4,7 @@ import {Team} from '../model/team';
 
 export interface Game {
 	status: GameStatus;
-	score: Partial<Record<Team, number>>;
-	time?: number;
+	score: Record<Team.FIRST | Team.SECOND, number>;
 	language?: Language;
 }
 
@@ -30,11 +29,11 @@ const createGameStore = () => {
 		changeGameStatus: (newStatus: GameStatus) => {
 			update((game) => ({...game, status: newStatus}));
 		},
-		setTime: (roundTime: number) => {
-			update((game) => ({...game, time: roundTime}));
-		},
 		setLanguage: (language: Language) => {
 			update((game) => ({...game, language: language}));
+		},
+		setScore: (newScore: Record<Team.FIRST | Team.SECOND, number>) => {
+			update((game) => ({...game, score: newScore}));
 		},
 	};
 };

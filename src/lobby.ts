@@ -159,9 +159,16 @@ export const setDescribingPlayer = (lobbyId: string, playerId: string): void => 
 	}
 };
 
-export const setGuessingTeam = (lobbyId: string, team: Team): void => {
+export const setGuessingTeam = (lobbyId: string, team: Team.FIRST | Team.SECOND): void => {
 	const lobby = lobbies.get(lobbyId);
 	if (lobby) {
 		lobby.game.guessingTeam = team;
+	}
+};
+
+export const setRemainingSkipsForRound = (lobbyId: string, remainingSkips: number): void => {
+	const lobby = lobbies.get(lobbyId);
+	if (lobby) {
+		lobby.game.remainingSkipsInRound = remainingSkips;
 	}
 };
