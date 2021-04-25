@@ -67,7 +67,10 @@
 				.get<LobbyInfo>(`/api/isLobby?lobbyId=${params.lobbyId}`)
 				.then(({data}) => {
 					const passwordFromStore = get(password);
-
+					if (!data.isExisting) {
+						redirectToHome('Lobby does not exist');
+						return;
+					}
 					if (!data.language || !data.name) {
 						redirectToHome('Unexpected error occurred, try again later');
 						return;
@@ -76,9 +79,7 @@
 					lobbyName = data.name;
 					game.setLanguage(data.language);
 
-					if (!data.isExisting) {
-						redirectToHome('Lobby does not exist');
-					} else if (data.status !== GameStatus.NOT_STARTED) {
+					if (data.status !== GameStatus.NOT_STARTED) {
 						redirectToHome('Game already started');
 					} else if (!data.secured || passwordFromStore) {
 						getPermissions();
