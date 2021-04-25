@@ -72,8 +72,13 @@ export const joinToLobby = (lobbyId = '', password = ''): void => {
 
 	localSocket.on('gameResolved', ({scoreUpdate, result}: {scoreUpdate: Record<Team.FIRST | Team.SECOND, number>; result: Result}) => {
 		game.setScore(scoreUpdate);
-		game.changeGameStatus(GameStatus.ENDED);
+		round.setCardId(0);
 		game.setResult(result);
+
+		setTimeout(() => {
+			game.changeGameStatus(GameStatus.ENDED);
+		}, 800);
+		// Timeout for card transition to finish
 	});
 
 	localSocket.on('roundType', (type: RoundType) => {
