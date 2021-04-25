@@ -27,6 +27,9 @@ const createRoundStore = () => {
 		setType: (type: RoundType) => {
 			update((round) => ({...round, type: type}));
 		},
+		setTimeToRoundEnd: (endTimestamp: number) => {
+			update((round) => ({...round, timeToRoundEnd: endTimestamp}));
+		},
 		resetRound: () => {
 			set({...initialRoundState});
 		},

@@ -6,7 +6,6 @@ export interface Game {
 	status: GameStatus;
 	score: Partial<Record<Team, number>>;
 	time?: number;
-	card?: number;
 	language?: Language;
 }
 
@@ -30,9 +29,6 @@ const createGameStore = () => {
 		subscribe,
 		changeGameStatus: (newStatus: GameStatus) => {
 			update((game) => ({...game, status: newStatus}));
-		},
-		setCard: (id: number) => {
-			update((game) => ({...game, card: id}));
 		},
 		setTime: (roundTime: number) => {
 			update((game) => ({...game, time: roundTime}));

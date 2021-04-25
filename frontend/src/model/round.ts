@@ -7,4 +7,5 @@ export interface Round {
 	state: RoundState;
 	skipsAvailable?: number;
 	type?: RoundType;
+	timeToRoundEnd?: number;
 }
