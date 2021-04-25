@@ -11,4 +11,5 @@ export interface Game {
 	playerOrder: Partial<Record<Team, Array<Player>>>;
 	describingPlayerId?: string;
 	guessingTeam?: Team;
+	remainingSkipsInRound: number;
 }

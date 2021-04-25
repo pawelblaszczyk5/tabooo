@@ -71,6 +71,9 @@ export const startRound = (lobbyId: string): void => {
 
 	const roundFinishTime = Date.now() + lobby.game.settings.roundTime * 1000;
 
+	if (lobby.game.describingPlayerId) {
+		socketServer.to(lobby.game.describingPlayerId).emit('roundRemainingSkips', lobby.game.remainingSkipsInRound);
+	}
 	socketServer.to(lobbyId).emit('roundEndTime', roundFinishTime);
 
 	setTimeout(() => {
