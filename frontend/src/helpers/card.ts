@@ -282,6 +282,426 @@ const Cards: Record<Language, Map<number, Card>> = {
 				forbidden: ['Zasłona', 'Komar', 'Okno', 'Siatka', 'Firanka'],
 			},
 		],
+		[
+			41,
+			{
+				word: 'Płacić',
+				forbidden: ['Cena', 'Gotówka', 'Pieniądze', 'Karta', 'Wydawać'],
+			},
+		],
+		[
+			42,
+			{
+				word: 'Piorun',
+				forbidden: ['Grzmot', 'Uderzenie', 'Błyskawica', 'Błysk', 'Burza'],
+			},
+		],
+		[
+			43,
+			{
+				word: 'Kolonia',
+				forbidden: ['Letnia', 'Siedlisko', 'Skupisko', 'Zimowa', 'Wakacje'],
+			},
+		],
+		[
+			44,
+			{
+				word: 'Jarosław Kaczyński',
+				forbidden: ['Bliźniak', 'PiS', 'Kot', 'Polityk', 'Obrońcy krzyża'],
+			},
+		],
+		[
+			45,
+			{
+				word: 'Apollo',
+				forbidden: ['Grecja', 'Misja', 'Kosmos', 'Księżyc', 'Muzy'],
+			},
+		],
+		[
+			46,
+			{
+				word: 'Puls',
+				forbidden: ['Mierzyć', 'Tętno', 'Krew', 'Bicie serca', 'Częstotliwość'],
+			},
+		],
+		[
+			47,
+			{
+				word: 'Kolorowe kredki',
+				forbidden: ['Rysowanie', 'Świecowe', 'Pudełeczko', 'Przedszkole', 'Ołówek'],
+			},
+		],
+		[
+			48,
+			{
+				word: 'Beniaminek',
+				forbidden: ['Ulubieniec', 'Początkujący', 'Awans', 'Liga', 'Kwiat'],
+			},
+		],
+		[
+			49,
+			{
+				word: 'Proporzec',
+				forbidden: ['Symbol', 'Sztandar', 'Kij', 'Materiał', 'Flaga'],
+			},
+		],
+		[
+			50,
+			{
+				word: 'Zamęt',
+				forbidden: ['Wprowadzać', 'Bezład', 'Zamieszanie', 'Rozgardiasz', 'Chaos'],
+			},
+		],
+		[
+			51,
+			{
+				word: 'Żywiec',
+				forbidden: ['Browar', 'Marka', 'Zdrój', 'Woda', 'Piwo'],
+			},
+		],
+		[
+			52,
+			{
+				word: 'Savoir Vivre',
+				forbidden: ['Maniera', 'Zachowanie', 'Dobry', 'Zwyczaj', 'Nakrycie stołu'],
+			},
+		],
+		[
+			53,
+			{
+				word: 'Chwila',
+				forbidden: ['Moment', 'Trwać', 'Czas', 'Sekunda', 'Krótki'],
+			},
+		],
+		[
+			54,
+			{
+				word: 'Festyn',
+				forbidden: ['Ludowy', 'Jarmark', 'Balony', 'Odpust', 'Muzyka'],
+			},
+		],
+		[
+			55,
+			{
+				word: 'Pięciolinia',
+				forbidden: ['Nuta', 'Klucz', 'Muzyka', 'Zapis', 'Zeszyt'],
+			},
+		],
+		[
+			56,
+			{
+				word: 'Hawana',
+				forbidden: ['Fidel Castro', 'Cygaro', 'Rewolucja', 'Kuba', 'Dirty Dancing'],
+			},
+		],
+		[
+			57,
+			{
+				word: 'Sony',
+				forbidden: ['Producent', 'Komórka', 'Aparat', 'Sprzęt', 'Telewizor'],
+			},
+		],
+		[
+			58,
+			{
+				word: 'Harcmistrz',
+				forbidden: ['Harcerstwo', 'Awans', 'ZHP/ZHR', 'Stopień', 'Obóz'],
+			},
+		],
+		[
+			59,
+			{
+				word: 'Odpowietrzać',
+				forbidden: ['Zawór', 'Spuszczać', 'Wentyl', 'Odkręcać', 'Kaloryfer'],
+			},
+		],
+		[
+			60,
+			{
+				word: 'Puma',
+				forbidden: ['But', 'Czarny', 'Nike', 'Adidas', 'Kot'],
+			},
+		],
+		[
+			61,
+			{
+				word: 'Aktówka',
+				forbidden: ['Mężczyzna', 'Dokument', 'Torba', 'Nesser', 'Przenosić'],
+			},
+		],
+		[
+			62,
+			{
+				word: 'Twierdza',
+				forbidden: ['Więzienie', 'Gród', 'Fosa', 'Budowla', 'Fortyfikacja'],
+			},
+		],
+		[
+			63,
+			{
+				word: 'Notabene',
+				forbidden: ['Łaciński', 'Margines', 'Nawiasem', 'A propos', 'Do tego'],
+			},
+		],
+		[
+			64,
+			{
+				word: 'Ida',
+				forbidden: ['Kino', 'Agata Kulesza', 'Paweł Pawlikowski', 'Oscar', 'Film'],
+			},
+		],
+		[
+			65,
+			{
+				word: 'Bezsenność',
+				forbidden: ['Sen', 'Tabletki nasenne', 'Zmęczenie', 'Nocny Marek', 'Łóżko'],
+			},
+		],
+		[
+			66,
+			{
+				word: 'Kalendarz',
+				forbidden: ['Dzień', 'Rok', 'Data', 'Majów', 'Miesiąc'],
+			},
+		],
+		[
+			67,
+			{
+				word: 'Kara śmierci',
+				forbidden: ['Wyrok', 'Szubienica', 'Zastrzyk', 'Korwin Mikke', 'Kat'],
+			},
+		],
+		[
+			68,
+			{
+				word: 'Biznesmen',
+				forbidden: ['Pieniądze', 'Przedsiębiorca', 'Biznes', 'Garnitur', 'Interes'],
+			},
+		],
+		[
+			69,
+			{
+				word: 'Sufit',
+				forbidden: ['Ściana', 'Podłoga', 'Strop', 'Powała', 'Dach'],
+			},
+		],
+		[
+			70,
+			{
+				word: 'Doniczka',
+				forbidden: ['Kwiatki', 'Parapet', 'Ziemia', 'Rośliny', 'Sadzić'],
+			},
+		],
+		[
+			71,
+			{
+				word: 'Lunch',
+				forbidden: ['Popołudnie', 'Posiłek', 'Jedzenie', 'Biuro', 'Obiad'],
+			},
+		],
+		[
+			72,
+			{
+				word: 'Zaskórnik',
+				forbidden: ['Syf', 'Krosta', 'Pryszcz', 'Skóra', 'Twarz'],
+			},
+		],
+		[
+			73,
+			{
+				word: 'Wolność wyboru',
+				forbidden: ['Swoboda', 'Możliwość', 'Wola', 'Decyzja', 'Niezależność'],
+			},
+		],
+		[
+			74,
+			{
+				word: 'Kopyto',
+				forbidden: ['Podkowa', 'Stajnia', 'Noga', 'Kończyna', 'Koń'],
+			},
+		],
+		[
+			75,
+			{
+				word: 'Blef',
+				forbidden: ['Prawda', 'Kłamstwo', 'Poker', 'Udawać', 'Błąd'],
+			},
+		],
+		[
+			76,
+			{
+				word: 'Paluszki',
+				forbidden: ['Słone', 'Sól', 'Junior', 'Lajkonik', 'Przekąska'],
+			},
+		],
+		[
+			77,
+			{
+				word: 'Wirtualna Polska',
+				forbidden: ['Portal', 'Internet', 'Poczta', 'Wiadomości', 'Wyszukiwarka'],
+			},
+		],
+		[
+			78,
+			{
+				word: 'Znaki czasu',
+				forbidden: ['Pokazywać', 'Drogowe', 'Zegar', 'Wsółczesność', 'Wydarzenie'],
+			},
+		],
+		[
+			79,
+			{
+				word: 'Chrapać',
+				forbidden: ['Nos', 'Spać', 'Przeszkadzać', 'Noc', 'Pościel'],
+			},
+		],
+		[
+			80,
+			{
+				word: 'Pontyfikat',
+				forbidden: ['Kadencja', 'Papież', 'Watykan', 'Czas', 'Jan Paweł II'],
+			},
+		],
+		[
+			81,
+			{
+				word: 'Jamochłon',
+				forbidden: ['Wodny', 'Meduza', 'Stworzenie', 'Gęba', 'Biologia'],
+			},
+		],
+		[
+			82,
+			{
+				word: 'Mop',
+				forbidden: ['Vileda', 'Wyciskać', 'Podłoga', 'Wiadro', 'Myć'],
+			},
+		],
+		[
+			83,
+			{
+				word: 'Pontyfikat',
+				forbidden: ['Kadencja', 'Papież', 'Watykan', 'Czas', 'Jan'],
+			},
+		],
+		[
+			84,
+			{
+				word: 'Wierzba płacząca',
+				forbidden: ['Oko', 'Drzewo', 'Łzy', 'Ryk', 'Beksa'],
+			},
+		],
+		[
+			85,
+			{
+				word: 'Jantar',
+				forbidden: ['Bursztyn', 'Żywica', 'Kurort', 'Anna', 'Morze'],
+			},
+		],
+		[
+			86,
+			{
+				word: 'Sushi',
+				forbidden: ['Ryba', 'Ryż', 'Japonia', 'Chrzan', 'Wodorost'],
+			},
+		],
+		[
+			87,
+			{
+				word: 'Mielizna',
+				forbidden: ['Statek', 'Płytko', 'Osiąść', 'Ocean', 'Morze'],
+			},
+		],
+		[
+			88,
+			{
+				word: 'Mężczyzna',
+				forbidden: ['Chłopak', 'Samiec', 'Facet', 'Kobieta', 'Płeć'],
+			},
+		],
+		[
+			89,
+			{
+				word: 'Wiadro',
+				forbidden: ['Woda', 'Kubeł', 'Podłoga', 'Walić', 'Ścierka'],
+			},
+		],
+		[
+			90,
+			{
+				word: 'Magik',
+				forbidden: ['Paktofonika', 'Sztuczka', 'Czarodziej', 'Okno', 'Różdżka'],
+			},
+		],
+		[
+			91,
+			{
+				word: 'Spokój',
+				forbidden: ['Uczucie', 'Stan', 'Zdenerwowany', 'Ktoś', 'Cisza'],
+			},
+		],
+		[
+			92,
+			{
+				word: 'Dostatek',
+				forbidden: ['Zasobność', 'Wystawność', 'Bogactwo', 'Przepych', 'Nadmiar'],
+			},
+		],
+		[
+			93,
+			{
+				word: 'Bryła',
+				forbidden: ['Architektura', 'Przestrzenna', 'Geomteria', 'Lód', 'Matematyka'],
+			},
+		],
+		[
+			94,
+			{
+				word: 'Prędkość',
+				forbidden: ['Samochód', 'Przemieszczanie', 'Pęd', 'Ograniczenie', 'Kiloemtry'],
+			},
+		],
+		[
+			95,
+			{
+				word: 'Makówka',
+				forbidden: ['Czerwony', 'Ciasto', 'Roślina', 'Narkoman', 'Monte Cassino'],
+			},
+		],
+		[
+			96,
+			{
+				word: 'Wesz',
+				forbidden: ['Włosy', 'Pchła', 'Pasożyt', 'Łonowa', 'Menda'],
+			},
+		],
+		[
+			97,
+			{
+				word: 'Kaukaz',
+				forbidden: ['Góry', 'Owczarek', 'Rasa', 'Elbrus', 'Azja'],
+			},
+		],
+		[
+			98,
+			{
+				word: 'Akustyka',
+				forbidden: ['Fonia', 'Słuch', 'Sala koncertowa', 'Fale dźwiękowe', 'Fizyka'],
+			},
+		],
+		[
+			99,
+			{
+				word: 'Klapki',
+				forbidden: ['Basen', 'Oczy', 'Obuwie', 'Lato', 'Japonki'],
+			},
+		],
+		[
+			100,
+			{
+				word: 'T-Rex',
+				forbidden: ['Park Jurajski', 'Jura', 'Prehistoryczny', 'Wyginąć', 'Dinozaur'],
+			},
+		],
 	]),
 	[Language.ENGLISH]: new Map([
 		[
