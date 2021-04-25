@@ -2,7 +2,7 @@
 
 Tabooo is cybernetically enhanced taboo game in browser. Featuring voice chat, several themes and mobile friendly design. As you can guess from this description is built with Svelte, the javascript (non)framework for building web apps.
 
-[![Tabooo](https://s3.gifyu.com/images/screen-capture-1.gif)](https://tabooo.herokuapp.com/)
+[![Tabooo](https://s3.gifyu.com/images/ezgif.com-gif-makerbd46aee16f0a3a7d.gif)](https://tabooo.herokuapp.com/)
 
 ## Live version
 
