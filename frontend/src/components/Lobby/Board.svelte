@@ -75,7 +75,13 @@
 		{:else if $round.state === RoundState.IN_PROGRESS}
 			{#if $round.cardId}
 				<Spacer y={4}>
-					<Card card={getCard($round.cardId, $game.language || Language.ENGLISH)} />
+					<div class="grid grid-cols-1 grid-rows-1">
+						{#key $round.cardId}
+							<div class="col-start-1 col-end-1 row-start-1 row-end-1">
+								<Card card={getCard($round.cardId, $game.language || Language.ENGLISH)} />
+							</div>
+						{/key}
+					</div>
 				</Spacer>
 				<div class="my-4 flex flex-col md:flex-row items-center justify-center w-full max-w-md">
 					<Spacer y={2} x={2}>
@@ -106,7 +112,13 @@
 		{:else if $round.state === RoundState.IN_PROGRESS}
 			{#if $round.cardId}
 				<Spacer y={4}>
-					<Card card={getCard($round.cardId, $game.language || Language.ENGLISH)} />
+					<div class="grid grid-cols-1 grid-rows-1">
+						{#key $round.cardId}
+							<div class="col-start-1 col-end-1 row-start-1 row-end-1">
+								<Card card={getCard($round.cardId, $game.language || Language.ENGLISH)} />
+							</div>
+						{/key}
+					</div>
 				</Spacer>
 				<Button on:click={signalizeFailing}>Failed</Button>
 			{/if}
