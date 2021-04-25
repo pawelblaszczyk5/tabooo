@@ -7,6 +7,7 @@
 	import {Team} from '../../model/team';
 	import {get} from 'svelte/store';
 	import {socket} from '../../stores/socket';
+	import RemoteAudio from './RemoteAudio.svelte';
 
 	export let player: Player;
 
@@ -48,5 +49,6 @@
 		<Spacer y={1}>
 			<RangeInput bind:value={player.volume} />
 		</Spacer>
+		<RemoteAudio mediaStream={player.mediaStream} volume={player.volume} />
 	{/if}
 </div>

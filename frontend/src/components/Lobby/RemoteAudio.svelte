@@ -1,20 +1,15 @@
 <script lang="ts">
-	import {onMount} from 'svelte';
-
 	export let mediaStream: MediaStream;
 	export let volume: number;
 
 	let audioElement: HTMLMediaElement;
 
-	onMount(() => {
-		audioElement.srcObject = mediaStream;
-	});
-
+	$: localVolume = volume / 100;
 	$: {
 		if (audioElement) {
-			audioElement.volume = volume / 100;
+			audioElement.srcObject = mediaStream;
 		}
 	}
 </script>
 
-<audio bind:this={audioElement} autoplay />
+<audio bind:this={audioElement} autoplay bind:volume={localVolume} />

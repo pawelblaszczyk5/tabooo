@@ -8,7 +8,6 @@
 	import Button from '../commons/Button.svelte';
 	import Spacer from '../commons/Spacer.svelte';
 	import Player from './Player.svelte';
-	import RemoteAudio from './RemoteAudio.svelte';
 	import {teamsNames} from '../../helpers/teamNames';
 	import {flip} from 'svelte/animate';
 	import {game, GameStatus} from '../../stores/game';
@@ -75,9 +74,4 @@
 	{#if $game.status === GameStatus.ENDED}
 		<GameSummary />
 	{/if}
-</div>
-<div>
-	{#each $players as player (player.id)}
-		<RemoteAudio mediaStream={player.mediaStream} volume={player.volume} />
-	{/each}
 </div>
