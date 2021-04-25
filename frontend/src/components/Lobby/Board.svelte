@@ -32,7 +32,6 @@
 	onMount(() => {
 		$socket?.on('roundNewCardId', (cardId: number) => {
 			round.setCardId(cardId);
-			console.log(cardId);
 		});
 
 		$socket?.on('roundRemainingSkips', (remainingSkips: number) => {
@@ -68,35 +67,41 @@
 				<Spacer y={4}>
 					<Card card={getCard($round.cardId, $game.language || Language.ENGLISH)} />
 				</Spacer>
-				<div class="my-4 flex w-full justify-between max-w-sm">
-					<Button on:click={signalizeGuessing}>Guess</Button>
-					<Button on:click={signalizeSkipping} type={ButtonType.SECONDARY}>Skip</Button>
-					<Button on:click={signalizeFailing}>Fail</Button>
+				<div class="my-4 flex flex-col md:flex-row items-center justify-center w-full max-w-md">
+					<Spacer y={2} x={2}>
+						<Button on:click={signalizeGuessing}>Guessed</Button>
+					</Spacer>
+					<Spacer y={2} x={2}>
+						<Button on:click={signalizeSkipping} type={ButtonType.SECONDARY}>Skip ({$round.skipsAvailable})</Button>
+					</Spacer>
+					<Spacer y={2} x={2}>
+						<Button on:click={signalizeFailing}>Failed</Button>
+					</Spacer>
 				</div>
 			{/if}
 		{:else if $round.state === RoundState.END}
-			<p>Round ended</p>
+			<p>The round has ended, new round setup is in progress</p>
 		{/if}
 	{:else if $round.type === RoundType.GUESSING}
 		{#if $round.state === RoundState.READY}
 			<p>You will be guessing this round, wait for your teammate to start the round</p>
 		{:else if $round.state === RoundState.IN_PROGRESS}
-			<p>Guess</p>
+			<p>You are guessing, good luck!</p>
 		{:else if $round.state === RoundState.END}
-			<p>Round ended</p>
+			<p>The round has ended, new round setup is in progress</p>
 		{/if}
 	{:else if $round.type === RoundType.JUDGING}
 		{#if $round.state === RoundState.READY}
-			<p>Wait for opponent to start the round, you will be judging</p>
+			<p>Wait for the opponent to start the round, you will be judging</p>
 		{:else if $round.state === RoundState.IN_PROGRESS}
 			{#if $round.cardId}
 				<Spacer y={4}>
 					<Card card={getCard($round.cardId, $game.language || Language.ENGLISH)} />
-				</Spacer>				
-				<Button on:click={signalizeFailing}>Fail</Button>
+				</Spacer>
+				<Button on:click={signalizeFailing}>Failed</Button>
 			{/if}
 		{:else if $round.state === RoundState.END}
-			<p>Round ended</p>
+			<p>The round has ended, new round setup is in progress</p>
 		{/if}
 	{/if}
 </div>
