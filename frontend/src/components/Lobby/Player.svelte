@@ -36,15 +36,14 @@
 		</div>
 	{/if}
 	<p
-		class="{player.team === Team.FIRST
+		class="{player.team === Team.FIRST || player.team === Team.SECOND
 			? 'text-secondaryFontColor'
-			: player.team === Team.SECOND
-			? 'text-secondaryFontColor'
-			: ''} font-semibold overflow-ellipsis h-6 text-base overflow-hidden whitespace-nowrap w-full">
+			: ''} 
+		font-semibold overflow-ellipsis h-6 text-base overflow-hidden whitespace-nowrap w-full">
 		Nickname: {player.nickname}
 	</p>
 	{#if isSelf}
-		<p>It's you!</p>
+		<p class={player.team === Team.FIRST || player.team === Team.SECOND ? 'text-secondaryFontColor' : ''}>It's you!</p>
 	{:else}
 		<Spacer y={1}>
 			<RangeInput bind:value={player.volume} />
