@@ -31,21 +31,17 @@
 	let lobbyName = '';
 
 	const getPermissions = (): void => {
-		try {
-			navigator.mediaDevices
-				.getUserMedia({audio: true})
-				.then((stream) => {
-					mediaStream.saveStream(stream);
-					const localPassword = get(password);
-					password.clearPassword();
-					joinToLobby(params.lobbyId, localPassword);
-				})
-				.catch(() => {
-					redirectToHome('Access to microphone is required');
-				});
-		} catch (err) {
-			redirectToHome('Error while retrieving access to microphone');
-		}
+		navigator.mediaDevices
+			.getUserMedia({audio: true})
+			.then((stream) => {
+				mediaStream.saveStream(stream);
+				const localPassword = get(password);
+				password.clearPassword();
+				joinToLobby(params.lobbyId, localPassword);
+			})
+			.catch(() => {
+				redirectToHome('Access to microphone is required');
+			});
 	};
 
 	const redirectToHome = (error: string) => {
