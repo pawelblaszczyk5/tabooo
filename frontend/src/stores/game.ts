@@ -6,7 +6,7 @@ import {Team} from '../model/team';
 export interface Game {
 	status: GameStatus;
 	score: Record<Team.FIRST | Team.SECOND, number>;
-	language?: Language;
+	language: Language;
 	result?: Result;
 }
 
@@ -23,6 +23,7 @@ const createGameStore = () => {
 			[Team.FIRST]: 0,
 			[Team.SECOND]: 0,
 		},
+		language: Language.ENGLISH,
 	};
 	const {subscribe, update} = writable<Game>(newGame);
 

@@ -1408,7 +1408,7 @@ const Cards: Record<Language, Map<number, Card>> = {
 };
 
 export const getCard = (id: number, language: Language): Card => {
-	return Cards[language].get(id) ?? badIdCard;
+	return Cards[language].get(id) || badIdCard;
 };
 
 const badIdCard: Card = {

@@ -15,8 +15,8 @@ export interface Settings {
 
 const createSettingsStore = () => {
 	const settings: Settings = {
-		theme: (localStorage.getItem('tabooSettingsTheme') as Theme) ?? Theme.DEFAULT,
-		nickname: (localStorage.getItem('tabooNickname') as string) ?? '',
+		theme: (localStorage.getItem('tabooSettingsTheme') as Theme) || Theme.DEFAULT,
+		nickname: (localStorage.getItem('tabooNickname') as string) || '',
 	};
 	const {subscribe, update} = writable<Settings>(settings);
 
