@@ -1,5 +1,5 @@
 import {writable} from 'svelte/store';
-import type {Language} from '../model/language';
+import {Language} from '../model/language';
 import type {Result} from '../model/result';
 import {Team} from '../model/team';
 
