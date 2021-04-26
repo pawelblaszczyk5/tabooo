@@ -31,6 +31,7 @@
 	let lobbyName = '';
 
 	const getPermissions = (): void => {
+		window.alert(navigator.mediaDevices);
 		navigator.mediaDevices
 			.getUserMedia({audio: true})
 			.then((stream) => {
