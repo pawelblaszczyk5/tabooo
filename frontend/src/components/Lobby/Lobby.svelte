@@ -71,7 +71,7 @@
 						redirectToHome('Lobby does not exist');
 						return;
 					}
-					if (!data.language || !data.name) {
+					if (typeof data.language !== 'number' || !data.name) {
 						redirectToHome('Unexpected error occurred, try again later');
 						return;
 					}

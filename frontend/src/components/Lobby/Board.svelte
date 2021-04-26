@@ -78,7 +78,7 @@
 					<div class="grid grid-cols-1 grid-rows-1">
 						{#key $round.cardId}
 							<div class="col-start-1 col-end-1 row-start-1 row-end-1">
-								<Card card={getCard($round.cardId, $game.language || Language.ENGLISH)} />
+								<Card card={getCard($round.cardId, $game.language ?? Language.ENGLISH)} />
 							</div>
 						{/key}
 					</div>
@@ -115,7 +115,7 @@
 					<div class="grid grid-cols-1 grid-rows-1">
 						{#key $round.cardId}
 							<div class="col-start-1 col-end-1 row-start-1 row-end-1">
-								<Card card={getCard($round.cardId, $game.language || Language.ENGLISH)} />
+								<Card card={getCard($round.cardId, $game.language ?? Language.ENGLISH)} />
 							</div>
 						{/key}
 					</div>
