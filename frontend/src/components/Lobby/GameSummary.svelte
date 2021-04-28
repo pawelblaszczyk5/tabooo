@@ -27,27 +27,24 @@
 		<Score />
 	</Spacer>
 	<ResultAnimation result={$game.result.winner === 'TIE' || didPlayerWon ? 'WIN' : 'LOSE'} />
-	{#if $game.result.type === ResultType.SCORE && $game.result.winner !== 'TIE'}
-		<p>{didPlayerWon ? 'Your team has won, congratulations!' : 'Opponent was better, better luck next time!'}</p>
-	{/if}
-	{#if $game.result.type === ResultType.OUT_OF_CARDS}
-		<p>Unfortunately you have got out of cards :(</p>
-		<p>
-			{#if $game.result.winner === 'TIE'}
-				There was a tie!
-			{:else}
-				<p>{didPlayerWon ? 'Your team has won, congratulations!' : 'Opponent was better, better luck next time!'}</p>
-			{/if}
-		</p>
-	{/if}
-	{#if $game.result.type === ResultType.LEAVE || $game.result.type === ResultType.KICKED}
-		<p>Unfortunately too many players left or were kicked :(</p>
-		<p>
-			{#if $game.result.winner === 'TIE'}
-				There was a tie!
-			{:else}
-				<p>{didPlayerWon ? 'Your team has won, congratulations!' : 'Opponent was better, better luck next time!'}</p>
-			{/if}
-		</p>
+	{#if $game.result.type === ResultType.SCORE || $game.result.type === ResultType.OUT_OF_CARDS}
+		{#if $game.result.type === ResultType.OUT_OF_CARDS}
+			<p>Unfortunately you have got out of cards :(</p>
+		{/if}
+		{#if $game.result.winner === 'TIE'}
+			<p>There was a tie!</p>
+		{:else if didPlayerWon}
+			<p>Your team has won, congratulations!</p>
+		{:else}
+			<p>Opponent was better, better luck next time</p>
+		{/if}
+	{:else if $game.result.type === ResultType.KICKED}
+		<p>Too many players were kicked and game was concluded as a tie</p>
+	{:else if $game.result.type === ResultType.LEAVE}
+		{#if didPlayerWon}
+			<p>Too many opposing players left so you won, congratulations!</p>
+		{:else}
+			<p>Too many of your teammates left so you lost :(</p>
+		{/if}
 	{/if}
 </div>
