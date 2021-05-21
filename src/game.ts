@@ -281,7 +281,7 @@ export const resolveGameByPlayerLeft = (lobbyId: string, team: Team): void => {
 
 	const result: Result = {
 		winner: team === Team.FIRST ? Team.SECOND : Team.FIRST,
-		type: ResultType.KICKED,
+		type: ResultType.LEAVE,
 	};
 
 	lobby.game.status = GameStatus.ENDED;
