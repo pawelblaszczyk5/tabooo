@@ -31,6 +31,7 @@ const setupNewRound = (lobbyId: string, team: Team.FIRST | Team.SECOND): void =>
 	lobby.game.playerOrder[team]?.shift();
 	lobby.game.playerOrder[team]?.push(describingPlayer);
 	lobby.game.pointsAcquiredInRound = 0;
+	lobby.game.remainingSkipsInRound = lobby.game.settings.skipsAvailable;
 
 	socketServer.to(describingPlayer.id).emit('roundType', RoundType.DESCRIBING);
 	lobby.players
